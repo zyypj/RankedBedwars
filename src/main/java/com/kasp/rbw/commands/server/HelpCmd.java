@@ -24,14 +24,14 @@ public class HelpCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length > 2) {
-            msg.replyEmbeds(new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1).build()).queue();
+            msg.replyEmbeds(new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1).build()).queue();
             return;
         }
 
         ArrayList<Command> commands = new ArrayList<>(CommandManager.getAllCommands());
 
         if (args.length == 1) {
-            Embed reply = new Embed(EmbedType.DEFAULT, "Help Subsystems", "Use `=help <subsystem>` to view the commands of a sub system", 1);
+            Embed reply = new Embed(EmbedType.DEFAULT, "Ajuda", "Use `=help <subsystem>` para ver a ajuda de algum SubSistema", 1);
 
             for (CommandSubsystem s : CommandSubsystem.values()) {
                 reply.addField("• " + s.toString().toLowerCase() + " sub-system", "use `=help " + s.toString().toLowerCase() + "`", false);
@@ -51,7 +51,7 @@ public class HelpCmd extends Command {
                 for (CommandSubsystem s :CommandSubsystem.values()) {
                     subsystems += "`" + s + "` ";
                 }
-                Embed embed = new Embed(EmbedType.ERROR, "Error", "This subsystem does not exist\nAvailable subsystems: " + subsystems, 1);
+                Embed embed = new Embed(EmbedType.ERROR, "Erro", "Esse SubSistema não existe\nSubsistemas Disponíveis: " + subsystems, 1);
                 msg.replyEmbeds(embed.build()).queue();
                 return;
             }
@@ -63,11 +63,11 @@ public class HelpCmd extends Command {
                     subsystemCmds.add(cmd);
             }
 
-            Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("loading...").build()).complete();
+            Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("carregando...").build()).complete();
 
             for (int j = 0; j < Math.ceil(subsystemCmds.size()); j+=3) {
 
-                Embed reply = new Embed(EmbedType.DEFAULT, "All commands in sub-system: " + subsystem, "", (int) Math.ceil(subsystemCmds.size() / 3.0));
+                Embed reply = new Embed(EmbedType.DEFAULT, "Todos os comandos: " + subsystem, "", (int) Math.ceil(subsystemCmds.size() / 3.0));
 
                 for (int i = 0; i < 3; i++) {
                     if (i + j < subsystemCmds.size()) {
@@ -86,12 +86,12 @@ public class HelpCmd extends Command {
                         }
 
                         reply.addField("• " + subsystemCmds.get(i + j).getCommand(), subsystemCmds.get(i + j).getDescription() +
-                                "\n> Usage: `" + Config.getValue("prefix") + subsystemCmds.get(i + j).getUsage() +
+                                "\n> Uso: `" + Config.getValue("prefix") + subsystemCmds.get(i + j).getUsage() +
                                 "`\n> Aliases: " + aliases +
-                                "\n> Permissions: " + permissions + "\n", false);
+                                "\n> Permissões: " + permissions + "\n", false);
                     }
                 }
-                reply.addField("Note", "`<something>` - required\n`[something]` - optional", false);
+                reply.addField("Nota", "`<something>` - required\n`[something]` - optional", false);
 
                 if (j == 0) {
                     embedmsg.editMessageEmbeds(reply.build()).setActionRow(Embed.createButtons(reply.getCurrentPage())).queue();

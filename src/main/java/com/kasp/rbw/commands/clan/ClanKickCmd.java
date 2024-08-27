@@ -22,7 +22,7 @@ public class ClanKickCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length > 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -30,7 +30,7 @@ public class ClanKickCmd extends Command {
         Player player = PlayerCache.getPlayer(sender.getId());
 
         if (ClanCache.getClan(player) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-in-clan"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-in-clan"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -38,7 +38,7 @@ public class ClanKickCmd extends Command {
         Clan clan = ClanCache.getClan(player);
 
         if (clan.getLeader() != player) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-clan-leader"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-clan-leader"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -46,7 +46,7 @@ public class ClanKickCmd extends Command {
         String ID = args[1].replaceAll("[^0-9]", "");
 
         if (PlayerCache.getPlayer(ID) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Player", Msg.getMsg("invalid-player"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Jogador Inválido", Msg.getMsg("invalid-player"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -54,7 +54,7 @@ public class ClanKickCmd extends Command {
         Player kicked = PlayerCache.getPlayer(ID);
 
         if (!clan.getMembers().contains(kicked)) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Player", Msg.getMsg("player-not-in-clan"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Jogador Inválido", Msg.getMsg("player-not-in-clan"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }

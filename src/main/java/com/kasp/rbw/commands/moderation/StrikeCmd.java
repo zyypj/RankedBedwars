@@ -24,7 +24,7 @@ public class StrikeCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length < 3) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -42,21 +42,21 @@ public class StrikeCmd extends Command {
 
         int bantime = Integer.parseInt(Config.getValue("strike-" + strikes));
 
-        Embed embed = new Embed(EmbedType.DEFAULT, player.getIgn() + " has been striked", "", 1);
+        Embed embed = new Embed(EmbedType.DEFAULT, player.getIgn() + " deu strike", "", 1);
         embed.addField("Strikes:", player.getStrikes()-1 + " -> " + player.getStrikes(), false);
-        embed.addField("Reason:", reason, false);
+        embed.addField("Motivo", reason, false);
 
-        Embed success = new Embed(EmbedType.SUCCESS, "", "Successfully striked <@" + ID + ">", 1);
+        Embed success = new Embed(EmbedType.SUCCESS, "", "Stricked <@" + ID + ">", 1);
 
         if (bantime != 0) {
             if (player.ban(LocalDateTime.now().plusHours(bantime), "[STRIKE] " + reason)) {
 
-                embed.addField("You are now banned for: ", "`" + bantime + " hours`", false);
-                embed.setDescription("<@" + ID + "> Please do `=fix` after " + bantime + "h if you're still not unbanned");
+                embed.addField("Você foi banido por: ", "`" + bantime + " horas`", false);
+                embed.setDescription("<@" + ID + "> Use `=fix` depois de " + bantime + "h para você ser desbanido");
             }
             else {
-                embed.addField("WARNING", "I couldn't ban the player since they're already banned", false);
-                success.addField("WARNING", "I couldn't ban the player since they're already banned", false);
+                embed.addField("AVISO", "Você não pode banir esse jogador pois ele já está banido", false);
+                success.addField("AVISO", "Você não pode banir esse jogador pois ele já está banido", false);
             }
         }
 

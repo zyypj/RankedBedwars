@@ -23,7 +23,7 @@ public class ClanJoinCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -31,13 +31,13 @@ public class ClanJoinCmd extends Command {
         Player player = PlayerCache.getPlayer(sender.getId());
 
         if (ClanCache.getClan(player) != null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("already-in-clan"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("already-in-clan"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (!ClanCache.containsClan(args[1])) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("clan-doesnt-exist"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("clan-doesnt-exist"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -46,26 +46,26 @@ public class ClanJoinCmd extends Command {
 
         if (!clan.isPrivate()) {
             if (clan.getMembers().size() >= Integer.parseInt(Config.getValue("l" + clan.getLevel().getLevel()))) {
-                Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("clan-max-players"), 1);
+                Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("clan-max-players"), 1);
                 msg.replyEmbeds(reply.build()).queue();
                 return;
             }
 
             if (player.getElo() < clan.getEloJoinReq()) {
-                Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-enough-elo-join"), 1);
+                Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-enough-elo-join"), 1);
                 msg.replyEmbeds(reply.build()).queue();
                 return;
             }
         }
         else {
             if (!clan.getInvitedPlayers().contains(player)) {
-                Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("clan-not-invited"), 1);
+                Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("clan-not-invited"), 1);
                 msg.replyEmbeds(reply.build()).queue();
                 return;
             }
 
             if (clan.getMembers().size() >= Integer.parseInt(Config.getValue("l" + clan.getLevel().getLevel()))) {
-                Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("clan-max-players"), 1);
+                Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("clan-max-players"), 1);
                 msg.replyEmbeds(reply.build()).queue();
                 return;
             }

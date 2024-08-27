@@ -22,7 +22,7 @@ public class RemoveThemeCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 3) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -30,7 +30,7 @@ public class RemoveThemeCmd extends Command {
         String name = args[2];
 
         if (!ThemeCache.containsTheme(name)) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("theme-doesnt-exist"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("theme-doesnt-exist"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -42,14 +42,14 @@ public class RemoveThemeCmd extends Command {
         Player player = PlayerCache.getPlayer(ID);
 
         if (!player.getOwnedThemes().contains(theme)) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("doesnt-have-theme"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("doesnt-have-theme"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         player.removeTheme(theme);
 
-        Embed embed = new Embed(EmbedType.SUCCESS, "", "You have removed `" + theme.getName() + "` theme from " + guild.getMemberById(ID).getAsMention(), 1);
+        Embed embed = new Embed(EmbedType.SUCCESS, "", "Você removeu o tema `" + theme.getName() + "` de " + guild.getMemberById(ID).getAsMention(), 1);
         msg.replyEmbeds(embed.build()).queue();
     }
 }

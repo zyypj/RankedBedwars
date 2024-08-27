@@ -20,7 +20,7 @@ public class FixCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length > 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -36,7 +36,7 @@ public class FixCmd extends Command {
         Player player = PlayerCache.getPlayer(ID);
         player.fix();
 
-        Embed reply = new Embed(EmbedType.SUCCESS, "", "Fixed the roles and nickname for player `" + player.getIgn() + "`", 1);
+        Embed reply = new Embed(EmbedType.SUCCESS, "", "Cargos e nick atualizado de `" + player.getIgn() + "`", 1);
         msg.replyEmbeds(reply.build()).queue();
     }
 }

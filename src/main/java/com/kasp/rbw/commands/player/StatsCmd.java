@@ -37,7 +37,7 @@ public class StatsCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length > 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -53,7 +53,7 @@ public class StatsCmd extends Command {
         }
 
         if (PlayerCache.getPlayer(ID) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Player", Msg.getMsg("invalid-player"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Jogador Inválido", Msg.getMsg("invalid-player"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -100,7 +100,7 @@ public class StatsCmd extends Command {
                     try {
                         skin = ImageIO.read(new URL(skinlink));
                     } catch (Exception e) {
-                        Embed embed = new Embed(EmbedType.ERROR, "Something went wrong...", "Please try executing this command again", 1);
+                        Embed embed = new Embed(EmbedType.ERROR, "Algo deu errado...", "Tente digitar o comando novamente", 1);
                         msg.replyEmbeds(embed.build()).queue();
                         return;
                     }
@@ -197,30 +197,30 @@ public class StatsCmd extends Command {
 
         Embed embed = new Embed(EmbedType.DEFAULT, player.getIgn() + "'s Stats", "",1);
 
-        embed.addField("__General Stats__",
+        embed.addField("__Estatísticas Gerais__",
                 "> `Elo` " + player.getElo() + " **(#" + player.getPlacement(Statistic.ELO) + ")**" +
                         "\n> ┗ `Peak` " + player.getPeakElo() + " **(#" + player.getPlacement(Statistic.PEAKELO) + ")**" +
-                        "\n> `Games` " + games + " **(#" + player.getPlacement(Statistic.GAMES) + ")**" +
+                        "\n> `Jogos` " + games + " **(#" + player.getPlacement(Statistic.GAMES) + ")**" +
                         "\n> `WLR` " + f.format(player.getWins() / templosses) + " **(#" + player.getPlacement(Statistic.WLR) + ")**" +
                         "\n> `Mvp` " + player.getMvp() + " **(#" + player.getPlacement(Statistic.MVP) + ")**" +
                         "\n> `Strikes` " + player.getStrikes() + " **(#" + player.getPlacement(Statistic.STRIKES) + ")**" +
-                        "\n> `Scored` " + player.getScored() + " **(#" + player.getPlacement(Statistic.SCORED) + ")**", false);
+                        "\n> `Pontuados` " + player.getScored() + " **(#" + player.getPlacement(Statistic.SCORED) + ")**", false);
 
-        embed.addField("__Games Stats__",
-                "> **`Wins`** " + player.getWins() + " **(#" + player.getPlacement(Statistic.WINS) + ")**" +
+        embed.addField("__Estatísticas Gerais__",
+                "> **`Vitórias`** " + player.getWins() + " **(#" + player.getPlacement(Statistic.WINS) + ")**" +
                         "\n> `Winstreak` " + player.getWinStreak() + " **(#" + player.getPlacement(Statistic.WINSTREAK) + ")**" +
-                        "\n> ┗ `Highest` " + player.getHighestWS() + " **(#" + player.getPlacement(Statistic.HIGHESTWS) + ")**" +
-                        "\n> **`Losses`** " + player.getLosses() + " **(#" + player.getPlacement(Statistic.LOSSES) + ")**" +
+                        "\n> ┗ `Maior` " + player.getHighestWS() + " **(#" + player.getPlacement(Statistic.HIGHESTWS) + ")**" +
+                        "\n> **`Derrotas`** " + player.getLosses() + " **(#" + player.getPlacement(Statistic.LOSSES) + ")**" +
                         "\n> `Losestreak` " + player.getLossStreak() + " **(#" + player.getPlacement(Statistic.LOSSSTREAK) + ")**" +
-                        "\n> ┗ `Highest` " + player.getHighestLS() + " **(#" + player.getPlacement(Statistic.HIGHESTLS) + ")**", false);
+                        "\n> ┗ `Maior` " + player.getHighestLS() + " **(#" + player.getPlacement(Statistic.HIGHESTLS) + ")**", false);
 
         embed.addField("__K/D Stats__",
                 "> `Kills` " + player.getKills() + " **(#" + player.getPlacement(Statistic.KILLS) + ")**" +
-                        "\n> `Deaths` " + player.getDeaths() + " **(#" + player.getPlacement(Statistic.DEATHS) + ")**" +
+                        "\n> `Mortes` " + player.getDeaths() + " **(#" + player.getPlacement(Statistic.DEATHS) + ")**" +
                         "\n> `KDR` " + player.getHighestWS() + " **(#" + player.getPlacement(Statistic.KDR) + ")**", false);
 
         if (player.getOwnedThemes().get(0) == null) {
-            embed.addField("__Other Stats__",
+            embed.addField("__Outras Estatísticas__",
                     "> `Gold` " + player.getGold() + " **(#" + player.getPlacement(Statistic.GOLD) + ")**" +
                             "\n> `Level` " + player.getLevel().getLevel() + " **(#" + player.getPlacement(Statistic.LEVEL) + ")**" +
                             "\n> `Xp` " + player.getXp() + " **(#" + player.getPlacement(Statistic.XP) + ")**", false);
@@ -231,12 +231,12 @@ public class StatsCmd extends Command {
                 themes.append(t.getName() + " ");
             }
 
-            embed.addField("__Other Stats__",
-                    "> `Gold` " + player.getGold() + " **(#" + player.getPlacement(Statistic.GOLD) + ")**" +
+            embed.addField("__Outras Estatísticas__",
+                    "> `Ouro` " + player.getGold() + " **(#" + player.getPlacement(Statistic.GOLD) + ")**" +
                             "\n> `Level` " + player.getLevel().getLevel() + " **(#" + player.getPlacement(Statistic.LEVEL) + ")**" +
                             "\n> `Xp` " + player.getXp() + " **(#" + player.getPlacement(Statistic.XP) + ")**" +
-                            "\n> `Selected theme` " + player.getTheme().getName() +
-                            "\n> `Owned themes` " + themes, false);
+                            "\n> `Tema Selecionado` " + player.getTheme().getName() +
+                            "\n> `Temas Adquiridos` " + themes, false);
         }
 
         return embed;

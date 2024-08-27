@@ -20,13 +20,13 @@ public class CallCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (GameCache.getGame(channel.getId()) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-game-channel"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-game-channel"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -34,12 +34,12 @@ public class CallCmd extends Command {
         String ID = args[1].replaceAll("[^0-9]", "");
 
         if (sender.getVoiceState() == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", "You aren't in a vc", 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você não está em um vc", 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
-        Embed embed = new Embed(EmbedType.SUCCESS, "", "Given <@" + ID + "> access to your vc", 1);
+        Embed embed = new Embed(EmbedType.SUCCESS, "", "<@" + ID + "> tem acesso ao seu vc", 1);
 
         sender.getVoiceState().getChannel().getManager().setUserLimit(sender.getVoiceState().getChannel().getUserLimit()+1).queue();
         sender.getVoiceState().getChannel().createPermissionOverride(guild.getMemberById(ID)).setAllow(Permission.VIEW_CHANNEL).setAllow(Permission.VOICE_CONNECT).queue();

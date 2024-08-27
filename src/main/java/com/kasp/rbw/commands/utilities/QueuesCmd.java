@@ -22,23 +22,23 @@ public class QueuesCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 1) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (QueueCache.getQueues().size() < 1) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", "There are currently no queues set up. Add one using `=addqueue`!", 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você não tem nenhuma fila. Adicione uma `=addqueue`!", 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
-        Embed embed = new Embed(EmbedType.DEFAULT, "All server queues", "this also shows **currently** queueing players", 1);
+        Embed embed = new Embed(EmbedType.DEFAULT, "Todas as filas", "isso também mostra **atualmente** jogadores na fila", 1);
 
         for (Queue q : QueueCache.getQueues().values()) {
 
-            String content = "There are currently no players playing";
-            if (q.getPlayers().size() > 0) {
+            String content = "Aqui não tem nenhum jogador na fila";
+            if (!q.getPlayers().isEmpty()) {
                 content = "";
 
                 for (Player p : q.getPlayers()) {

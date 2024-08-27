@@ -21,13 +21,13 @@ public class PickCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (GameCache.getGame(channel.getId()) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-game-channel"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-game-channel"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -37,8 +37,8 @@ public class PickCmd extends Command {
         String ID = args[1].replaceAll("[^0-9]","");
 
         if (!game.pickPlayer(PlayerCache.getPlayer(sender.getId()), PlayerCache.getPlayer(ID))) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", "Reason: `the game is already started` / `you aren't captain or it's not your turn to pick` / " +
-                    "`you're trying to pick yourself` / `you're trying to pick someone not from this game or already picked`", 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", "Motivo: `o jogo já começou` / `você não é capitado ou não é sua ver` / " +
+                    "`você está clicando em si mesmo` / `você está pickando alguém que já está em algum time`", 1);
             msg.replyEmbeds(reply.build()).queue();
         }
     }

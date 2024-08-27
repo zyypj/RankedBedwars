@@ -28,7 +28,7 @@ public class LeaderboardCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length > 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -43,7 +43,7 @@ public class LeaderboardCmd extends Command {
                 for (Statistic s : Statistic.values()) {
                     stats += "`" + s + "` ";
                 }
-                Embed embed = new Embed(EmbedType.ERROR, "Error", "This statistic does not exist\nAvailable stats: " + stats, 1);
+                Embed embed = new Embed(EmbedType.ERROR, "Erro", "Essa estatística não existe\nDisponíveis: " + stats, 1);
                 msg.replyEmbeds(embed.build()).queue();
                 return;
             }
@@ -51,7 +51,7 @@ public class LeaderboardCmd extends Command {
 
         List<String> lb = new ArrayList<>(Leaderboard.getLeaderboard(statistic));
 
-        Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("loading...").build()).complete();
+        Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("carregando...").build()).complete();
 
         for (int j = 0; j < Math.ceil(lb.size() / 10.0); j++) {
 

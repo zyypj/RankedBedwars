@@ -22,7 +22,7 @@ public class PartyLeaveCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 1) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -30,7 +30,7 @@ public class PartyLeaveCmd extends Command {
         Player player = PlayerCache.getPlayer(sender.getId());
 
         if (PartyCache.getParty(player) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-in-party"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-in-party"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -57,7 +57,7 @@ public class PartyLeaveCmd extends Command {
             Embed reply = new Embed(EmbedType.SUCCESS, "", Msg.getMsg("party-left"), 1);
             msg.replyEmbeds(reply.build()).queue();
 
-            Embed embed = new Embed(EmbedType.DEFAULT, "", "<@" + player.getID() + "> has left your party", 1);
+            Embed embed = new Embed(EmbedType.DEFAULT, "", "<@" + player.getID() + "> saiu da party", 1);
             channel.sendMessage("<@" + party.getLeader().getID() + ">").setEmbeds(embed.build()).queue();
         }
     }

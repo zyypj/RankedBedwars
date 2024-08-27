@@ -22,7 +22,7 @@ public class GiveThemeCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 3) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -30,7 +30,7 @@ public class GiveThemeCmd extends Command {
         String name = args[2];
 
         if (!ThemeCache.containsTheme(name)) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("theme-doesnt-exist"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("theme-doesnt-exist"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -49,7 +49,7 @@ public class GiveThemeCmd extends Command {
 
         player.giveTheme(theme);
 
-        Embed embed = new Embed(EmbedType.SUCCESS, "", "You have given " + guild.getMemberById(ID).getAsMention() + " `" + theme.getName() + "` theme", 1);
+        Embed embed = new Embed(EmbedType.SUCCESS, "", "Você deu a " + guild.getMemberById(ID).getAsMention() + " o tema `" + theme.getName() + "`", 1);
         msg.replyEmbeds(embed.build()).queue();
     }
 }

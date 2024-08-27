@@ -48,7 +48,7 @@ footer: "PulseRanked v2.0"
 #============================== LOGGING
 
 # Log every command players do?
-log-commands: true
+log-commands: false
 
 #============================== BANNING
 

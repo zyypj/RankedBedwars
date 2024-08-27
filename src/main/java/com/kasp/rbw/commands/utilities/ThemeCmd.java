@@ -22,7 +22,7 @@ public class ThemeCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -35,12 +35,12 @@ public class ThemeCmd extends Command {
                 themes += "`" + t.getName() + "` ";
             }
 
-            Embed embed = new Embed(EmbedType.DEFAULT, "All themes `(" + ThemeCache.getThemes().size() + ")`", themes, 1);
+            Embed embed = new Embed(EmbedType.DEFAULT, "Todos os Temas `(" + ThemeCache.getThemes().size() + ")`", themes, 1);
             msg.replyEmbeds(embed.build()).queue();
         }
         else {
             if (!ThemeCache.containsTheme(name)) {
-                Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("theme-doesnt-exist"), 1);
+                Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("theme-doesnt-exist"), 1);
                 msg.replyEmbeds(reply.build()).queue();
                 return;
             }
@@ -50,14 +50,14 @@ public class ThemeCmd extends Command {
             Player player = PlayerCache.getPlayer(sender.getId());
 
             if (!player.getOwnedThemes().contains(theme)) {
-                Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("theme-access-denied"), 1);
+                Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("theme-access-denied"), 1);
                 msg.replyEmbeds(reply.build()).queue();
                 return;
             }
 
             player.setTheme(theme);
 
-            Embed embed = new Embed(EmbedType.SUCCESS, "", "You have successfully selected theme `" + theme.getName() + "`", 1);
+            Embed embed = new Embed(EmbedType.SUCCESS, "", "Você escolheu o tema `" + theme.getName() + "`", 1);
             msg.replyEmbeds(embed.build()).queue();
         }
     }

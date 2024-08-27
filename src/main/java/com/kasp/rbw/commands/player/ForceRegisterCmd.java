@@ -20,7 +20,7 @@ public class ForceRegisterCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 3) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -28,7 +28,7 @@ public class ForceRegisterCmd extends Command {
         String ID = args[1].replaceAll("[^0-9]", "");
 
         if (Player.isRegistered(ID)) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("player-already-registered"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("player-already-registered"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -40,7 +40,7 @@ public class ForceRegisterCmd extends Command {
         Player player = new Player(ID);
         player.fix();
 
-        Embed reply = new Embed(EmbedType.SUCCESS, "", "You have registered " + guild.getMemberById(ID).getAsMention() + " as `" + ign + "`", 1);
+        Embed reply = new Embed(EmbedType.SUCCESS, "", "Você registrou " + guild.getMemberById(ID).getAsMention() + " como `" + ign + "`", 1);
         msg.replyEmbeds(reply.build()).queue();
     }
 }

@@ -27,7 +27,7 @@ public class UnbanTask {
 
         if (unbanned != "") {
             if (!Objects.equals(Config.getValue("ban-channel"), null)) {
-                Embed embed = new Embed(EmbedType.DEFAULT, "Unbanned some players `(auto)`:", unbanned, 1);
+                Embed embed = new Embed(EmbedType.DEFAULT, "Jogadores desbanidos `(auto)`:", unbanned, 1);
                 RBW.getGuild().getTextChannelById(Config.getValue("ban-channel")).sendMessageEmbeds(embed.build()).queue();
             }
         }

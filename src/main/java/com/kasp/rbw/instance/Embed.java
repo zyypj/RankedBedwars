@@ -49,7 +49,7 @@ public class Embed {
     public MessageEmbed build() {
         if (title != null && !title.equals(""))
             if (pages != 1) {
-                eb.setTitle(title + " `[Page: " + (currentPage + 1) + "/" + pages + "]`");
+                eb.setTitle(title + " `[Página: " + (currentPage + 1) + "/" + pages + "]`");
             }
             else {
                 eb.setTitle(title);

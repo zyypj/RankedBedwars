@@ -25,7 +25,7 @@ public class Command{
     }
 
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
-        System.out.println("Something went wrong...");
+        System.out.println("Algo deu errado...");
     }
 
     public String getCommand() {

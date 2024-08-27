@@ -25,7 +25,7 @@ public class ScoreCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 4) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -33,7 +33,7 @@ public class ScoreCmd extends Command {
         int number = Integer.parseInt(args[1]);
 
         if (GameCache.getGame(number) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("invalid-game"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("invalid-game"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -41,7 +41,7 @@ public class ScoreCmd extends Command {
         Game game = GameCache.getGame(number);
 
         if (game.getState() != GameState.SUBMITTED) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-submitted"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-submitted"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -66,7 +66,7 @@ public class ScoreCmd extends Command {
         else
             game.scoreGame(winningTeam, losingTeam, PlayerCache.getPlayer(mvpID), sender);
 
-        Embed reply = new Embed(EmbedType.SUCCESS, "", "You have scored Game`#" + game.getNumber() + "`", 1);
+        Embed reply = new Embed(EmbedType.SUCCESS, "", "Você pontuou o Jogo `#" + game.getNumber() + "`", 1);
         msg.replyEmbeds(reply.build()).queue();
     }
 }

@@ -20,7 +20,7 @@ public class UnbanCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -30,7 +30,7 @@ public class UnbanCmd extends Command {
         Player player = PlayerCache.getPlayer(ID);
 
         if (!player.isBanned()) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("player-not-banned"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("player-not-banned"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }

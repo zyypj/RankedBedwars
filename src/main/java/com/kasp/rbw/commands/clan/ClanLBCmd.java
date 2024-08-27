@@ -24,17 +24,17 @@ public class ClanLBCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 1) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         List<Clan> lb = new ArrayList<>(Leaderboard.getClansLeaderboard());
 
-        Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("loading...").build()).complete();
+        Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("carregando...").build()).complete();
 
         for (int j = 0; j < Math.ceil(lb.size() / 10.0); j++) {
-            Embed reply = new Embed(EmbedType.DEFAULT, "Clans Leaderboard", "this lb is for `reputation`\nwhich can be obtained\nby playing clan wars", (int) Math.ceil(lb.size() / 10.0));
+            Embed reply = new Embed(EmbedType.DEFAULT, "Clans Leaderboard", "isso é a lb de `reputação`\nvocê obtem jogando\nclan wars", (int) Math.ceil(lb.size() / 10.0));
 
             String lbmsg = "";
             for (int i = j * 10; i < j * 10 + 10; i++) {

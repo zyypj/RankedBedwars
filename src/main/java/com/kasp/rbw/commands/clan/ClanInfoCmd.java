@@ -23,7 +23,7 @@ public class ClanInfoCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length > 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -34,7 +34,7 @@ public class ClanInfoCmd extends Command {
                 clanName = ClanCache.getClan(PlayerCache.getPlayer(sender.getId())).getName();
             }
             else {
-                Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-in-clan"), 1);
+                Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-in-clan"), 1);
                 msg.replyEmbeds(reply.build()).queue();
                 return;
             }
@@ -43,7 +43,7 @@ public class ClanInfoCmd extends Command {
         }
 
         if (ClanCache.getClan(clanName) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Clan", Msg.getMsg("clan-doesnt-exist"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Clan Inválido", Msg.getMsg("clan-doesnt-exist"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -62,15 +62,15 @@ public class ClanInfoCmd extends Command {
 
         String eloReq = "";
         if (!clan.isPrivate()) {
-            eloReq = " - `" + clan.getEloJoinReq() + "` ELO required to join";
+            eloReq = " - `" + clan.getEloJoinReq() + "` ELO requerido para entrar";
         }
 
-        Embed embed = new Embed(EmbedType.DEFAULT, clan.getName() + " Clan Info", "- Stats that don't show up on `=cstats`", 1);
-        embed.addField("Private", clan.isPrivate() + eloReq, false);
-        embed.addField("Clan Leader", "<@" + clan.getLeader().getID() + ">", false);
-        embed.addField("All Members `[" + clan.getMembers().size() + "/" + Config.getValue("l" + clan.getLevel().getLevel()) + "]`", members, false);
+        Embed embed = new Embed(EmbedType.DEFAULT, clan.getName() + " Clan Info", "- Desative os stats com `=cstats`", 1);
+        embed.addField("Privado", clan.isPrivate() + eloReq, false);
+        embed.addField("Líder", "<@" + clan.getLeader().getID() + ">", false);
+        embed.addField("Membros `[" + clan.getMembers().size() + "/" + Config.getValue("l" + clan.getLevel().getLevel()) + "]`", members, false);
         if (clan.getInvitedPlayers().size() != 0) {
-            embed.addField("All Invited Players `[" + clan.getInvitedPlayers().size() + "]`", invited, false);
+            embed.addField("Jogadores Convidados `[" + clan.getInvitedPlayers().size() + "]`", invited, false);
         }
         msg.replyEmbeds(embed.build()).queue();
     }

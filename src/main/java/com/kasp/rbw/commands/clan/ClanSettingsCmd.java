@@ -34,7 +34,7 @@ public class ClanSettingsCmd extends Command {
                                 "change the =cstats theme of your clan"};
 
         if (args.length < 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -42,7 +42,7 @@ public class ClanSettingsCmd extends Command {
         Player player = PlayerCache.getPlayer(sender.getId());
 
         if (ClanCache.getClan(player) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-in-clan"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-in-clan"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -50,7 +50,7 @@ public class ClanSettingsCmd extends Command {
         Clan clan = ClanCache.getClan(player);
 
         if (clan.getLeader() != player) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-clan-leader"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-clan-leader"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -58,9 +58,9 @@ public class ClanSettingsCmd extends Command {
         String setting = args[1];
 
         if (!Arrays.asList(settings).contains(setting)) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("invalid-setting"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("invalid-setting"), 1);
             msg.replyEmbeds(reply.build()).queue();
-            Embed embed = new Embed(EmbedType.DEFAULT, "Available settings", "", 1);
+            Embed embed = new Embed(EmbedType.DEFAULT, "Configurações Disponíveis", "", 1);
             for (int i = 0; i < settings.length; i++) {
                 embed.addField(settings[i], "Value - `" + settingsvalue[i] + "`\n" + settingsdesc[i], false);
             }
@@ -83,7 +83,7 @@ public class ClanSettingsCmd extends Command {
             }
             else if (setting.equals("description")) {
                 if (msg.getContentRaw().replace(args[1], "").replace(args[0], "").trim().length() > Integer.parseInt(Config.getValue("clan-desc-max"))) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("desc-too-long"), 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("desc-too-long"), 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
@@ -92,27 +92,27 @@ public class ClanSettingsCmd extends Command {
             }
             else if (setting.equals("icon")) {
                 if (clan.getLevel().getLevel() < Integer.parseInt(Config.getValue("allow-setting-icon"))) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Error", "Your clan needs to reach level " + Config.getValue("allow-setting-icon") + " for you to be able to set the icon", 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Seu clan precisa do level " + Config.getValue("allow-setting-icon") + " para você mudar o icon", 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
                 if (!msg.getAttachments().get(0).isImage()) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Error", "The attached file has to be an image", 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "O arquivo tem que ser uma imagem. (anta)", 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
                 if (msg.getAttachments().size() < 1) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Error", "You have to attach a `135x135` image as your theme", 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `135x135` como seu icone", 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
                 if (!msg.getAttachments().get(0).getFileName().equals("icon.png")) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Error", "The image file has to be named `icon.png`", 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Nenomeie a imagem para `icon.png`", 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
                 if (msg.getAttachments().get(0).getWidth() != 135 || msg.getAttachments().get(0).getHeight() != 135) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Error", "You have to attach a `135x135` image as your theme", 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `135x135` como seu icone", 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
@@ -123,27 +123,27 @@ public class ClanSettingsCmd extends Command {
             }
             else if (setting.equals("theme")) {
                 if (clan.getLevel().getLevel() < Integer.parseInt(Config.getValue("allow-setting-theme"))) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Error", "Your clan needs to reach level " + Config.getValue("allow-setting-theme") + " for you to be able to set the icon", 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Seu clan precisa do level " + Config.getValue("allow-setting-theme") + " para poder alterar o tema", 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
                 if (!msg.getAttachments().get(0).isImage()) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Error", "The attached file has to be an image", 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "O arquivo tem que ser uma imagem. (anta)", 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
                 if (msg.getAttachments().size() < 1) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Error", "You have to attach a `960x540` image as your theme", 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `960x540` como seu tema", 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
                 if (!msg.getAttachments().get(0).getFileName().equals("theme.png")) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Error", "The image file has to be named `theme.png`", 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Renomeie a imagem para `theme.png`", 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
                 if (msg.getAttachments().get(0).getWidth() != 960 || msg.getAttachments().get(0).getHeight() != 540) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Error", "You have to attach a `960x540` image as your theme", 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `960x540` como seu tema", 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
@@ -153,12 +153,12 @@ public class ClanSettingsCmd extends Command {
                 value = "theme.png";
             }
         } catch (Exception e) {
-            Embed embed = new Embed(EmbedType.ERROR, "Error", "Something went wrong... please make sure that youre setting `" + settingsvalue[settingIndex] + "` as your value", 1);
+            Embed embed = new Embed(EmbedType.ERROR, "Erro", "Algo deu errado... use algumas dessas configurações `" + settingsvalue[settingIndex] + "` como seu valor", 1);
             msg.replyEmbeds(embed.build()).queue();
             return;
         }
 
-        Embed embed = new Embed(EmbedType.SUCCESS, "Successfully updated the settings", "Successfully set `" + value + "` as your clan's `" + setting + "`", 1);
+        Embed embed = new Embed(EmbedType.SUCCESS, "Configurações Atualizadas", "Você setou o valor `" + value + "` para a configuração `" + setting + "`", 1);
         msg.replyEmbeds(embed.build()).queue();
     }
 }

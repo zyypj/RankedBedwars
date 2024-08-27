@@ -24,7 +24,7 @@ public class BanInfoCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -34,7 +34,7 @@ public class BanInfoCmd extends Command {
         Player player = PlayerCache.getPlayer(ID);
 
         if (!player.isBanned()) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("player-not-banned"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("player-not-banned"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -45,10 +45,10 @@ public class BanInfoCmd extends Command {
         long diffHours = ChronoUnit.HOURS.between(LocalDateTime.now(), player.getBannedTill());
         long diffMins = ChronoUnit.MINUTES.between(LocalDateTime.now(), player.getBannedTill());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String desc = "Unbanned On `" + formatter.format(player.getBannedTill()) + " GMT`\nTime till unbanned `≈ " + diffDays + "d / " + diffHours + "h / " + diffMins + "m`\n**Reason: **" + player.getBanReason();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String desc = "Desbanido em `" + formatter.format(player.getBannedTill()) + " UTC-4`\nTempo até ser desbanido `≈ " + diffDays + "d / " + diffHours + "h / " + diffMins + "m`\n**Motivo: **" + player.getBanReason();
 
-        Embed embed = new Embed(EmbedType.DEFAULT, player.getIgn() + "'s Ban Info", desc, 1);
+        Embed embed = new Embed(EmbedType.DEFAULT, "Banimento de " + player.getIgn(), desc, 1);
         msg.replyEmbeds(embed.build()).queue();
     }
 }

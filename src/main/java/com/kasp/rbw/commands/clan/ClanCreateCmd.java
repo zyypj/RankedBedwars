@@ -23,7 +23,7 @@ public class ClanCreateCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -32,31 +32,31 @@ public class ClanCreateCmd extends Command {
         String name = args[1];
 
         if (name.length() > Integer.parseInt(Config.getValue("clan-name-max"))) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("name-too-long"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("name-too-long"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (ClanCache.containsClan(name)) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("clan-already-exists"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("clan-already-exists"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (ClanCache.getClan(player) != null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("already-in-clan"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("already-in-clan"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (player.getElo() < Integer.parseInt(Config.getValue("elo-to-create"))) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-enough-elo"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-enough-elo"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (player.getGold() < Integer.parseInt(Config.getValue("gold-to-create"))) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-enough-gold"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-enough-gold"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }

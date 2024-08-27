@@ -22,7 +22,7 @@ public class PartyKickCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -30,7 +30,7 @@ public class PartyKickCmd extends Command {
         Player player = PlayerCache.getPlayer(sender.getId());
 
         if (PartyCache.getParty(player) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-in-party"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-in-party"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -38,7 +38,7 @@ public class PartyKickCmd extends Command {
         Party party = PartyCache.getParty(player);
 
         if (party.getLeader() != player) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-party-leader"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-party-leader"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -54,7 +54,7 @@ public class PartyKickCmd extends Command {
         Player kicked = PlayerCache.getPlayer(ID);
 
         if (!party.getMembers().contains(kicked)) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("player-not-in-ur-party"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("player-not-in-ur-party"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }

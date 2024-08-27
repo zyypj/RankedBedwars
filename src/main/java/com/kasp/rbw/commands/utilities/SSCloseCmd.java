@@ -25,13 +25,13 @@ public class SSCloseCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length < 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (ScreenshareCache.getScreenshare(channel.getId()) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", "This channel isn't a screenshare channel", 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", "Use esse comando no chat de SS", 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -39,8 +39,8 @@ public class SSCloseCmd extends Command {
         ScreenShare ss = ScreenshareCache.getScreenshare(channel.getId());
         String reason = msg.getContentRaw().replaceAll(args[0], "").trim();
 
-        Embed embed = new Embed(EmbedType.SUCCESS, "Screenshare for " + ss.getTarget().getIgn() + " closed", "", 1);
-        embed.setDescription("Reason: `" + reason + "`\n\nChannel deleting in `3` mins");
+        Embed embed = new Embed(EmbedType.SUCCESS, "Screenshare de " + ss.getTarget().getIgn() + " fechado", "", 1);
+        embed.setDescription("Motivo: `" + reason + "`\n\nCanal sendo deletado em `3` mins");
 
         msg.reply("<@" + ss.getTarget().getID() + ">").setEmbeds(embed.build()).queue();
 
@@ -61,10 +61,10 @@ public class SSCloseCmd extends Command {
 
         embed.setType(EmbedType.DEFAULT);
         embed.setTitle(ss.getTarget().getIgn() + " (" + ss.getTarget().getID() + ")");
-        embed.setDescription("Target: <@" + ss.getTarget().getID() + ">\n" +
-                "Requested by: <@" + ss.getRequestedBy().getID() + ">\n" +
-                "Screenshared by: <@" + sender.getId() + ">\n\n" +
-                "Outcome (close reason): `" + reason + "`");
+        embed.setDescription("Alvo: <@" + ss.getTarget().getID() + ">\n" +
+                "Pedido por: <@" + ss.getRequestedBy().getID() + ">\n" +
+                "Screenshared por: <@" + sender.getId() + ">\n\n" +
+                "Motivo do fechamento: `" + reason + "`");
 
         RBW.guild.getTextChannelById(Config.getValue("ss-log-channel")).sendMessageEmbeds(embed.build()).queue();
     }

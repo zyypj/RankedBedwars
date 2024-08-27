@@ -35,81 +35,81 @@ public class CommandManager extends ListenerAdapter {
     static ArrayList<Command> commands = new ArrayList<>();
 
     public CommandManager() {
-        commands.add(new HelpCmd("help", "help [sub-system]", new String[]{}, "See the available server commands", CommandSubsystem.SERVER));
+        commands.add(new HelpCmd("help", "help [sub-system]", new String[]{}, "Olhe todos os comandos", CommandSubsystem.SERVER));
         commands.add(new ReloadConfigCmd("reloadconfig", "reloadconfig", new String[]{"reload", "rc"}, "Reload the configs (update values)", CommandSubsystem.SERVER));
-        commands.add(new InfoCmd("info", "info", new String[]{}, "View some info about the server and bot", CommandSubsystem.SERVER));
+        commands.add(new InfoCmd("info", "info", new String[]{}, "Informações Sobre Bot e Servidor", CommandSubsystem.SERVER));
 
-        commands.add(new RegisterCmd("register", "register", new String[]{}, "Register yourself to start playing", CommandSubsystem.PLAYER));
-        commands.add(new RenameCmd("rename", "rename", new String[]{}, "Change your in-game name", CommandSubsystem.PLAYER));
-        commands.add(new FixCmd("fix", "fix [ID/mention]", new String[]{"correct"}, "Fix discord roles and nickname depending on the stats", CommandSubsystem.PLAYER));
-        commands.add(new ForceRegisterCmd("forceregister", "forceregister <ID/mention> <ign>", new String[]{"freg"}, "Forcefully register a player", CommandSubsystem.PLAYER));
-        commands.add(new ForceRenameCmd("forcerename", "forcerename <ID/mention> <new ign>", new String[]{"fren"}, "Forcefully rename a player", CommandSubsystem.PLAYER));
-        commands.add(new WipeCmd("wipe", "wipe <ID/mention/\"everyone\">", new String[]{"reset"}, "Reset player's / everyone's stats", CommandSubsystem.PLAYER));
-        commands.add(new StatsCmd("stats", "stats [ID/mention/\"full\"]", new String[]{"s", "i"}, "View player's stats", CommandSubsystem.PLAYER));
-        commands.add(new LeaderboardCmd("leaderboard", "leaderboard <statistic>", new String[]{"lb"}, "View the leaderbaord for a statistic", CommandSubsystem.PLAYER));
-        commands.add(new ModifyCmd("modify", "modify <ID/mention> <statistic> <value>", new String[]{"edit"}, "Modify player's stats", CommandSubsystem.PLAYER));
+        commands.add(new RegisterCmd("register", "register", new String[]{}, "Registre você antes de jogar", CommandSubsystem.PLAYER));
+        commands.add(new RenameCmd("rename", "rename", new String[]{}, "Mude seu nick in-game", CommandSubsystem.PLAYER));
+        commands.add(new FixCmd("fix", "fix [ID/mention]", new String[]{"correct"}, "Arrumar seus cargos e nicks", CommandSubsystem.PLAYER));
+        commands.add(new ForceRegisterCmd("forceregister", "forceregister <ID/mention> <ign>", new String[]{"freg"}, "Forçar registro", CommandSubsystem.PLAYER));
+        commands.add(new ForceRenameCmd("forcerename", "forcerename <ID/mention> <new ign>", new String[]{"fren"}, "Forçar mudança de nick", CommandSubsystem.PLAYER));
+        commands.add(new WipeCmd("wipe", "wipe <ID/mention/\"everyone\">", new String[]{"reset"}, "Resetar todos as estatísticas", CommandSubsystem.PLAYER));
+        commands.add(new StatsCmd("stats", "stats [ID/mention/\"full\"]", new String[]{"s", "i"}, "Ver as estatísticas de alguem", CommandSubsystem.PLAYER));
+        commands.add(new LeaderboardCmd("leaderboard", "leaderboard <statistic>", new String[]{"lb"}, "Leaderboard de uma estatística", CommandSubsystem.PLAYER));
+        commands.add(new ModifyCmd("modify", "modify <ID/mention> <statistic> <value>", new String[]{"edit"}, "Modificar uma estatística", CommandSubsystem.PLAYER));
         commands.add(new ScreenshareCmd("screenshare", "screenshare <ID/mention> <reason>", new String[]{"ss"}, "Screenshare a player", CommandSubsystem.PLAYER));
-        commands.add(new TransferGoldCmd("transfergold", "transfergold <ID/mention> <amount>", new String[]{"tg"}, "Transfer specified player some of your gold", CommandSubsystem.PLAYER));
+        commands.add(new TransferGoldCmd("transfergold", "transfergold <ID/mention> <amount>", new String[]{"tg"}, "Transferir golds de uma conta a outra", CommandSubsystem.PLAYER));
 
-        commands.add(new PartyCreateCmd("partycreate", "partycreate", new String[]{"pcreate"}, "Create a party", CommandSubsystem.PARTY));
-        commands.add(new PartyInviteCmd("partyinvite", "partyinvite <ID/mention>", new String[]{"pinvite"}, "Invite a player to your party", CommandSubsystem.PARTY));
-        commands.add(new PartyJoinCmd("partyjoin", "partyjoin <ID/mention>", new String[]{"pjoin"}, "Join a player's party", CommandSubsystem.PARTY));
-        commands.add(new PartyLeaveCmd("partyleave", "partyleave", new String[]{"pleave"}, "Leave your current party or disband it if you're the leader", CommandSubsystem.PARTY));
-        commands.add(new PartyPromoteCmd("partypromote", "partypromote <ID/metion>", new String[]{"ppromote"}, "Promote a player in your party to party leader", CommandSubsystem.PARTY));
-        commands.add(new PartyWarpCmd("partywarp", "partywarp", new String[]{"pwarp"}, "Warp your party to your current vc (warps a member only if that member is in any vc)", CommandSubsystem.PARTY));
-        commands.add(new PartyListCmd("partylist", "partylist [ID/mention]", new String[]{"plist"}, "View info about your or someone else's party", CommandSubsystem.PARTY));
-        commands.add(new PartyKickCmd("partykick", "partykick <ID/mention>", new String[]{"pkick"}, "Kick a player from your party", CommandSubsystem.PARTY));
+        commands.add(new PartyCreateCmd("partycreate", "partycreate", new String[]{"pcreate"}, "Criar uma party", CommandSubsystem.PARTY));
+        commands.add(new PartyInviteCmd("partyinvite", "partyinvite <ID/mention>", new String[]{"pinvite"}, "Convidar um jogador a sua party", CommandSubsystem.PARTY));
+        commands.add(new PartyJoinCmd("partyjoin", "partyjoin <ID/mention>", new String[]{"pjoin"}, "Entrar na party de alguem", CommandSubsystem.PARTY));
+        commands.add(new PartyLeaveCmd("partyleave", "partyleave", new String[]{"pleave"}, "Sair da sua party atual ou desfaze-la", CommandSubsystem.PARTY));
+        commands.add(new PartyPromoteCmd("partypromote", "partypromote <ID/metion>", new String[]{"ppromote"}, "Promover um jogador da party", CommandSubsystem.PARTY));
+        commands.add(new PartyWarpCmd("partywarp", "partywarp", new String[]{"pwarp"}, "Puxar todos a sua caçç (apenas os que já estiverem em alguma outra call)", CommandSubsystem.PARTY));
+        commands.add(new PartyListCmd("partylist", "partylist [ID/mention]", new String[]{"plist"}, "Ver a lista da sua party", CommandSubsystem.PARTY));
+        commands.add(new PartyKickCmd("partykick", "partykick <ID/mention>", new String[]{"pkick"}, "Expulsar um jogador da sua party", CommandSubsystem.PARTY));
 
-        commands.add(new RetryCmd("retry", "retry", new String[]{}, "Retry to warp players into a map", CommandSubsystem.GAME));
-        commands.add(new QueueCmd("queue", "queue", new String[]{"q"}, "View your game's queue", CommandSubsystem.GAME));
-        commands.add(new QueueStatsCmd("queuestats", "queuestats", new String[]{"qs"}, "View your game's queue stats", CommandSubsystem.GAME));
-        commands.add(new GameInfoCmd("gameinfo", "gameinfo <number>", new String[]{"gi"}, "View info about a game", CommandSubsystem.GAME));
-        commands.add(new PickCmd("pick", "pick <ID/mention>", new String[]{"p"}, "Pick a player in your game (if you're a captain)", CommandSubsystem.GAME));
-        commands.add(new VoidCmd("void", "void", new String[]{"cleargame", "clear", "cg"}, "Cancel a game if you can't play it anymore", CommandSubsystem.GAME));
-        commands.add(new CallCmd("call", "call <ID/mention>", new String[]{}, "Give a player access to join your vc", CommandSubsystem.GAME));
-        commands.add(new SubmitCmd("submit", "submit", new String[]{}, "Submit a game for scoring", CommandSubsystem.GAME));
-        commands.add(new ScoreCmd("score", "score <number> <team> <mvp ID/mention/\"none\">", new String[]{}, "Score a game", CommandSubsystem.GAME));
-        commands.add(new UndoGameCmd("undogame", "undogame <number>", new String[]{}, "Undo a scored game", CommandSubsystem.GAME));
-        commands.add(new WinCmd("win", "win <ID/mention>", new String[]{}, "Give specified player +1 win and elo (depends on the rank). This command should be used ONLY when '=score' doesn't work or for testing purposes", CommandSubsystem.GAME));
-        commands.add(new LoseCmd("lose", "lose <ID/mention>", new String[]{}, "Give specified player +1 loss and -elo (depends on the rank). This command should be used ONLY when '=score' doesn't work or for testing purposes", CommandSubsystem.GAME));
-        commands.add(new ForceVoidCmd("forcevoid", "forcevoid [game]", new String[]{"fv"}, "Forcefully void a game (staff cmd)", CommandSubsystem.GAME));
+        commands.add(new RetryCmd("retry", "retry", new String[]{}, "Tente novamente colocar os jogadores em um mapa", CommandSubsystem.GAME));
+        commands.add(new QueueCmd("queue", "queue", new String[]{"q"}, "Veja a fila do seu jogo", CommandSubsystem.GAME));
+        commands.add(new QueueStatsCmd("queuestats", "queuestats", new String[]{"qs"}, "Veja as estatísticas da fila do seu jogo", CommandSubsystem.GAME));
+        commands.add(new GameInfoCmd("gameinfo", "gameinfo <número>", new String[]{"gi"}, "Veja informações sobre um jogo", CommandSubsystem.GAME));
+        commands.add(new PickCmd("pick", "pick <ID/menção>", new String[]{"p"}, "Escolha um jogador no seu jogo (se você for um capitão)", CommandSubsystem.GAME));
+        commands.add(new VoidCmd("void", "void", new String[]{"cleargame", "clear", "cg"}, "Cancelar um jogo se não puder mais jogá-lo", CommandSubsystem.GAME));
+        commands.add(new CallCmd("call", "call <ID/menção>", new String[]{}, "Dar a um jogador acesso para entrar no seu canal de voz", CommandSubsystem.GAME));
+        commands.add(new SubmitCmd("submit", "submit", new String[]{}, "Enviar um jogo para pontuação", CommandSubsystem.GAME));
+        commands.add(new ScoreCmd("score", "score <número> <equipe> <mvp ID/menção/\"nenhum\">", new String[]{}, "Pontuar um jogo", CommandSubsystem.GAME));
+        commands.add(new UndoGameCmd("undogame", "undogame <número>", new String[]{}, "Desfazer a pontuação de um jogo", CommandSubsystem.GAME));
+        commands.add(new WinCmd("win", "win <ID/menção>", new String[]{}, "Dar ao jogador especificado +1 vitória e elo (depende da classificação). Este comando deve ser usado APENAS quando '=score' não funcionar ou para fins de teste", CommandSubsystem.GAME));
+        commands.add(new LoseCmd("lose", "lose <ID/menção>", new String[]{}, "Dar ao jogador especificado +1 derrota e -elo (depende da classificação). Este comando deve ser usado APENAS quando '=score' não funcionar ou para fins de teste", CommandSubsystem.GAME));
+        commands.add(new ForceVoidCmd("forcevoid", "forcevoid [jogo]", new String[]{"fv"}, "Cancelar forçadamente um jogo (comando de staff)", CommandSubsystem.GAME));
 
-        commands.add(new AddQueueCmd("addqueue", "addqueue <vc ID> <playersEachTeam> <pickingMode (AUTOMATIC/CAPTAINS)> <casual (true/false)>", new String[]{"addq"}, "Add a ranked/casual queue", CommandSubsystem.UTILITIES));
-        commands.add(new DeleteQueueCmd("deletequeue", "deletequeue <vc ID>", new String[]{"delq", "delqueue"}, "Delete a ranked/casual queue", CommandSubsystem.UTILITIES));
-        commands.add(new QueuesCmd("queues", "queues", new String[]{}, "View info about all server queues and some info about them", CommandSubsystem.UTILITIES));
-        commands.add(new AddRankCmd("addrank", "addrank <role ID/mention> <starting elo> <ending elo> <win elo> <lose elo> <mvp elo>", new String[]{"addr"}, "Add a rank", CommandSubsystem.UTILITIES));
-        commands.add(new DeleteRankCmd("deleterank", "deleterank <role ID/mention>", new String[]{"delr", "delrank"}, "Delete a rank", CommandSubsystem.UTILITIES));
-        commands.add(new RanksCmd("ranks", "ranks", new String[]{}, "View all ranks and info about them", CommandSubsystem.UTILITIES));
-        commands.add(new MapsCmd("maps", "maps", new String[]{}, "View all maps and info about them", CommandSubsystem.UTILITIES));
-        commands.add(new GiveThemeCmd("givetheme", "givetheme <ID/mention> <theme>", new String[]{}, "Give specified player access to a theme", CommandSubsystem.UTILITIES));
-        commands.add(new RemoveThemeCmd("removetheme", "removetheme <ID/mention> <theme>", new String[]{}, "Remove specified player's access to a theme", CommandSubsystem.UTILITIES));
-        commands.add(new ThemeCmd("theme", "theme <theme/\"list\">", new String[]{}, "Select a theme or use \"list\" to view all themes", CommandSubsystem.UTILITIES));
-        commands.add(new LevelsCmd("levels", "levels", new String[]{}, "View all levels and info about them", CommandSubsystem.UTILITIES));
-        commands.add(new SSCloseCmd("screenshareclose", "screenshareclose <reason (outcome)>", new String[]{"ssclose"}, "Close a screenshare channel", CommandSubsystem.UTILITIES));
+        commands.add(new AddQueueCmd("addqueue", "addqueue <ID do canal de voz> <jogadores por equipe> <modo de escolha (AUTOMATIC/CAPTAINS)> <casual (true/false)>", new String[]{"addq"}, "Adicionar uma fila ranqueada/casual", CommandSubsystem.UTILITIES));
+        commands.add(new DeleteQueueCmd("deletequeue", "deletequeue <ID do canal de voz>", new String[]{"delq", "delqueue"}, "Excluir uma fila ranqueada/casual", CommandSubsystem.UTILITIES));
+        commands.add(new QueuesCmd("queues", "queues", new String[]{}, "Veja informações sobre todas as filas do servidor", CommandSubsystem.UTILITIES));
+        commands.add(new AddRankCmd("addrank", "addrank <ID/menção do cargo> <elo inicial> <elo final> <elo por vitória> <elo por derrota> <elo de MVP>", new String[]{"addr"}, "Adicionar uma classificação", CommandSubsystem.UTILITIES));
+        commands.add(new DeleteRankCmd("deleterank", "deleterank <ID/menção do cargo>", new String[]{"delr", "delrank"}, "Excluir uma classificação", CommandSubsystem.UTILITIES));
+        commands.add(new RanksCmd("ranks", "ranks", new String[]{}, "Veja todas as classificações e informações sobre elas", CommandSubsystem.UTILITIES));
+        commands.add(new MapsCmd("maps", "maps", new String[]{}, "Veja todos os mapas e informações sobre eles", CommandSubsystem.UTILITIES));
+        commands.add(new GiveThemeCmd("givetheme", "givetheme <ID/menção> <tema>", new String[]{}, "Dar ao jogador especificado acesso a um tema", CommandSubsystem.UTILITIES));
+        commands.add(new RemoveThemeCmd("removetheme", "removetheme <ID/menção> <tema>", new String[]{}, "Remover o acesso a um tema do jogador especificado", CommandSubsystem.UTILITIES));
+        commands.add(new ThemeCmd("theme", "theme <tema/\"lista\">", new String[]{}, "Selecionar um tema ou usar \"lista\" para ver todos os temas", CommandSubsystem.UTILITIES));
+        commands.add(new LevelsCmd("levels", "levels", new String[]{}, "Veja todos os níveis e informações sobre eles", CommandSubsystem.UTILITIES));
+        commands.add(new SSCloseCmd("screenshareclose", "screenshareclose <motivo (resultado)>", new String[]{"ssclose"}, "Fechar um canal de screen share", CommandSubsystem.UTILITIES));
 
-        commands.add(new BanCmd("ban", "ban <ID/mention> <time> <reason>", new String[]{}, "Ban a player from queueing", CommandSubsystem.MODERATION));
-        commands.add(new UnbanCmd("unban", "unban <ID/mention>", new String[]{}, "Unban a banned player", CommandSubsystem.MODERATION));
-        commands.add(new BanInfoCmd("baninfo", "baninfo <ID/mention>", new String[]{}, "View info about a specific ban", CommandSubsystem.MODERATION));
-        commands.add(new StrikeCmd("strike", "strike <ID/mention> <reason>", new String[]{}, "Strike a player - take away elo + ban from queueing (depends on how many strikes the player already has)", CommandSubsystem.MODERATION));
+        commands.add(new BanCmd("ban", "ban <ID/menção> <tempo> <motivo>", new String[]{}, "Banir um jogador de entrar na fila", CommandSubsystem.MODERATION));
+        commands.add(new UnbanCmd("unban", "unban <ID/menção>", new String[]{}, "Desbanir um jogador banido", CommandSubsystem.MODERATION));
+        commands.add(new BanInfoCmd("baninfo", "baninfo <ID/menção>", new String[]{}, "Ver informações sobre um banimento específico", CommandSubsystem.MODERATION));
+        commands.add(new StrikeCmd("strike", "strike <ID/menção> <motivo>", new String[]{}, "Dar uma penalidade a um jogador - tirar elo e banir da fila (depende de quantas penalidades o jogador já tem)", CommandSubsystem.MODERATION));
 
-        commands.add(new ClanCreateCmd("clancreate", "clancreate <name>", new String[]{"ccreate"}, "Create a clan", CommandSubsystem.CLAN));
-        commands.add(new ClanDisbandCmd("clandisband", "clandisband", new String[]{"cdisband"}, "Disband the clan you're in (if you're the leader)", CommandSubsystem.CLAN));
-        commands.add(new ClanInviteCmd("claninvite", "claninvite <ID/mention>", new String[]{"cinvite"}, "Invite a player to your clan (invites expire every time the bot is restarted)", CommandSubsystem.CLAN));
-        commands.add(new ClanJoinCmd("clanjoin", "clanjoin <name>", new String[]{"cjoin"}, "Join a clan (if you're invited)", CommandSubsystem.CLAN));
-        commands.add(new ClanLeaveCmd("clanleave", "clanleave", new String[]{"cleave"}, "Leave the clan you're currently in (if you're not the leader)", CommandSubsystem.CLAN));
-        commands.add(new ClanStatsCmd("clanstats", "clanstats [name]", new String[]{"cstats"}, "View stats/info about a certain clan", CommandSubsystem.CLAN));
-        commands.add(new ClanInfoCmd("claninfo", "claninfo [name]", new String[]{"cinfo"}, "View all of the info that doesn't show up in `=cstats` ab your/someone's clan", CommandSubsystem.CLAN));
-        commands.add(new ClanKickCmd("clankick", "clankick <ID/mention>", new String[]{"ckick"}, "Kick a player from your clan", CommandSubsystem.CLAN));
-        commands.add(new ClanSettingsCmd("clansettings", "clansettings <setting> <value>", new String[]{"csettings"}, "Modify settings for your clan", CommandSubsystem.CLAN));
-        commands.add(new ClanListCmd("clanlist", "clanlist", new String[]{"clist"}, "View a list of all the clans in the server", CommandSubsystem.CLAN));
-        commands.add(new ClanLBCmd("clanlb", "clanlb", new String[]{"clb", "clanleaderboard", "cleaderboard"}, "View top reputation clans leaderboard", CommandSubsystem.CLAN));
-        commands.add(new ClanForceDisbandCmd("clanforcedisband", "clanforcedisband <name>", new String[]{"cfdisband"}, "Forcefully disband a clan", CommandSubsystem.CLAN));
+        commands.add(new ClanCreateCmd("clancreate", "clancreate <nome>", new String[]{"ccreate"}, "Criar um clã", CommandSubsystem.CLAN));
+        commands.add(new ClanDisbandCmd("clandisband", "clandisband", new String[]{"cdisband"}, "Dissolver o clã que você está (se for o líder)", CommandSubsystem.CLAN));
+        commands.add(new ClanInviteCmd("claninvite", "claninvite <ID/menção>", new String[]{"cinvite"}, "Convidar um jogador para o seu clã (convites expiram toda vez que o bot é reiniciado)", CommandSubsystem.CLAN));
+        commands.add(new ClanJoinCmd("clanjoin", "clanjoin <nome>", new String[]{"cjoin"}, "Entrar em um clã (se for convidado)", CommandSubsystem.CLAN));
+        commands.add(new ClanLeaveCmd("clanleave", "clanleave", new String[]{"cleave"}, "Sair do clã que você está atualmente (se não for o líder)", CommandSubsystem.CLAN));
+        commands.add(new ClanStatsCmd("clanstats", "clanstats [nome]", new String[]{"cstats"}, "Veja estatísticas/informações sobre um determinado clã", CommandSubsystem.CLAN));
+        commands.add(new ClanInfoCmd("claninfo", "claninfo [nome]", new String[]{"cinfo"}, "Veja todas as informações que não aparecem em `=cstats` sobre o seu clã ou o de alguém", CommandSubsystem.CLAN));
+        commands.add(new ClanKickCmd("clankick", "clankick <ID/menção>", new String[]{"ckick"}, "Expulsar um jogador do seu clã", CommandSubsystem.CLAN));
+        commands.add(new ClanSettingsCmd("clansettings", "clansettings <configuração> <valor>", new String[]{"csettings"}, "Modificar configurações do seu clã", CommandSubsystem.CLAN));
+        commands.add(new ClanListCmd("clanlist", "clanlist", new String[]{"clist"}, "Ver uma lista de todos os clãs no servidor", CommandSubsystem.CLAN));
+        commands.add(new ClanLBCmd("clanlb", "clanlb", new String[]{"clb", "clanleaderboard", "cleaderboard"}, "Ver o ranking de clãs com maior reputação", CommandSubsystem.CLAN));
+        commands.add(new ClanForceDisbandCmd("clanforcedisband", "clanforcedisband <nome>", new String[]{"cfdisband"}, "Dissolver forçadamente um clã", CommandSubsystem.CLAN));
 
-        commands.add(new CWCreateCmd("cwcreate", "cwcreate <players in team> <min clans> <max clans> <win xp> <win gold>", new String[]{""}, "Host a clan war", CommandSubsystem.CLANWAR));
-        commands.add(new CWCancelCmd("cwcancel", "cwcancel <number>", new String[]{""}, "Cancel a clan war", CommandSubsystem.CLANWAR));
-        commands.add(new CWRegisterCmd("cwregister", "cwregister <IDs/mentions>", new String[]{""}, "Register your clan team for the clan war", CommandSubsystem.CLANWAR));
-        commands.add(new CWUnregisterCmd("cwunregister", "cwunregister", new String[]{""}, "Unregister your clan team for the clan war", CommandSubsystem.CLANWAR));
-        commands.add(new CWStartCmd("cwstart", "cwstart", new String[]{""}, "Start the current clan war", CommandSubsystem.CLANWAR));
+        commands.add(new CWCreateCmd("cwcreate", "cwcreate <jogadores em cada equipe> <mínimo de clãs> <máximo de clãs> <xp por vitória> <ouro por vitória>", new String[]{""}, "Organizar uma guerra de clãs", CommandSubsystem.CLANWAR));
+        commands.add(new CWCancelCmd("cwcancel", "cwcancel <número>", new String[]{""}, "Cancelar uma guerra de clãs", CommandSubsystem.CLANWAR));
+        commands.add(new CWRegisterCmd("cwregister", "cwregister <IDs/menções>", new String[]{""}, "Registrar sua equipe de clã para a guerra de clãs", CommandSubsystem.CLANWAR));
+        commands.add(new CWUnregisterCmd("cwunregister", "cwunregister", new String[]{""}, "Cancelar o registro da sua equipe de clã para a guerra de clãs", CommandSubsystem.CLANWAR));
+        commands.add(new CWStartCmd("cwstart", "cwstart", new String[]{""}, "Iniciar a guerra de clãs atual", CommandSubsystem.CLANWAR));
     }
 
     @Override
@@ -153,13 +153,13 @@ public class CommandManager extends ListenerAdapter {
         }
 
         if (command == null) {
-            Embed embed = new Embed(EmbedType.ERROR, "Command not found", "Use `=help` to view all the available commands", 1);
+            Embed embed = new Embed(EmbedType.ERROR, "Comando não encontrado", "Use `=help` para ver todos os comandos", 1);
             msg.replyEmbeds(embed.build()).queue();
             return;
         }
 
         if (!checkPerms(command, m, g)) {
-            Embed reply = new Embed(EmbedType.ERROR, "No Permission", Msg.getMsg("no-perms"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Sem Permissão", Msg.getMsg("no-perms"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -167,8 +167,6 @@ public class CommandManager extends ListenerAdapter {
         if (Boolean.parseBoolean(Config.getValue("log-commands"))) {
             System.out.println("[RankedBW] " + m.getUser() .getAsTag() + " used " + msg.getContentRaw());
         }
-
-
 
         command.execute(args, g, m, c, msg);
     }

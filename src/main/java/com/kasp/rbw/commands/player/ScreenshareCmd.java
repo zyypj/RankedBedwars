@@ -23,13 +23,13 @@ public class ScreenshareCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length < 3) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (msg.getAttachments().size() != Integer.parseInt(Config.getValue("ss-attachments"))) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", "You need to attach " + Config.getValue("ss-attachments") + " images for proof", 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você precisa de " + Config.getValue("ss-attachments") + " imagens como prova", 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -38,7 +38,7 @@ public class ScreenshareCmd extends Command {
         String reason = msg.getContentRaw().replaceAll(args[0], "").replaceAll(args[1], "").trim();
 
         if (sender == guild.retrieveMemberById(ID).complete()) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("ss-self"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("ss-self"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -57,10 +57,10 @@ public class ScreenshareCmd extends Command {
         Timer timer = new Timer();
         timer.schedule(task, Integer.parseInt(Config.getValue("time-till-unfrozen")) * 60000L);
 
-        Embed embed = new Embed(EmbedType.ERROR, "DON'T LOG OFF", "", 1);
-        embed.setDescription(guild.retrieveMemberById(ID).complete().getAsMention() + " you have been SS requested\nDO NOT log off or modify/delete any files on your pc\n" +
-                "if no screensharer turns up, you're free to go after " + Config.getValue("time-till-unfrozen") + "mins\n\n" +
-                "**SS reason**: " + reason + "\n\n**Requested by**: " + sender.getAsMention());
+        Embed embed = new Embed(EmbedType.ERROR, "NÃO SAIA DO SERVIDOR", "", 1);
+        embed.setDescription(guild.retrieveMemberById(ID).complete().getAsMention() + " você foi chamado para uma SS\nNÃO SAIA ou modifique/delete qualquer arquivo no seu pc\n" +
+                "se o staff não aparecer, você está livre para sair em " + Config.getValue("time-till-unfrozen") + "mins\n\n" +
+                "**Motivo SS**: " + reason + "\n\n**Pedido por**: " + sender.getAsMention());
 
         guild.getTextChannelById(Config.getValue("ssreq-channel")).sendMessage(guild.retrieveMemberById(ID).complete().getAsMention()).setEmbeds(embed.build()).queue();
 

@@ -24,7 +24,7 @@ public class RanksCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 1) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -50,13 +50,13 @@ public class RanksCmd extends Command {
         Embed embed;
 
         if (ranks.size() == 0) {
-            embed = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("no-ranks"), 1);
+            embed = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("no-ranks"), 1);
         }
         else {
             for (String role : ranks) {
                 display += role.replaceAll("\\{", "**").replaceAll("}", "") + "\n";
             }
-            embed = new Embed(EmbedType.DEFAULT, "All Ranks", display, 1);
+            embed = new Embed(EmbedType.DEFAULT, "Todos Ranks", display, 1);
         }
 
         msg.replyEmbeds(embed.build()).queue();

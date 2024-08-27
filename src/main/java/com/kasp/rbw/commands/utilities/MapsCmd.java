@@ -20,23 +20,23 @@ public class MapsCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 1) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         String maps = "";
         for (GameMap m : MapCache.getMaps().values()) {
-            maps += "`[" + m.getArenaState() + "]` " + "**" + m.getName() + "** `(" + m.getMaxPlayers() + "v" + m.getMaxPlayers() + ")` — Height: " + m.getHeight() + " (" + m.getTeam1() + " vs " + m.getTeam2() + ")\n";
+            maps += "`[" + m.getArenaState() + "]` " + "**" + m.getName() + "** `(" + m.getMaxPlayers() + "v" + m.getMaxPlayers() + ")` — Altura: " + m.getHeight() + " (" + m.getTeam1() + " vs " + m.getTeam2() + ")\n";
         }
 
         Embed embed;
 
         if (maps.equals("")) {
-            embed = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("no-maps"), 1);
+            embed = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("no-maps"), 1);
         }
         else {
-            embed = new Embed(EmbedType.DEFAULT, "All maps", maps, 1);
+            embed = new Embed(EmbedType.DEFAULT, "Todos mapas", maps, 1);
         }
 
         msg.replyEmbeds(embed.build()).queue();

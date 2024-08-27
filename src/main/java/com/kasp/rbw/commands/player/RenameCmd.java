@@ -30,15 +30,15 @@ public class RenameCmd extends Command {
 
         Embed reply;
         if (code != -1) {
-            reply = new Embed(EmbedType.SUCCESS, "Complete Registration",
-                    "**Please follow these steps**\n" +
-                            "`1` Log onto `" + Config.getValue("server-ip") + "` mc server\n" +
-                            "`2` Use `/rename " + code + "` there\n\n" +
-                            "**This code will be deleted after 5 minutes**\n" +
-                            "To generate a new code simply use `=rename` again", 1);
+            reply = new Embed(EmbedType.SUCCESS, "Completar o Registro",
+                    "**Siga as Instruções**\n" +
+                            "`1` Logue em `" + Config.getValue("server-ip") + "`\n" +
+                            "`2` Use `/rename " + code + "` ali\n\n" +
+                            "**Esse código será apagado em 5 minutos**\n" +
+                            "Para gerar um novo, use `=rename` novamente", 1);
         }
         else {
-            reply = new Embed(EmbedType.ERROR, "Error", "You have already generated a code\nPlease wait 5 minutes and then try again", 1);
+            reply = new Embed(EmbedType.ERROR, "Erro", "Você já tem um código pendente\nTente novamente em 5 minutos", 1);
         }
 
         msg.replyEmbeds(reply.build()).queue();

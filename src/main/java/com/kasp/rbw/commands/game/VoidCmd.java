@@ -24,13 +24,13 @@ public class VoidCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 1) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (GameCache.getGame(channel.getId()) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-game-channel"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-game-channel"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -39,8 +39,8 @@ public class VoidCmd extends Command {
 
         int number = game.getNumber();
 
-        Embed embed = new Embed(EmbedType.DEFAULT, "Game`#" + number + "` Voiding", "votes will be counted in `30s`", 1);
-        embed.addField("Requested by: ", sender.getAsMention(), false);
+        Embed embed = new Embed(EmbedType.DEFAULT, "Jogo `#" + number + "` Voiding", "votos contados em `30s`", 1);
+        embed.addField("Pedido por: ", sender.getAsMention(), false);
         channel.sendMessageEmbeds(embed.build()).queue(message -> {
             message.addReaction("✔").queue();
             message.addReaction("❌").queue();
@@ -52,14 +52,14 @@ public class VoidCmd extends Command {
                     Message message1 = channel.retrieveMessageById(message.getId()).complete();
 
                     if (message1.getReactions().get(0).getCount() - 1 < message1.getReactions().get(1).getCount()) {
-                        Embed reply = new Embed(EmbedType.ERROR, "", "Voiding has been cancelled", 1);
+                        Embed reply = new Embed(EmbedType.ERROR, "", "Voiding foi cancelado", 1);
                         msg.replyEmbeds(reply.build()).queue();
                         return;
                     }
 
-                    Embed done = new Embed(EmbedType.DEFAULT, "Game`#" + number + "` Has Been Voided", "if this command was abused, please screenshot this and make a report ticket\n\ngame channel closing in `60s`", 1);
+                    Embed done = new Embed(EmbedType.DEFAULT, "Jogo `#" + number + "` Foi Voided", "se esse comando for mal utilizado, /*por favor, tire print e nos mande em ticket\n\ncanal sendo excluido em `60s`", 1);
 
-                    done.addField("Requested by: ", sender.getAsMention(), false);
+                    done.addField("Pedido por: ", sender.getAsMention(), false);
                     game.setState(GameState.VOIDED);
                     game.setScoredBy(sender);
 

@@ -21,7 +21,7 @@ public class ForceVoidCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length > 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -30,7 +30,7 @@ public class ForceVoidCmd extends Command {
 
         if (args.length == 1) {
             if (GameCache.getGame(channel.getId()) == null) {
-                Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-game-channel"), 1);
+                Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-game-channel"), 1);
                 msg.replyEmbeds(reply.build()).queue();
                 return;
             }
@@ -46,8 +46,8 @@ public class ForceVoidCmd extends Command {
 
         game.closeChannel(60);
 
-        Embed done = new Embed(EmbedType.DEFAULT, "Game`#" + game.getNumber() + "` Has Been Voided", "if this command was abused, please screenshot this and make a report ticket\n\ngame channel closing in `60s`", 1);
-        done.addField("Voided by: ", sender.getAsMention(), false);
+        Embed done = new Embed(EmbedType.DEFAULT, "Jogo `#" + game.getNumber() + "` Foi Voidado", "se esse comando for mal utilizado, /*por favor, tire print e nos mande em ticket\n*/\ncanal sendo excluido em `60s`", 1);
+        done.addField("Voidado por: ", sender.getAsMention(), false);
 
         msg.replyEmbeds(done.build()).queue();
     }

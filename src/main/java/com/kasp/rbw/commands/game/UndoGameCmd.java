@@ -24,7 +24,7 @@ public class UndoGameCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -32,7 +32,7 @@ public class UndoGameCmd extends Command {
         int number = Integer.parseInt(args[1]);
 
         if (GameCache.getGame(number) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("invalid-game"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("invalid-game"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -40,19 +40,19 @@ public class UndoGameCmd extends Command {
         Game game = GameCache.getGame(number);
 
         if (game.getState() != GameState.SCORED) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-scored"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-scored"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         game.undo();
 
-        Embed embed = new Embed(EmbedType.SUCCESS, "Game `#" + game.getNumber() + "` has been undone", "You can re-score it by simply using `=score` again", 1);
+        Embed embed = new Embed(EmbedType.SUCCESS, "Jogo `#" + game.getNumber() + "` foi despontoado", "você pode pontuar novamente usando `=score` de novo", 1);
         msg.replyEmbeds(embed.build()).queue();
 
         embed.setType(EmbedType.ERROR);
 
-        embed.addField("Unscored By", sender.getAsMention(), false);
+        embed.addField("Despontoado por", sender.getAsMention(), false);
         embed.setDescription("");
 
         if (!Objects.equals(Config.getValue("scored-announcing"), null)) {

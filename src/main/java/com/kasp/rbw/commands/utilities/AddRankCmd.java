@@ -18,7 +18,7 @@ public class AddRankCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 7) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -28,13 +28,13 @@ public class AddRankCmd extends Command {
         try {role = guild.getRoleById(ID);}catch (Exception ignored){}
 
         if (role == null) {
-            Embed error = new Embed(EmbedType.ERROR, "", Msg.getMsg("invalid-role"), 1);
+            Embed error = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("invalid-role"), 1);
             msg.replyEmbeds(error.build()).queue();
             return;
         }
 
         if (RankCache.containsRank(ID)) {
-            Embed error = new Embed(EmbedType.ERROR, "", Msg.getMsg("rank-already-exists"), 1);
+            Embed error = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("rank-already-exists"), 1);
             msg.replyEmbeds(error.build()).queue();
             return;
         }
@@ -48,8 +48,8 @@ public class AddRankCmd extends Command {
         SQLUtilsManager.createRank(ID, startingElo, endingElo, winElo, loseElo, mvpElo);
         new Rank(ID);
 
-        Embed success = new Embed(EmbedType.SUCCESS, "✅ successfully added `" + role.getName() + "` rank", "", 1);
-        success.addField("Role:", role.getAsMention(), true);
+        Embed success = new Embed(EmbedType.SUCCESS, "✅ rank `" + role.getName() + "` adicionado", "", 1);
+        success.addField("Cargo:", role.getAsMention(), true);
         success.addField("Starting elo:", startingElo, true);
         success.addField("Ending elo:", endingElo, true);
         success.addField("Win elo:", "+" + winElo, true);

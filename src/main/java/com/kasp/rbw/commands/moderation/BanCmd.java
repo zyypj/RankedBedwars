@@ -24,7 +24,7 @@ public class BanCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length < 4) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -50,18 +50,18 @@ public class BanCmd extends Command {
         }
 
         if (player.ban(unban, reason)) {
-            Embed embed = new Embed(EmbedType.DEFAULT, "`" + player.getIgn() + " has been banned`", "Please do `=fix` if you're still not unbanned after the time is over\nIf you think this is a false ban feel free to appeal / contact staff", 1);
-            embed.addField("Ban duration", duration, false);
-            embed.addField("Reason", reason, false);
+            Embed embed = new Embed(EmbedType.DEFAULT, "`" + player.getIgn() + " foi banido`", "Use `=fix` quando o tempo de punição acabar para retirar o banimento\nSe você acha que foi um banimento errado, abra um ticket", 1);
+            embed.addField("Duração", duration, false);
+            embed.addField("Motivo", reason, false);
 
             if (!Objects.equals(Config.getValue("ban-channel"), null)) {
                 guild.getTextChannelById(Config.getValue("ban-channel")).sendMessageEmbeds(embed.build()).queue();
             }
 
-            Embed success = new Embed(EmbedType.SUCCESS, "", "You have banned <@!" + ID + "> for `" + duration + "`\n**Reason:** " + reason, 1);
+            Embed success = new Embed(EmbedType.SUCCESS, "", "Você foi banido <@!" + ID + "> por `" + duration + "`\n**Motivo:** " + reason, 1);
             msg.replyEmbeds(success.build()).queue();
         } else {
-            Embed error = new Embed(EmbedType.ERROR, "", "This player is already banned\nReason: `" + player.getBanReason() + "`", 1);
+            Embed error = new Embed(EmbedType.ERROR, "", "Esse jogador já está banido\nMotivo: `" + player.getBanReason() + "`", 1);
             msg.replyEmbeds(error.build()).queue();
         }
     }

@@ -23,7 +23,7 @@ public class PartyListCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length > 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -40,10 +40,10 @@ public class PartyListCmd extends Command {
         if (PartyCache.getParty(PlayerCache.getPlayer(ID)) == null) {
             Embed reply;
             if (args.length == 1) {
-                reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-in-party"), 1);
+                reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-in-party"), 1);
             }
             else {
-                reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("player-not-in-party"), 1);
+                reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("player-not-in-party"), 1);
             }
 
             msg.replyEmbeds(reply.build()).queue();
@@ -53,7 +53,7 @@ public class PartyListCmd extends Command {
 
         Party party = PartyCache.getParty(PlayerCache.getPlayer(ID));
 
-        String title = "players `[" + party.getMembers().size() + "/" + Config.getValue("max-party-members") + "]`";
+        String title = "jogadores `[" + party.getMembers().size() + "/" + Config.getValue("max-party-members") + "]`";
         String players = "";
 
         for (Player p : party.getMembers()) {
@@ -70,7 +70,7 @@ public class PartyListCmd extends Command {
         embed.addField(title, players, false);
 
         if (!invited.equals("")) {
-            embed.addField("Invited", invited, false);
+            embed.addField("Convidados", invited, false);
         }
 
         msg.replyEmbeds(embed.build()).queue();

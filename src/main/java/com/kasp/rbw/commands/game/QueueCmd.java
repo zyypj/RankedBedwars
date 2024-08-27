@@ -21,13 +21,13 @@ public class QueueCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 1) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Invalidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         if (GameCache.getGame(channel.getId()) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-game-channel"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-game-channel"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -50,11 +50,11 @@ public class QueueCmd extends Command {
             remaining += "• <@" + p.getID() + ">\n";
         }
 
-        Embed embed = new Embed(EmbedType.DEFAULT, "Game`#" + number + "` Queue", "", 1);
-        embed.addField("Team 1", t1, true);
-        embed.addField("Team 2", t2, true);
+        Embed embed = new Embed(EmbedType.DEFAULT, "Jogo `#" + number + "` Queue", "", 1);
+        embed.addField("Time 1", t1, true);
+        embed.addField("Time 2", t2, true);
         if (!remaining.equals("")) {
-            embed.addField("Remaining", remaining, false);
+            embed.addField("Restando", remaining, false);
         }
         msg.replyEmbeds(embed.build()).queue();
     }

@@ -27,7 +27,7 @@ public class PartyInviteCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -35,7 +35,7 @@ public class PartyInviteCmd extends Command {
         Player player = PlayerCache.getPlayer(sender.getId());
 
         if (PartyCache.getParty(player) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-in-party"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-in-party"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -43,7 +43,7 @@ public class PartyInviteCmd extends Command {
         Party party = PartyCache.getParty(player);
 
         if (party.getLeader() != player) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-party-leader"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-party-leader"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -59,20 +59,20 @@ public class PartyInviteCmd extends Command {
         Player invited = PlayerCache.getPlayer(ID);
 
         if (party.getInvitedPlayers().contains(invited)) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("player-already-invited"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("player-already-invited"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
 
         party.invite(invited);
 
-        Embed reply = new Embed(EmbedType.SUCCESS, "", "Player <@" + ID + "> has been invited to your party. They have `" + Config.getValue("invite-expiration") + "` mins to accept the invite", 1);
+        Embed reply = new Embed(EmbedType.SUCCESS, "", "Jogador <@" + ID + "> foi convidado para sua party. Ele tem `" + Config.getValue("invite-expiration") + "` minutos para aceitar o convite", 1);
         msg.replyEmbeds(reply.build()).queue();
 
         List<Button> buttons = new ArrayList<>();
-        buttons.add(Button.primary("rankedbot-pinvitation-" + player.getID() + "=" + invited.getID(), "Accept Invitation"));
+        buttons.add(Button.primary("rankedbot-pinvitation-" + player.getID() + "=" + invited.getID(), "Aceitar Convite"));
 
-        Embed embed = new Embed(EmbedType.DEFAULT, "", "You have been invited to join <@" + sender.getId() + ">'s party\nType `=pjoin " + sender.getId() + "` or click the button below to join it\nThis invite expires after `" + Config.getValue("invite-expiration") + "` mins", 1);
+        Embed embed = new Embed(EmbedType.DEFAULT, "", "Você foi convidado para por <@" + sender.getId() + ">\nEscreva `=pjoin " + sender.getId() + "` ou clique no botão abaixo\nEsse convite dura `" + Config.getValue("invite-expiration") + "` minutos", 1);
         channel.sendMessage("<@" + ID + ">").setEmbeds(embed.build()).setActionRow(buttons).queue();
     }
 }

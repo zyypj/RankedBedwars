@@ -40,7 +40,7 @@ public class ClanStatsCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length > 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -51,7 +51,7 @@ public class ClanStatsCmd extends Command {
                 clanName = ClanCache.getClan(PlayerCache.getPlayer(sender.getId())).getName();
             }
             else {
-                Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-in-clan"), 1);
+                Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-in-clan"), 1);
                 msg.replyEmbeds(reply.build()).queue();
                 return;
             }
@@ -60,7 +60,7 @@ public class ClanStatsCmd extends Command {
         }
 
         if (ClanCache.getClan(clanName) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Clan", Msg.getMsg("clan-doesnt-exist"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Clan Inválido", Msg.getMsg("clan-doesnt-exist"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -109,7 +109,7 @@ public class ClanStatsCmd extends Command {
                 try {
                     skin = ImageIO.read(new URL(skinlink));
                 } catch (Exception e) {
-                    Embed embed = new Embed(EmbedType.ERROR, "Something went wrong...", "Please try executing this command again", 1);
+                    Embed embed = new Embed(EmbedType.ERROR, "Algo deu errado...", "Tente executar esse comando novamente", 1);
                     msg.replyEmbeds(embed.build()).queue();
                     return;
                 }

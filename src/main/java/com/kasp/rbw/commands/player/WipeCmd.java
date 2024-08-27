@@ -21,7 +21,7 @@ public class WipeCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length < 2) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -29,10 +29,10 @@ public class WipeCmd extends Command {
         if (args[1].equals("everyone")) {
             double time = SQLPlayerManager.getPlayerSize() / 20.0;
 
-            Embed reply = new Embed(EmbedType.DEFAULT, "Resetting everyone's stats...", "`Check console for more details`", 1);
-            reply.addField("WARNING", "please do not use any other cmd during the reset\nit might result in errors / slower resetting", false);
-            reply.addField("Estimated time", time + " second(s) `(" + SQLPlayerManager.getPlayerSize() + " players)`", false);
-            reply.addField("Reset by:", sender.getAsMention(), true);
+            Embed reply = new Embed(EmbedType.DEFAULT, "Resetando todos os stats...", "`Cheque o Console para mais informações`", 1);
+            reply.addField("AVISO", "não use outro comando por enquant\nisso resulta em erros", false);
+            reply.addField("Tempo Estimado", time + " segundo(s) `(" + SQLPlayerManager.getPlayerSize() + " jogadores)`", false);
+            reply.addField("Resetado por:", sender.getAsMention(), true);
             msg.replyEmbeds(reply.build()).queue();
             long start = System.currentTimeMillis();
 
@@ -41,13 +41,13 @@ public class WipeCmd extends Command {
                 if (guild.getMemberById(p.getID()) != null) {
                     p.fix();
                 }
-                System.out.println("[=wipe] successfully reset " + p.getIgn() + " (" + p.getID() + ")");
+                System.out.println("[=wipe] reset sucedido de " + p.getIgn() + " (" + p.getID() + ")");
             }
 
             long end = System.currentTimeMillis();
             float elapsedTime = (end - start) / 1000F;
 
-            Embed success = new Embed(EmbedType.SUCCESS, "All stats were successfully reset", "", 1);
+            Embed success = new Embed(EmbedType.SUCCESS, "Todos os stats foram resetados", "", 1);
             success.addField("Resetting took", "`" + elapsedTime + "` seconds `(" + SQLPlayerManager.getPlayerSize() + " players)`", true);
             success.addField("Reset by:", sender.getAsMention(), true);
             msg.replyEmbeds(success.build()).queue();

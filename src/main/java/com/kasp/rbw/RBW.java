@@ -40,7 +40,7 @@ public final class RBW extends JavaPlugin {
 
     public static JDA jda;
 
-    public static String version = "1.1.4";
+    public static String version = "2.0";
     public static Guild guild;
 
     @Override
@@ -161,14 +161,14 @@ public final class RBW extends JavaPlugin {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println("[!] There was a problem loading all data. Please make a bug report on support discord asap");
+                    System.out.println("[!] There was a problem loading all data.");
                 }
 
                 for (String s : ranks) {
                     try {
                         new Rank(s);
                     } catch (Exception e) {
-                        System.out.println("[!] a rank could not be loaded! Please make a bug report on support discord asap");
+                        System.out.println("[!] a rank could not be loaded!");
                     }
                 }
 
@@ -176,16 +176,16 @@ public final class RBW extends JavaPlugin {
                     try {
                         new GameMap(s);
                     } catch (Exception e) {
-                        System.out.println("[!] a map could not be loaded! Please make a bug report on support discord asap");
+                        System.out.println("[!] a map could not be loaded!");
                     }
                 }*/
 
                 for (IArena arena : bedwarsAPI.getArenaUtil().getArenas()) {
-                    if (arena.getGroup().startsWith("rbw")) {
+                    if (arena.getGroup().equalsIgnoreCase("Ranked4s")) {
                         try {
                             new GameMap(arena.getArenaName());
                         } catch (Exception e) {
-                            System.out.println("[!] a map could not be loaded! Please make a bug report on support discord asap");
+                            System.out.println("[!] a map could not be loaded!");
                         }
                     }
                 }
@@ -194,7 +194,7 @@ public final class RBW extends JavaPlugin {
                     try {
                         new Queue(s);
                     } catch (Exception e) {
-                        System.out.println("[!] a queue could not be loaded! Please make a bug report on support discord asap");
+                        System.out.println("[!] a queue could not be loaded!");
                     }
                 }
 
@@ -202,7 +202,7 @@ public final class RBW extends JavaPlugin {
                     try {
                         new Player(s);
                     } catch (Exception e) {
-                        System.out.println("[!] a queue could not be loaded! Please make a bug report on support discord asap");
+                        System.out.println("[!] a queue could not be loaded!");
                     }
                 }
 
@@ -210,7 +210,7 @@ public final class RBW extends JavaPlugin {
                     try {
                         new Game(Integer.parseInt(s));
                     } catch (Exception e) {
-                        System.out.println("[!] a game could not be loaded! Please make a bug report on support discord asap");
+                        System.out.println("[!] a game could not be loaded!");
                     }
                 }
 
@@ -218,7 +218,7 @@ public final class RBW extends JavaPlugin {
                     try {
                         new Clan(s);
                     } catch (Exception e) {
-                        System.out.println("[!] a clan could not be loaded! Please make a bug report on support discord asap");
+                        System.out.println("[!] a clan could not be loaded!");
                     }
                 }
 

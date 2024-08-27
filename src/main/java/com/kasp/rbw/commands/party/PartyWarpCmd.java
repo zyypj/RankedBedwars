@@ -22,7 +22,7 @@ public class PartyWarpCmd extends Command {
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
         if (args.length != 1) {
-            Embed reply = new Embed(EmbedType.ERROR, "Invalid Arguments", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -30,7 +30,7 @@ public class PartyWarpCmd extends Command {
         Player player = PlayerCache.getPlayer(sender.getId());
 
         if (PartyCache.getParty(player) == null) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-in-party"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-in-party"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -38,7 +38,7 @@ public class PartyWarpCmd extends Command {
         Party party = PartyCache.getParty(player);
 
         if (party.getLeader() != player) {
-            Embed reply = new Embed(EmbedType.ERROR, "Error", Msg.getMsg("not-party-leader"), 1);
+            Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("not-party-leader"), 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
@@ -58,7 +58,7 @@ public class PartyWarpCmd extends Command {
             embed = new Embed(EmbedType.ERROR, "", Msg.getMsg("couldnt-warp"), 1);
         }
         else {
-            embed = new Embed(EmbedType.SUCCESS, "", "Warped " + warped + " to your vc", 1);
+            embed = new Embed(EmbedType.SUCCESS, "", "Você puxou todos os jogadores da sua party para você", 1);
         }
         msg.replyEmbeds(embed.build()).queue();
     }
