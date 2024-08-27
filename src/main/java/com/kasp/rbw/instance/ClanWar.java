@@ -10,4 +10,9 @@ public class ClanWar {
     private int maxClans;
     private int winXp;
     private int winGold;
+
+    public ClanWar(List<Clan> clans, List<Player> organisers, int minClans, int maxClans, int winXp, int winGold) {
+
+
+    }
 }

@@ -33,6 +33,10 @@ public class SQLClanManager {
         return 0;
     }
 
+    public static void updateReputation(String name) {
+        SQLite.updateData("UPDATE clans SET reputation = '" + ClanCache.getClan(name).getReputation() + "' WHERE name='" + name + "';");
+    }
+
     public static void updateXP(String name) {
         SQLite.updateData("UPDATE clans SET xp = '" + ClanCache.getClan(name).getXp() + "' WHERE name='" + name + "';");
     }

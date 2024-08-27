@@ -170,6 +170,24 @@ public class Clan {
         return losses;
     }
 
+    public void addReputation(int number) {
+        this.reputation = getReputation() + number;
+        SQLClanManager.updateReputation(name);
+    }
+
+    public void removeReputation(int number) {
+        this.reputation = getReputation() - number;
+        if (this.reputation < 0) {
+            this.reputation = 0;
+        }
+        SQLClanManager.updateReputation(name);
+    }
+
+    public void setReputation(int number) {
+        this.reputation = number;
+        SQLClanManager.updateReputation(name);
+    }
+
     public void setPrivate(boolean aPrivate) {
         isPrivate = aPrivate;
         SQLClanManager.updatePrivate(name);
