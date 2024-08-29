@@ -227,7 +227,7 @@ public final class RBW extends JavaPlugin {
                 System.out.println("RankedBedwars has been successfully enabled!");
                 System.out.println("NOTE: this bot can only be in 1 server, otherwise it'll break");
                 System.out.println("don't forget to configure config.yml and permissions.yml before using it\nYou can also edit messages.yml (optional)");
-                System.out.println("");
+                System.out.println(" ");
                 System.out.println("IMPORTANT: if you add/remove maps in-game please restart the bot");
 
                 System.out.println("-------------------------------");
