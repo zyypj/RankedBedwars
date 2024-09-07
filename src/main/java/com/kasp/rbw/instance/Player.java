@@ -1,8 +1,8 @@
 package com.kasp.rbw.instance;
 
-import com.kasp.rbw.EmbedType;
+import com.kasp.rbw.sample.EmbedType;
 import com.kasp.rbw.RBW;
-import com.kasp.rbw.Statistic;
+import com.kasp.rbw.sample.Statistic;
 import com.kasp.rbw.config.Config;
 import com.kasp.rbw.database.SQLPlayerManager;
 import com.kasp.rbw.database.SQLite;
@@ -70,20 +70,22 @@ public class Player {
             this.level = LevelCache.getLevel(resultSet.getInt(17));
             this.xp = resultSet.getInt(18);
             this.theme = ThemeCache.getTheme(resultSet.getString(19));
-
+            
             ownedThemes = new ArrayList<>();
-
+            
             String[] themes = resultSet.getString(20).split(",");
             for (String s : themes) {
                 ownedThemes.add(ThemeCache.getTheme(s));
             }
-
+            
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             this.isBanned = Boolean.parseBoolean(resultSet.getString(21));
             if (isBanned) {
                 this.bannedTill = LocalDateTime.parse(resultSet.getString(22), formatter);
                 this.banReason = resultSet.getString(23);
             }
+            
+            SQLite.closeResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -295,7 +297,7 @@ public class Player {
         if (s == Statistic.ELO) {
             return elo;
         }
-        if (s == Statistic.PEAKELO) {
+        if (s == Statistic.PEAK_ELO) {
             return peakElo;
         }
 
@@ -311,11 +313,11 @@ public class Player {
             return winStreak;
         }
 
-        if (s == Statistic.HIGHESTWS) {
+        if (s == Statistic.HIGHEST_WINSTREAK) {
             return highestWS;
         }
 
-        if (s == Statistic.HIGHESTLS) {
+        if (s == Statistic.HIGHEST_LOSS_STREAK) {
             return highestLS;
         }
 

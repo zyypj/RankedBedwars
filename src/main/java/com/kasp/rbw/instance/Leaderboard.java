@@ -1,6 +1,6 @@
 package com.kasp.rbw.instance;
 
-import com.kasp.rbw.Statistic;
+import com.kasp.rbw.sample.Statistic;
 import com.kasp.rbw.instance.cache.ClanCache;
 import com.kasp.rbw.instance.cache.PlayerCache;
 

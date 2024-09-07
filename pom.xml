@@ -76,11 +76,13 @@
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.32</version>
         </dependency>
+
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
@@ -92,39 +94,44 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.42.0.1</version>
         </dependency>
+
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.15.4</version>
         </dependency>
+
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20230227</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.tomkeuper.bedwars</groupId>
             <artifactId>bedwars-plugin</artifactId>
             <version>1.1.0</version>
             <scope>system</scope>
-            <systemPath>C:/Users/zyypj/Documents/New Projects/Dependency/BedWars2023.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.tomkeuper.bedwars</groupId>
-            <artifactId>bedwars-api</artifactId>
-            <version>1.1.0</version>
-            <scope>system</scope>
-            <systemPath>C:/Users/zyypj/Documents/New Projects/Dependency/BedWars2023.jar</systemPath>
+            <systemPath>C:/Users/isaac/Downloads/BedWars-1.2.0.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

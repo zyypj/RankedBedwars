@@ -1,7 +1,7 @@
 package com.kasp.rbw.commands.player;
 
-import com.kasp.rbw.CommandSubsystem;
-import com.kasp.rbw.EmbedType;
+import com.kasp.rbw.sample.CommandSubsystem;
+import com.kasp.rbw.sample.EmbedType;
 import com.kasp.rbw.commands.Command;
 import com.kasp.rbw.database.SQLPlayerManager;
 import com.kasp.rbw.instance.Embed;

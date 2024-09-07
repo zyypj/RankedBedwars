@@ -76,6 +76,8 @@ public class Clan {
             this.isPrivate = Boolean.parseBoolean(resultSet.getString(9));
             this.eloJoinReq = resultSet.getInt(10);
             this.description = resultSet.getString(11);
+            
+            SQLite.closeResultSet(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

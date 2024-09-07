@@ -1,8 +1,8 @@
 package com.kasp.rbw.commands.utilities;
 
-import com.kasp.rbw.CommandSubsystem;
-import com.kasp.rbw.EmbedType;
-import com.kasp.rbw.PickingMode;
+import com.kasp.rbw.sample.CommandSubsystem;
+import com.kasp.rbw.sample.EmbedType;
+import com.kasp.rbw.sample.PickingMode;
 import com.kasp.rbw.commands.Command;
 import com.kasp.rbw.database.SQLUtilsManager;
 import com.kasp.rbw.instance.Embed;

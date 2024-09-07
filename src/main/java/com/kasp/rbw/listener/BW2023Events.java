@@ -36,45 +36,45 @@ public class BW2023Events implements Listener {
 
     @EventHandler
     public void onGameEnd(GameEndEvent event) {
-        Game game = null;
-
-        for (Game g : GameCache.getGames().values()) {
-            if (g.isCasual()) continue;
-
-            if (g.getNumber() == mapManager.get(event.getArena().getArenaName())) {
-                game = g;
-                break;
-            }
-        }
-
-        if (game != null) {
-            Player maxKills = null;
-            for (Player p : event.getArena().getPlayers()) {
-                if (maxKills == null)
-                    maxKills = p;
-
-                if (event.getArena().getPlayerKills(maxKills, false) + event.getArena().getPlayerKills(maxKills, true) < event.getArena().getPlayerKills(p, false) + event.getArena().getPlayerKills(p, true)) {
-                    maxKills = p;
+            Game game = null;
+    
+            for (Game g : GameCache.getGames().values()) {
+                if (g.isCasual()) continue;
+    
+                if (g.getNumber() == mapManager.get(event.getArena().getArenaName())) {
+                    game = g;
+                    break;
                 }
             }
-
-            com.kasp.rbw.instance.Player mvp = PlayerCache.getPlayerByIgn(maxKills.getName());
-
-            List<com.kasp.rbw.instance.Player> winningTeam;
-            List<com.kasp.rbw.instance.Player> losingTeam;
-
-            // check if arena winners contain the first player from game team1
-            if (event.getWinners().contains(Bukkit.getPlayer(game.getTeam1().get(0).getIgn()).getUniqueId())) {
-                winningTeam = game.getTeam1();
-                losingTeam = game.getTeam2();
+    
+            if (game != null) {
+                Player maxKills = null;
+                for (Player p : event.getArena().getPlayers()) {
+                    if (maxKills == null)
+                        maxKills = p;
+    
+                    if (event.getArena().getPlayerKills(maxKills, false) + event.getArena().getPlayerKills(maxKills, true) < event.getArena().getPlayerKills(p, false) + event.getArena().getPlayerKills(p, true)) {
+                        maxKills = p;
+                    }
+                }
+    
+                com.kasp.rbw.instance.Player mvp = PlayerCache.getPlayerByIgn(maxKills.getName());
+    
+                List<com.kasp.rbw.instance.Player> winningTeam;
+                List<com.kasp.rbw.instance.Player> losingTeam;
+    
+                // check if arena winners contain the first player from game team1
+                if (event.getWinners().contains(Bukkit.getPlayer(game.getTeam1().get(0).getIgn()).getUniqueId())) {
+                    winningTeam = game.getTeam1();
+                    losingTeam = game.getTeam2();
+                }
+                else {
+                    winningTeam = game.getTeam2();
+                    losingTeam = game.getTeam1();
+                }
+    
+                game.scoreGame(winningTeam, losingTeam, mvp, RBW.guild.getMemberById(RBW.jda.getSelfUser().getId()));
             }
-            else {
-                winningTeam = game.getTeam2();
-                losingTeam = game.getTeam1();
-            }
-
-            game.scoreGame(winningTeam, losingTeam, mvp, RBW.guild.getMemberById(RBW.jda.getSelfUser().getId()));
-        }
     }
 
     @EventHandler

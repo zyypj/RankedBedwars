@@ -1,7 +1,7 @@
 package com.kasp.rbw.commands;
 
-import com.kasp.rbw.CommandSubsystem;
-import com.kasp.rbw.EmbedType;
+import com.kasp.rbw.sample.CommandSubsystem;
+import com.kasp.rbw.sample.EmbedType;
 import com.kasp.rbw.RBW;
 import com.kasp.rbw.commands.clan.*;
 import com.kasp.rbw.commands.clanwar.*;

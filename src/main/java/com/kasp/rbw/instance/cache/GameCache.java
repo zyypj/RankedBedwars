@@ -15,14 +15,7 @@ public class GameCache {
     }
 
     public static Game getGame(String channelID) {
-
-        for (Game g : games.values()) {
-            if (g.getChannelID().equals(channelID)) {
-                return g;
-            }
-        }
-
-        return null;
+        return games.values().stream().filter(g -> g.getChannelID().equals(channelID)).findFirst().orElse(null);
     }
 
     public static void addGame(Game game) {

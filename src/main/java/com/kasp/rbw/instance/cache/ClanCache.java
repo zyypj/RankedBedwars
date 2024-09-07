@@ -12,23 +12,11 @@ public class ClanCache {
     private static Map<String, Clan> clans = new HashMap<>();
 
     public static Clan getClan(String name) {
-        for (Clan c : clans.values()) {
-            if (c.getName().equalsIgnoreCase(name)) {
-                return c;
-            }
-        }
-
-        return null;
+        return clans.values().stream().filter(c -> c.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
     public static Clan getClan(Player player) {
-        for (Clan c : clans.values()) {
-            if (c.getMembers().contains(player)) {
-                return c;
-            }
-        }
-
-        return null;
+        return clans.values().stream().filter(c -> c.getMembers().contains(player)).findFirst().orElse(null);
     }
 
     public static void addClan(Clan clan) {

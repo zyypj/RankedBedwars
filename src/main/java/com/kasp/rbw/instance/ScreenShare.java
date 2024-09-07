@@ -1,6 +1,6 @@
 package com.kasp.rbw.instance;
 
-import com.kasp.rbw.EmbedType;
+import com.kasp.rbw.sample.EmbedType;
 import com.kasp.rbw.RBW;
 import com.kasp.rbw.config.Config;
 import com.kasp.rbw.instance.cache.ScreenshareCache;

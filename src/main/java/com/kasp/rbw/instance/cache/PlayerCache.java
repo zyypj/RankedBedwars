@@ -15,13 +15,7 @@ public class PlayerCache {
     }
 
     public static Player getPlayerByIgn(String ign) {
-        for (Player p : players.values()) {
-            if (p.getIgn().equalsIgnoreCase(ign)) {
-                return p;
-            }
-        }
-
-        return null;
+        return players.values().stream().filter(player -> player.getIgn().equalsIgnoreCase(ign)).findFirst().orElse(null);
     }
 
     public static void addPlayer(Player player) {

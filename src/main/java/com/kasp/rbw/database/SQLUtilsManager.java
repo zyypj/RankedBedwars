@@ -1,6 +1,6 @@
 package com.kasp.rbw.database;
 
-import com.kasp.rbw.PickingMode;
+import com.kasp.rbw.sample.PickingMode;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

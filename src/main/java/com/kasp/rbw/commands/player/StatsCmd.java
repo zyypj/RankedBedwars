@@ -1,9 +1,9 @@
 package com.kasp.rbw.commands.player;
 
-import com.kasp.rbw.CommandSubsystem;
-import com.kasp.rbw.EmbedType;
+import com.kasp.rbw.sample.CommandSubsystem;
+import com.kasp.rbw.sample.EmbedType;
 import com.kasp.rbw.RBW;
-import com.kasp.rbw.Statistic;
+import com.kasp.rbw.sample.Statistic;
 import com.kasp.rbw.commands.Command;
 import com.kasp.rbw.config.Config;
 import com.kasp.rbw.instance.Embed;
@@ -199,7 +199,7 @@ public class StatsCmd extends Command {
 
         embed.addField("__Estatísticas Gerais__",
                 "> `Elo` " + player.getElo() + " **(#" + player.getPlacement(Statistic.ELO) + ")**" +
-                        "\n> ┗ `Peak` " + player.getPeakElo() + " **(#" + player.getPlacement(Statistic.PEAKELO) + ")**" +
+                        "\n> ┗ `Peak` " + player.getPeakElo() + " **(#" + player.getPlacement(Statistic.PEAK_ELO) + ")**" +
                         "\n> `Jogos` " + games + " **(#" + player.getPlacement(Statistic.GAMES) + ")**" +
                         "\n> `WLR` " + f.format(player.getWins() / templosses) + " **(#" + player.getPlacement(Statistic.WLR) + ")**" +
                         "\n> `Mvp` " + player.getMvp() + " **(#" + player.getPlacement(Statistic.MVP) + ")**" +
@@ -209,10 +209,10 @@ public class StatsCmd extends Command {
         embed.addField("__Estatísticas Gerais__",
                 "> **`Vitórias`** " + player.getWins() + " **(#" + player.getPlacement(Statistic.WINS) + ")**" +
                         "\n> `Winstreak` " + player.getWinStreak() + " **(#" + player.getPlacement(Statistic.WINSTREAK) + ")**" +
-                        "\n> ┗ `Maior` " + player.getHighestWS() + " **(#" + player.getPlacement(Statistic.HIGHESTWS) + ")**" +
+                        "\n> ┗ `Maior` " + player.getHighestWS() + " **(#" + player.getPlacement(Statistic.HIGHEST_WINSTREAK) + ")**" +
                         "\n> **`Derrotas`** " + player.getLosses() + " **(#" + player.getPlacement(Statistic.LOSSES) + ")**" +
-                        "\n> `Losestreak` " + player.getLossStreak() + " **(#" + player.getPlacement(Statistic.LOSSSTREAK) + ")**" +
-                        "\n> ┗ `Maior` " + player.getHighestLS() + " **(#" + player.getPlacement(Statistic.HIGHESTLS) + ")**", false);
+                        "\n> `Losestreak` " + player.getLossStreak() + " **(#" + player.getPlacement(Statistic.LOSS_STREAK) + ")**" +
+                        "\n> ┗ `Maior` " + player.getHighestLS() + " **(#" + player.getPlacement(Statistic.HIGHEST_LOSS_STREAK) + ")**", false);
 
         embed.addField("__K/D Stats__",
                 "> `Kills` " + player.getKills() + " **(#" + player.getPlacement(Statistic.KILLS) + ")**" +

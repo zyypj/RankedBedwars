@@ -1,7 +1,7 @@
 package com.kasp.rbw.instance;
 
-import com.kasp.rbw.EmbedType;
-import com.kasp.rbw.PickingMode;
+import com.kasp.rbw.sample.EmbedType;
+import com.kasp.rbw.sample.PickingMode;
 import com.kasp.rbw.RBW;
 import com.kasp.rbw.config.Config;
 import com.kasp.rbw.database.SQLite;
@@ -36,6 +36,8 @@ public class Queue {
             this.pickingMode = PickingMode.valueOf(resultSet.getString(3).toUpperCase());
             this.casual = Boolean.parseBoolean(resultSet.getString(4));
             this.eloMultiplier = resultSet.getDouble(5);
+            
+            SQLite.closeResultSet(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -69,7 +71,7 @@ public class Queue {
 
                         List<Party> partiesStillInQ = new ArrayList<>(partiesInQ);
                         // REMOVE PARTIES IF NOT ALL PARTY PLAYERS IN Q
-                        if (partiesInQ.size() > 0) {
+                        if (!partiesInQ.isEmpty()) {
                             for (Party p : partiesInQ) {
                                 for (Player player : p.getMembers()) {
                                     if (!players.contains(player)) {

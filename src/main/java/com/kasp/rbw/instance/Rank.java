@@ -26,6 +26,8 @@ public class Rank {
             this.winElo = resultSet.getInt(4);
             this.loseElo = resultSet.getInt(5);
             this.mvpElo = resultSet.getInt(6);
+            
+            SQLite.closeResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }

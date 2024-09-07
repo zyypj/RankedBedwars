@@ -1,6 +1,6 @@
 package com.kasp.rbw.commands;
 
-import com.kasp.rbw.CommandSubsystem;
+import com.kasp.rbw.sample.CommandSubsystem;
 import com.kasp.rbw.perms.Perms;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
