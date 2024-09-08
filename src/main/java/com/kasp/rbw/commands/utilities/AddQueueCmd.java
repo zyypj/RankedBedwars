@@ -58,7 +58,7 @@ public class AddQueueCmd extends Command {
         Embed embed = new Embed(EmbedType.SUCCESS, "✅ fila `" + vc.getName() + "` adicionada", "", 1);
         embed.addField("VC", vc.getAsMention(), true);
         embed.addField("Jogadores por Time:", args[2], true);
-        embed.addField("Sorting mode:", args[3], true);
+        embed.addField("Modo de Escolha:", args[3], true);
         embed.addField("Fila Casual:", casual + "", true);
         msg.replyEmbeds(embed.build()).queue();
     }

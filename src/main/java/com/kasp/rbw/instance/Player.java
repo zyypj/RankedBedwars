@@ -162,7 +162,7 @@ public class Player {
 
         setWins(wins+1);
         setWinStreak(winStreak+1);
-        setElo(elo += getRank().getWinElo() * eloMultiplier);
+        setElo(elo += (int) (getRank().getWinElo() * eloMultiplier));
 
         if (peakElo < elo) {
             setPeakElo(elo);

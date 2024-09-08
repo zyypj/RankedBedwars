@@ -50,10 +50,10 @@ public class AddRankCmd extends Command {
 
         Embed success = new Embed(EmbedType.SUCCESS, "✅ rank `" + role.getName() + "` adicionado", "", 1);
         success.addField("Cargo:", role.getAsMention(), true);
-        success.addField("Starting elo:", startingElo, true);
-        success.addField("Ending elo:", endingElo, true);
-        success.addField("Win elo:", "+" + winElo, true);
-        success.addField("Lose elo:", "-" + loseElo, true);
+        success.addField("Elo inicial:", startingElo, true);
+        success.addField("Elo final:", endingElo, true);
+        success.addField("Elo por vítoria:", "+" + winElo, true);
+        success.addField("Elo por derrota:", "-" + loseElo, true);
         success.addField("Mvp Elo:", mvpElo, true);
 
         msg.replyEmbeds(success.build()).queue();
