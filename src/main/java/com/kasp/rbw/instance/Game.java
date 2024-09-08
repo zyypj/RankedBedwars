@@ -493,7 +493,7 @@ public class Game {
 		
 		// EMBED
 		
-		Embed embed = new Embed(EmbedType.SUCCESS, "Jogo `#" + number + "` foi scorado", "", 1);
+		Embed embed = new Embed(EmbedType.SUCCESS, "Jogo `#" + number + "` foi pontuado", "", 1);
 		
 		String team1 = "";
 		for (Player p : this.team1) {
@@ -512,7 +512,7 @@ public class Game {
 			embed.addField("MVP", "<@" + mvp.getID() + ">", false);
 		}
 		
-		embed.addField("Scorado por", scoredBy.getAsMention(), false);
+		embed.addField("Pontuado por", scoredBy.getAsMention(), false);
 		
 		if (!Objects.equals(Config.getValue("scored-announcing"), null)) {
 			guild.getTextChannelById(Config.getValue("scored-announcing")).sendMessageEmbeds(embed.build()).queue();

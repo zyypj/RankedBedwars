@@ -53,7 +53,7 @@ public class QueueCmd extends Command {
         Embed embed = new Embed(EmbedType.DEFAULT, "Jogo `#" + number + "` Queue", "", 1);
         embed.addField("Time 1", t1, true);
         embed.addField("Time 2", t2, true);
-        if (!remaining.equals("")) {
+        if (!remaining.isEmpty()) {
             embed.addField("Restando", remaining, false);
         }
         msg.replyEmbeds(embed.build()).queue();

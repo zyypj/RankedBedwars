@@ -116,7 +116,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20230227</version>
+            <version>20231013</version>
         </dependency>
 
         <dependency>
@@ -132,6 +132,14 @@
             <version>1.1.0</version>
             <scope>system</scope>
             <systemPath>C:/Users/zyypj/Documents/New Projects/Dependency/BedWars2023.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.pulse.ranked</groupId>
+            <artifactId>ranked</artifactId>
+            <version>3.0</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/zyypj/Documents/New Projects/Dependency/PulseRankedBW.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

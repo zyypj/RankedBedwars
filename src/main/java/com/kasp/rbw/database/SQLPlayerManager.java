@@ -38,6 +38,10 @@ public class SQLPlayerManager {
                 "'');"); // banned till
     }
 
+    public static void unregisterPlayer(String ID) {
+        SQLite.updateData("DELETE FROM players WHERE discordID = '" + ID + "';");
+    }
+
     public static int getPlayerSize() {
         ResultSet resultSet = SQLite.queryData("SELECT COUNT(discordID) FROM players");
         try {

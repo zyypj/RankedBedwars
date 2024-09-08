@@ -69,7 +69,7 @@ public class ClanInfoCmd extends Command {
         embed.addField("Privado", clan.isPrivate() + eloReq, false);
         embed.addField("Líder", "<@" + clan.getLeader().getID() + ">", false);
         embed.addField("Membros `[" + clan.getMembers().size() + "/" + Config.getValue("l" + clan.getLevel().getLevel()) + "]`", members, false);
-        if (clan.getInvitedPlayers().size() != 0) {
+        if (!clan.getInvitedPlayers().isEmpty()) {
             embed.addField("Jogadores Convidados `[" + clan.getInvitedPlayers().size() + "]`", invited, false);
         }
         msg.replyEmbeds(embed.build()).queue();

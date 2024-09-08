@@ -2,7 +2,7 @@ name: RankedBedwars
 version: '${project.version}'
 main: com.kasp.rbw.RBW
 authors: [kasp, syncwrld, tadeu]
-softdepend: [BedWars2023]
+depend: [BedWars2023]
 commands:
   register:
     description: Link your discord with mc account

@@ -35,30 +35,31 @@ public class CommandManager extends ListenerAdapter {
     static ArrayList<Command> commands = new ArrayList<>();
 
     public CommandManager() {
-        commands.add(new HelpCmd("help", "help [sub-system]", new String[]{}, "Olhe todos os comandos", CommandSubsystem.SERVER));
+        commands.add(new HelpCmd("help", "help [sub-sistema]", new String[]{}, "Olhe todos os comandos", CommandSubsystem.SERVER));
         commands.add(new ReloadConfigCmd("reloadconfig", "reloadconfig", new String[]{"reload", "rc"}, "Reload the configs (update values)", CommandSubsystem.SERVER));
         commands.add(new InfoCmd("info", "info", new String[]{}, "Informações Sobre Bot e Servidor", CommandSubsystem.SERVER));
 
         commands.add(new RegisterCmd("register", "register", new String[]{}, "Registre você antes de jogar", CommandSubsystem.PLAYER));
         commands.add(new RenameCmd("rename", "rename", new String[]{}, "Mude seu nick in-game", CommandSubsystem.PLAYER));
-        commands.add(new FixCmd("fix", "fix [ID/mention]", new String[]{"correct"}, "Arrumar seus cargos e nicks", CommandSubsystem.PLAYER));
-        commands.add(new ForceRegisterCmd("forceregister", "forceregister <ID/mention> <ign>", new String[]{"freg"}, "Forçar registro", CommandSubsystem.PLAYER));
-        commands.add(new ForceRenameCmd("forcerename", "forcerename <ID/mention> <new ign>", new String[]{"fren"}, "Forçar mudança de nick", CommandSubsystem.PLAYER));
-        commands.add(new WipeCmd("wipe", "wipe <ID/mention/\"everyone\">", new String[]{"reset"}, "Resetar todos as estatísticas", CommandSubsystem.PLAYER));
-        commands.add(new StatsCmd("stats", "stats [ID/mention/\"full\"]", new String[]{"s", "i"}, "Ver as estatísticas de alguem", CommandSubsystem.PLAYER));
-        commands.add(new LeaderboardCmd("leaderboard", "leaderboard <statistic>", new String[]{"lb"}, "Leaderboard de uma estatística", CommandSubsystem.PLAYER));
-        commands.add(new ModifyCmd("modify", "modify <ID/mention> <statistic> <value>", new String[]{"edit"}, "Modificar uma estatística", CommandSubsystem.PLAYER));
-        commands.add(new ScreenshareCmd("screenshare", "screenshare <ID/mention> <reason>", new String[]{"ss"}, "Screenshare a player", CommandSubsystem.PLAYER));
-        commands.add(new TransferGoldCmd("transfergold", "transfergold <ID/mention> <amount>", new String[]{"tg"}, "Transferir golds de uma conta a outra", CommandSubsystem.PLAYER));
+        commands.add(new FixCmd("fix", "fix [ID/menção]", new String[]{"correct"}, "Arrumar seus cargos e nicks", CommandSubsystem.PLAYER));
+        commands.add(new ForceRegisterCmd("forceregister", "forceregister <ID/menção> <ign>", new String[]{"freg"}, "Forçar registro", CommandSubsystem.PLAYER));
+        commands.add(new ForceRenameCmd("forcerename", "forcerename <ID/menção> <novo ign>", new String[]{"fren"}, "Forçar mudança de nick", CommandSubsystem.PLAYER));
+        commands.add(new ForceUnregisterCmd("forceunregister", "forceunregister <ID/menção>", new String[]{"fren"}, "Forçar desregistro", CommandSubsystem.PLAYER));
+        commands.add(new WipeCmd("wipe", "wipe <ID/menção/\"everyone\">", new String[]{"reset"}, "Resetar todos as estatísticas", CommandSubsystem.PLAYER));
+        commands.add(new StatsCmd("stats", "stats [ID/menção/\"full\"]", new String[]{"s", "i"}, "Ver as estatísticas de alguem", CommandSubsystem.PLAYER));
+        commands.add(new LeaderboardCmd("leaderboard", "leaderboard <estatística>", new String[]{"lb"}, "Leaderboard de uma estatística", CommandSubsystem.PLAYER));
+        commands.add(new ModifyCmd("modify", "modify <ID/menção> <estatística> <valor>", new String[]{"edit"}, "Modificar uma estatística", CommandSubsystem.PLAYER));
+        commands.add(new ScreenshareCmd("screenshare", "screenshare <ID/menção> <motivo>", new String[]{"ss"}, "Screenshare a player", CommandSubsystem.PLAYER));
+        commands.add(new TransferGoldCmd("transfergold", "transfergold <ID/menção> <quantidade>", new String[]{"tg"}, "Transferir golds de uma conta a outra", CommandSubsystem.PLAYER));
 
         commands.add(new PartyCreateCmd("partycreate", "partycreate", new String[]{"pcreate"}, "Criar uma party", CommandSubsystem.PARTY));
-        commands.add(new PartyInviteCmd("partyinvite", "partyinvite <ID/mention>", new String[]{"pinvite"}, "Convidar um jogador a sua party", CommandSubsystem.PARTY));
-        commands.add(new PartyJoinCmd("partyjoin", "partyjoin <ID/mention>", new String[]{"pjoin"}, "Entrar na party de alguem", CommandSubsystem.PARTY));
+        commands.add(new PartyInviteCmd("partyinvite", "partyinvite <ID/menção>", new String[]{"pinvite"}, "Convidar um jogador a sua party", CommandSubsystem.PARTY));
+        commands.add(new PartyJoinCmd("partyjoin", "partyjoin <ID/menção>", new String[]{"pjoin"}, "Entrar na party de alguem", CommandSubsystem.PARTY));
         commands.add(new PartyLeaveCmd("partyleave", "partyleave", new String[]{"pleave"}, "Sair da sua party atual ou desfaze-la", CommandSubsystem.PARTY));
         commands.add(new PartyPromoteCmd("partypromote", "partypromote <ID/metion>", new String[]{"ppromote"}, "Promover um jogador da party", CommandSubsystem.PARTY));
         commands.add(new PartyWarpCmd("partywarp", "partywarp", new String[]{"pwarp"}, "Puxar todos a sua caçç (apenas os que já estiverem em alguma outra call)", CommandSubsystem.PARTY));
-        commands.add(new PartyListCmd("partylist", "partylist [ID/mention]", new String[]{"plist"}, "Ver a lista da sua party", CommandSubsystem.PARTY));
-        commands.add(new PartyKickCmd("partykick", "partykick <ID/mention>", new String[]{"pkick"}, "Expulsar um jogador da sua party", CommandSubsystem.PARTY));
+        commands.add(new PartyListCmd("partylist", "partylist [ID/menção]", new String[]{"plist"}, "Ver a lista da sua party", CommandSubsystem.PARTY));
+        commands.add(new PartyKickCmd("partykick", "partykick <ID/menção>", new String[]{"pkick"}, "Expulsar um jogador da sua party", CommandSubsystem.PARTY));
 
         commands.add(new RetryCmd("retry", "retry", new String[]{}, "Tente novamente colocar os jogadores em um mapa", CommandSubsystem.GAME));
         commands.add(new QueueCmd("queue", "queue", new String[]{"q"}, "Veja a fila do seu jogo", CommandSubsystem.GAME));

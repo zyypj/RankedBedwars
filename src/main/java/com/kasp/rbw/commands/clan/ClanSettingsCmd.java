@@ -73,84 +73,86 @@ public class ClanSettingsCmd extends Command {
         int settingIndex = Arrays.asList(settings).indexOf(setting);
 
         try {
-            if (setting.equals("private")) {
-                value = args[2];
-                clan.setPrivate(Boolean.parseBoolean(args[2]));
-            }
-            else if (setting.equals("eloreq")) {
-                value = args[2];
-                clan.setEloJoinReq(Integer.parseInt(args[2]));
-            }
-            else if (setting.equals("description")) {
-                if (msg.getContentRaw().replace(args[1], "").replace(args[0], "").trim().length() > Integer.parseInt(Config.getValue("clan-desc-max"))) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("desc-too-long"), 1);
-                    msg.replyEmbeds(reply.build()).queue();
-                    return;
-                }
-                clan.setDescription(msg.getContentRaw().replace(args[1], "").replace(args[0], "").trim());
-                value = msg.getContentRaw().replace(args[1], "").replace(args[0], "").trim();
-            }
-            else if (setting.equals("icon")) {
-                if (clan.getLevel().getLevel() < Integer.parseInt(Config.getValue("allow-setting-icon"))) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Seu clan precisa do level " + Config.getValue("allow-setting-icon") + " para você mudar o icon", 1);
-                    msg.replyEmbeds(reply.build()).queue();
-                    return;
-                }
-                if (!msg.getAttachments().get(0).isImage()) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "O arquivo tem que ser uma imagem. (anta)", 1);
-                    msg.replyEmbeds(reply.build()).queue();
-                    return;
-                }
-                if (msg.getAttachments().size() < 1) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `135x135` como seu icone", 1);
-                    msg.replyEmbeds(reply.build()).queue();
-                    return;
-                }
-                if (!msg.getAttachments().get(0).getFileName().equals("icon.png")) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Nenomeie a imagem para `icon.png`", 1);
-                    msg.replyEmbeds(reply.build()).queue();
-                    return;
-                }
-                if (msg.getAttachments().get(0).getWidth() != 135 || msg.getAttachments().get(0).getHeight() != 135) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `135x135` como seu icone", 1);
-                    msg.replyEmbeds(reply.build()).queue();
-                    return;
-                }
+            switch (setting) {
+                case "private":
+                    value = args[2];
+                    clan.setPrivate(Boolean.parseBoolean(args[2]));
+                    break;
+                case "eloreq":
+                    value = args[2];
+                    clan.setEloJoinReq(Integer.parseInt(args[2]));
+                    break;
+                case "description":
+                    if (msg.getContentRaw().replace(args[1], "").replace(args[0], "").trim().length() > Integer.parseInt(Config.getValue("clan-desc-max"))) {
+                        Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("desc-too-long"), 1);
+                        msg.replyEmbeds(reply.build()).queue();
+                        return;
+                    }
+                    clan.setDescription(msg.getContentRaw().replace(args[1], "").replace(args[0], "").trim());
+                    value = msg.getContentRaw().replace(args[1], "").replace(args[0], "").trim();
+                    break;
+                case "icon":
+                    if (clan.getLevel().getLevel() < Integer.parseInt(Config.getValue("allow-setting-icon"))) {
+                        Embed reply = new Embed(EmbedType.ERROR, "Erro", "Seu clan precisa do level " + Config.getValue("allow-setting-icon") + " para você mudar o icon", 1);
+                        msg.replyEmbeds(reply.build()).queue();
+                        return;
+                    }
+                    if (!msg.getAttachments().get(0).isImage()) {
+                        Embed reply = new Embed(EmbedType.ERROR, "Erro", "O arquivo tem que ser uma imagem. (anta)", 1);
+                        msg.replyEmbeds(reply.build()).queue();
+                        return;
+                    }
+                    if (msg.getAttachments().isEmpty()) {
+                        Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `135x135` como seu icone", 1);
+                        msg.replyEmbeds(reply.build()).queue();
+                        return;
+                    }
+                    if (!msg.getAttachments().get(0).getFileName().equals("icon.png")) {
+                        Embed reply = new Embed(EmbedType.ERROR, "Erro", "Nenomeie a imagem para `icon.png`", 1);
+                        msg.replyEmbeds(reply.build()).queue();
+                        return;
+                    }
+                    if (msg.getAttachments().get(0).getWidth() != 135 || msg.getAttachments().get(0).getHeight() != 135) {
+                        Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `135x135` como seu icone", 1);
+                        msg.replyEmbeds(reply.build()).queue();
+                        return;
+                    }
 
-                msg.getAttachments().get(0).downloadToFile(RBW.getInstance().getDataFolder() + "/RankedBot/clans/" + clan.getName() + "/" + msg.getAttachments().get(0).getFileName());
+                    msg.getAttachments().get(0).downloadToFile(RBW.getInstance().getDataFolder() + "/RankedBot/clans/" + clan.getName() + "/" + msg.getAttachments().get(0).getFileName());
 
-                value = "icon.png";
-            }
-            else if (setting.equals("theme")) {
-                if (clan.getLevel().getLevel() < Integer.parseInt(Config.getValue("allow-setting-theme"))) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Seu clan precisa do level " + Config.getValue("allow-setting-theme") + " para poder alterar o tema", 1);
-                    msg.replyEmbeds(reply.build()).queue();
-                    return;
-                }
-                if (!msg.getAttachments().get(0).isImage()) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "O arquivo tem que ser uma imagem. (anta)", 1);
-                    msg.replyEmbeds(reply.build()).queue();
-                    return;
-                }
-                if (msg.getAttachments().size() < 1) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `960x540` como seu tema", 1);
-                    msg.replyEmbeds(reply.build()).queue();
-                    return;
-                }
-                if (!msg.getAttachments().get(0).getFileName().equals("theme.png")) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Renomeie a imagem para `theme.png`", 1);
-                    msg.replyEmbeds(reply.build()).queue();
-                    return;
-                }
-                if (msg.getAttachments().get(0).getWidth() != 960 || msg.getAttachments().get(0).getHeight() != 540) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `960x540` como seu tema", 1);
-                    msg.replyEmbeds(reply.build()).queue();
-                    return;
-                }
+                    value = "icon.png";
+                    break;
+                case "theme":
+                    if (clan.getLevel().getLevel() < Integer.parseInt(Config.getValue("allow-setting-theme"))) {
+                        Embed reply = new Embed(EmbedType.ERROR, "Erro", "Seu clan precisa do level " + Config.getValue("allow-setting-theme") + " para poder alterar o tema", 1);
+                        msg.replyEmbeds(reply.build()).queue();
+                        return;
+                    }
+                    if (!msg.getAttachments().get(0).isImage()) {
+                        Embed reply = new Embed(EmbedType.ERROR, "Erro", "O arquivo tem que ser uma imagem. (anta)", 1);
+                        msg.replyEmbeds(reply.build()).queue();
+                        return;
+                    }
+                    if (msg.getAttachments().isEmpty()) {
+                        Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `960x540` como seu tema", 1);
+                        msg.replyEmbeds(reply.build()).queue();
+                        return;
+                    }
+                    if (!msg.getAttachments().get(0).getFileName().equals("theme.png")) {
+                        Embed reply = new Embed(EmbedType.ERROR, "Erro", "Renomeie a imagem para `theme.png`", 1);
+                        msg.replyEmbeds(reply.build()).queue();
+                        return;
+                    }
+                    if (msg.getAttachments().get(0).getWidth() != 960 || msg.getAttachments().get(0).getHeight() != 540) {
+                        Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você deve colocar uma imagem `960x540` como seu tema", 1);
+                        msg.replyEmbeds(reply.build()).queue();
+                        return;
+                    }
 
-                msg.getAttachments().get(0).downloadToFile("RankedBot/clans/" + clan.getName() + "/" + msg.getAttachments().get(0).getFileName());
+                    msg.getAttachments().get(0).downloadToFile("RankedBot/clans/" + clan.getName() + "/" + msg.getAttachments().get(0).getFileName());
 
-                value = "theme.png";
+                    value = "theme.png";
+                    break;
             }
         } catch (Exception e) {
             Embed embed = new Embed(EmbedType.ERROR, "Erro", "Algo deu errado... use algumas dessas configurações `" + settingsvalue[settingIndex] + "` como seu valor", 1);

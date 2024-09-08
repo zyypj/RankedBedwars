@@ -12,6 +12,8 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import java.util.Objects;
+
 public class LoseCmd extends Command {
     public LoseCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
         super(command, usage, aliases, description, subsystem);
@@ -31,7 +33,7 @@ public class LoseCmd extends Command {
         player.lose(1.0);
         player.fix();
 
-        Embed embed = new Embed(EmbedType.SUCCESS, "", guild.getMemberById(ID).getAsMention() + " +1 derrota e elo atualizado", 1);
+        Embed embed = new Embed(EmbedType.SUCCESS, "", Objects.requireNonNull(guild.getMemberById(ID)).getAsMention() + " +1 derrota e elo atualizado", 1);
         msg.replyEmbeds(embed.build()).queue();
     }
 }

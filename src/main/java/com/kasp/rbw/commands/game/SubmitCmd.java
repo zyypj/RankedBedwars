@@ -80,7 +80,7 @@ public class SubmitCmd extends Command {
         scoring.addField("Time 1:", t1, true);
         scoring.addField("Time 2:", t2, true);
 
-        if (msg.getAttachments().size() > 0) {
+        if (!msg.getAttachments().isEmpty()) {
             scoring.setImageURL(msg.getAttachments().get(0).getUrl());
         }
 
