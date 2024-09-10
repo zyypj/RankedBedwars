@@ -1,6 +1,6 @@
 package com.kasp.rbw.listener;
 
-import br.com.pulse.ranked.misc.mvp.MVPManagerAPI;
+import com.kasp.rbw.mvp.MVPManager;
 import com.tomkeuper.bedwars.api.events.gameplay.GameEndEvent;
 import com.tomkeuper.bedwars.api.events.gameplay.TeamAssignEvent;
 import com.tomkeuper.bedwars.api.events.player.PlayerKillEvent;
@@ -25,7 +25,6 @@ public class BW2023Events implements Listener {
 
     // map, game
     public static Map<String, Integer> mapManager = new HashMap<>();
-    MVPManagerAPI api = Bukkit.getServicesManager().getRegistration(MVPManagerAPI.class).getProvider();
 
     @EventHandler
     public void teamAssignEvent(TeamAssignEvent event) {
@@ -51,7 +50,7 @@ public class BW2023Events implements Listener {
 
         if (game != null) {
 
-            Player mvpPlayer = api.determineMVP(event.getArena());
+            Player mvpPlayer = MVPManager.getMvpManager().determineMVP(event.getArena());
 
             com.kasp.rbw.instance.Player mvp = PlayerCache.getPlayerByIgn(mvpPlayer.getName());
 

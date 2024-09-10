@@ -41,7 +41,7 @@ public class CommandManager extends ListenerAdapter {
 
         commands.add(new RegisterCmd("register", "register", new String[]{}, "Registre você antes de jogar", CommandSubsystem.PLAYER));
         commands.add(new RenameCmd("rename", "rename", new String[]{}, "Mude seu nick in-game", CommandSubsystem.PLAYER));
-        commands.add(new FixCmd("fix", "fix [ID/menção]", new String[]{"correct"}, "Arrumar seus cargos e nicks", CommandSubsystem.PLAYER));
+        commands.add(new FixCmd("fix", "fix [ID/menção]", new String[]{"correct"}, "Atuali", CommandSubsystem.PLAYER));
         commands.add(new ForceRegisterCmd("forceregister", "forceregister <ID/menção> <ign>", new String[]{"freg"}, "Forçar registro", CommandSubsystem.PLAYER));
         commands.add(new ForceRenameCmd("forcerename", "forcerename <ID/menção> <novo ign>", new String[]{"fren"}, "Forçar mudança de nick", CommandSubsystem.PLAYER));
         commands.add(new ForceUnregisterCmd("forceunregister", "forceunregister <ID/menção>", new String[]{"fren"}, "Forçar desregistro", CommandSubsystem.PLAYER));
@@ -56,7 +56,7 @@ public class CommandManager extends ListenerAdapter {
         commands.add(new PartyInviteCmd("partyinvite", "partyinvite <ID/menção>", new String[]{"pinvite"}, "Convidar um jogador a sua party", CommandSubsystem.PARTY));
         commands.add(new PartyJoinCmd("partyjoin", "partyjoin <ID/menção>", new String[]{"pjoin"}, "Entrar na party de alguem", CommandSubsystem.PARTY));
         commands.add(new PartyLeaveCmd("partyleave", "partyleave", new String[]{"pleave"}, "Sair da sua party atual ou desfaze-la", CommandSubsystem.PARTY));
-        commands.add(new PartyPromoteCmd("partypromote", "partypromote <ID/metion>", new String[]{"ppromote"}, "Promover um jogador da party", CommandSubsystem.PARTY));
+        commands.add(new PartyPromoteCmd("partypromote", "partypromote <ID/menção>", new String[]{"ppromote"}, "Promover um jogador da party", CommandSubsystem.PARTY));
         commands.add(new PartyWarpCmd("partywarp", "partywarp", new String[]{"pwarp"}, "Puxar todos a sua caçç (apenas os que já estiverem em alguma outra call)", CommandSubsystem.PARTY));
         commands.add(new PartyListCmd("partylist", "partylist [ID/menção]", new String[]{"plist"}, "Ver a lista da sua party", CommandSubsystem.PARTY));
         commands.add(new PartyKickCmd("partykick", "partykick <ID/menção>", new String[]{"pkick"}, "Expulsar um jogador da sua party", CommandSubsystem.PARTY));
@@ -186,7 +186,7 @@ public class CommandManager extends ListenerAdapter {
             access = true;
         }
         else {
-            if (!Perms.getPerm(cmd.getCommand()).equals("")) {
+            if (!Perms.getPerm(cmd.getCommand()).isEmpty()) {
                 List<Role> roles = new ArrayList<>();
                 for (String s : Perms.getPerm(cmd.getCommand()).split(",")) {
                     roles.add(g.getRoleById(s));

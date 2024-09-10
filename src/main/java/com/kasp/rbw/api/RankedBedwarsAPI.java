@@ -14,5 +14,5 @@ public interface RankedBedwarsAPI {
 	
 	public com.kasp.rbw.instance.Player getPlayerByName(String playerName);
 	
-	public void finishGameOf(com.kasp.rbw.instance.Player player, int closeChannelDelay);
+	public void finishGameOf(Player player, int closeChannelDelay);
 }

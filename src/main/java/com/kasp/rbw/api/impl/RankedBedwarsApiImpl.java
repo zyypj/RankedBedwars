@@ -41,7 +41,8 @@ public class RankedBedwarsApiImpl implements RankedBedwarsAPI {
 	}
 	
 	@Override
-	public void finishGameOf(com.kasp.rbw.instance.Player player, int closeChannelDelay) {
+	public void finishGameOf(Player gamer, int closeChannelDelay) {
+		com.kasp.rbw.instance.Player player = getPlayerByName(gamer.getName());
 		GameCache.getGames().values().stream()
 		  .filter(game -> game.getPlayers().contains(player))
 		  .forEach(game -> game.closeChannel(closeChannelDelay));
@@ -54,5 +55,4 @@ public class RankedBedwarsApiImpl implements RankedBedwarsAPI {
 			}
 		}
 	}
-	
 }

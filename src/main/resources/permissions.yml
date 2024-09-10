@@ -5,8 +5,8 @@
 
 # server commands
 help: everyone
-reloadconfig: everyone
-savedata: everyone
+reloadconfig: 1258853635748663396
+savedata: 1258853635748663396
 info: everyone
 
 # player commands
@@ -15,10 +15,11 @@ rename: everyone
 fix: everyone
 forceregister: everyone
 forcerename: everyone
-wipe: everyone
+forceunregister: everyone
+wipe: 1258853635748663396
 stats: everyone
 leaderboard: everyone
-modify: everyone
+modify: 1258853635748663396
 screenshare: everyone
 transfergold: everyone
 
@@ -40,22 +41,22 @@ gameinfo: everyone
 pick: everyone
 void: everyone
 submit: everyone
-score: everyone
-undogame: everyone
-win: everyone
-lose: everyone
+score: 1261720274798116974
+undogame: 1261720274798116974
+win: 1258853635748663396
+lose: 1258853635748663396
 forcevoid: everyone
 call: everyone
 
 # utilities commands
-addqueue: everyone
-deletequeue: everyone
+addqueue: 1258853635748663396
+deletequeue: 1258853635748663396
 queues: everyone
-addrank: everyone
-deleterank: everyone
+addrank: 1258853635748663396
+deleterank: 1258853635748663396
 ranks: everyone
-addmap: everyone
-deletemap: everyone
+addmap: 1258853635748663396
+deletemap: 1258853635748663396
 maps: everyone
 levels: everyone
 

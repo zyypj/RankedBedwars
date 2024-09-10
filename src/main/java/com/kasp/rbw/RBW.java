@@ -16,6 +16,7 @@ import com.kasp.rbw.minecraft_commands.MCRegisterCmd;
 import com.kasp.rbw.minecraft_commands.MCRenameCmd;
 import com.kasp.rbw.perms.Perms;
 import com.tomkeuper.bedwars.api.BedWars;
+import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -38,13 +39,10 @@ public final class RBW extends JavaPlugin {
 	public static BedWars bedwarsAPI = null;
 	public static RBW rbw;
 	public static JDA jda;
-	public static Guild guild;
-	
-	public static Guild getGuild() {
-		return guild;
-	}
-	
-	public static RBW getInstance() {
+	@Getter
+    public static Guild guild;
+
+    public static RBW getInstance() {
 		return rbw;
 	}
 	
@@ -135,7 +133,7 @@ public final class RBW extends JavaPlugin {
 	}
 	
 	private void initializeGuildAndLoadData() {
-		Optional.ofNullable(jda.getGuilds().stream().findFirst().orElse(null))
+		jda.getGuilds().stream().findFirst()
 		  .ifPresentOrElse(
 			g -> {
 				guild = g;

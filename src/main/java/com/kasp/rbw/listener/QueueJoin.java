@@ -17,7 +17,6 @@ public class QueueJoin extends ListenerAdapter {
     @Override
     public void onGuildVoiceUpdate(@NotNull GuildVoiceUpdateEvent event) {
 
-
         // leave vc
         if (event.getChannelJoined() != null) {
             if (QueueCache.containsQueue(event.getChannelJoined().getId())) {
