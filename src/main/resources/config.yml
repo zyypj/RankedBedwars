@@ -4,10 +4,10 @@
 debug: false
 
 # Bot's token
-token:
+token: "MTI5MDAyMjgxODc5MjA4MzUxNw.GYIJjM.Q5lZZBgDYVMKQg8oEkRVDlMzg4_AmuPIbul0Jo"
 
 # Bot's status (ONLINE, IDLE, DO_NOT_DISTURB, INVISIBLE)
-status: ONLINE
+status: DO_NOT_DISTURB
 
 # Your server's name
 server-name: PulseMC
@@ -19,7 +19,7 @@ server-ip: pulsemc.com.br
 prefix: =
 
 # Alerts channel
-alerts-channel: 1277443413607841792
+alerts-channel: 1290023805187653695
 
 # Elo prefix formatting, use %elo% for player elo
 elo-formatting: "[%elo%] "
@@ -30,7 +30,7 @@ unregistered-cmd-usage: true
 #============================== REGISTERING
 
 # Registered role ID
-registered-role: 1258788055805067275
+registered-role: 1290023926826537000
 
 # Starting elo
 starting-elo: 0
@@ -43,7 +43,7 @@ success: 116,227,121
 error: 227,93,93
 
 # Embed footers (leave blank to disable). Use {%version} to write bot's version, use {%name} to write your server's name that you set above
-footer: "PulseRanked v2.0"
+footer: "DesprezoRBW PulseMC"
 
 #============================== LOGGING
 
@@ -52,10 +52,10 @@ log-commands: false
 
 #============================== BANNING
 
-banned-role: 1268604793299931156
+banned-role: 1290024261670539274
 
 # Channel where the bans are announced, leave blank to disable announcing bans
-ban-channel: 1277444086726656000
+ban-channel: 1290024180632522888
 
 # Ban time for strikes (in hours)
 strike-1: 0
@@ -81,12 +81,12 @@ ss-roles: 947231507343364097,993812234973233283
 
 #============================== GAMES
 
-game-channels-category: 949419943995244566
-game-vcs-category: 949419943995244566
+game-channels-category: 1290024585319682152
+game-vcs-category: 1290024585319682152
 
 # use %number% to get game number
 # use %mode% to get game mode (4v4 / 3v3 etc)
-game-channel-names: "Jogo%number%"
+game-channel-names: "Jogo #%number%"
 
 # use %number% to get game number
 # use %mode% to get game mode (4v4 / 3v3 etc)
@@ -94,10 +94,10 @@ game-channel-names: "Jogo%number%"
 game-vc-names: "Jogo #%number% | Time %team%"
 
 # Games announcing channel (leave blank to disable)
-games-announcing: 994537829520654426
+games-announcing: 1290025035960160377
 
 # Scored games announcing channel (leave blank to disable)
-scored-announcing: 995311293764472914
+scored-announcing: 1290025243385139302
 
 # Display text helping people to invite eachother to party
 # useful for ranked servers which depends on other mc servers (leave blank to disable)
@@ -110,12 +110,12 @@ game-deleting-time: 600
 submitting-attachments: 1
 
 # Role to ping when game gets submitted
-scorer-role: 947231507343364097
+scorer-role: 1289070081409683486
 
 #============================== LEVELS
 
 # set to "false" to disable levels completely
-levels-enabled: true
+levels-enabled: false
 
 # xp for winning a game
 win-xp: 50
@@ -146,10 +146,10 @@ clan-name-max: 20
 clan-desc-max: 37
 
 # how much gold does it cost to create a clan
-gold-to-create: 500
+gold-to-create: 5000000
 
 # how much elo is required to create a clan
-elo-to-create: 300
+elo-to-create: 30000000
 
 # starting reputation (reputation is like elo for a clan)
 clan-starting-rep: 0

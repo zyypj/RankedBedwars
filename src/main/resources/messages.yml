@@ -3,7 +3,7 @@
 # general
 no-perms: "Você não tem permissão para isso"
 # use %usage% to write the usage
-wrong-usage: "us3: `=%usage%`"
+wrong-usage: "use: `=%usage%`"
 not-registered: "Você não pode usar esse comando pois não está registrado (=register)"
 invalid-player: "Jogador não encontrado (ID errado?)"
 invalid-role: "Esse cargo não foi encontrado (ID errado?)"

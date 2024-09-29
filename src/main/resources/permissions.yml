@@ -5,21 +5,21 @@
 
 # server commands
 help: everyone
-reloadconfig: 1258853635748663396
-savedata: 1258853635748663396
+reloadconfig: 1285109165328695388
+savedata: 1285109165328695388
 info: everyone
 
 # player commands
 register: everyone
 rename: everyone
 fix: everyone
-forceregister: everyone
-forcerename: everyone
-forceunregister: everyone
-wipe: 1258853635748663396
+forceregister: 1285109165328695388
+forcerename: 1285109165328695388
+forceunregister: 1285109165328695388
+wipe: 1285109165328695388
 stats: everyone
 leaderboard: everyone
-modify: 1258853635748663396
+modify: 1285109165328695388
 screenshare: everyone
 transfergold: everyone
 
@@ -41,52 +41,45 @@ gameinfo: everyone
 pick: everyone
 void: everyone
 submit: everyone
-score: 1261720274798116974
-undogame: 1261720274798116974
-win: 1258853635748663396
-lose: 1258853635748663396
+score: 1289070081409683486
+undogame: 1289070081409683486
+win: 1289070081409683486
+lose: 1289070081409683486
 forcevoid: everyone
 call: everyone
 
 # utilities commands
-addqueue: 1258853635748663396
-deletequeue: 1258853635748663396
+addqueue: 1285109165328695388
+deletequeue: 1285109165328695388
 queues: everyone
-addrank: 1258853635748663396
-deleterank: 1258853635748663396
+addrank: 1285109165328695388
+deleterank: 1285109165328695388
 ranks: everyone
-addmap: 1258853635748663396
-deletemap: 1258853635748663396
+addmap: 1285109165328695388
+deletemap: 1285109165328695388
 maps: everyone
 levels: everyone
 
-givetheme: everyone
-removetheme: everyone
+givetheme: 1285109165328695388
+removetheme: 1285109165328695388
 theme: everyone
 
 # moderation commands
-ban: everyone
-unban: everyone
-baninfo: everyone
+ban: 1285109165328695388
+unban: 1285109165328695388
+baninfo: 1285109165328695388
 strike: everyone
 
 # clan
-clancreate: everyone
-clandisband: everyone
-claninvite: everyone
-clanjoin: everyone
-clanleave: everyone
-clanstats: everyone
-clanforcedisband: everyone
-clankick: everyone
-clansettings: everyone
-claninfo: everyone
-clanlb: everyone
-clanlist: everyone
-
-# clan war
-cwcreate: everyone
-cwcancel: everyone
-cwregister: everyone
-cwunregister: everyone
-cwstart: everyone
+clancreate: 1285109165328695388
+clandisband: 1285109165328695388
+claninvite: 1285109165328695388
+clanjoin: 1285109165328695388
+clanleave: 1285109165328695388
+clanstats: 1285109165328695388
+clanforcedisband: 1285109165328695388
+clankick: 1285109165328695388
+clansettings: 1285109165328695388
+claninfo: 1285109165328695388
+clanlb: 1285109165328695388
+clanlist: 1285109165328695388

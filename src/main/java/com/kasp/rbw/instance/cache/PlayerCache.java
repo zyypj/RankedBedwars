@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class PlayerCache {
 
-    private static HashMap<String, Player> players = new HashMap<>();
+    private static final HashMap<String, Player> players = new HashMap<>();
 
     public static Player getPlayer(String ID) {
         return players.get(ID);

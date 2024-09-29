@@ -25,13 +25,13 @@ public class ClanSettingsCmd extends Command {
 
     @Override
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
-        String[] settings = {"private", "eloreq", "description", "icon", "theme"};
+        String[] settings = {"privado", "eloreq", "descrição", "icon", "tema"};
         String[] settingsvalue = {"true/false", "number", "text", "attached 135x135 image", "attached 960x540 image"};
-        String[] settingsdesc = {"make your clan private - only allow invited players to join\nor public - anyone will be able to join your clan",
-                                "change the required min. elo to join your clan - only works if your clan is set to public",
-                                "change the description of your clan",
-                                "change the icon of your clan",
-                                "change the =cstats theme of your clan"};
+        String[] settingsdesc = {"fazer seu clan privado - apenas jogadores convidados irão entrar\nou público - qualquer um entrará no clan",
+                                "mudar o elo min. pedido para netrar no clan - para funcionar, o clan deve ser público",
+                                "mudar a descrição do clan",
+                                "mudar o icone do clan",
+                                "mudar o tema do comando =cstats do seu clan"};
 
         if (args.length < 2) {
             Embed reply = new Embed(EmbedType.ERROR, "Argumentos Inválidos", Msg.getMsg("wrong-usage").replaceAll("%usage%", getUsage()), 1);
@@ -62,7 +62,7 @@ public class ClanSettingsCmd extends Command {
             msg.replyEmbeds(reply.build()).queue();
             Embed embed = new Embed(EmbedType.DEFAULT, "Configurações Disponíveis", "", 1);
             for (int i = 0; i < settings.length; i++) {
-                embed.addField(settings[i], "Value - `" + settingsvalue[i] + "`\n" + settingsdesc[i], false);
+                embed.addField(settings[i], "Valor - `" + settingsvalue[i] + "`\n" + settingsdesc[i], false);
             }
             msg.replyEmbeds(embed.build()).queue();
             return;
@@ -74,7 +74,7 @@ public class ClanSettingsCmd extends Command {
 
         try {
             switch (setting) {
-                case "private":
+                case "privado":
                     value = args[2];
                     clan.setPrivate(Boolean.parseBoolean(args[2]));
                     break;
@@ -82,7 +82,7 @@ public class ClanSettingsCmd extends Command {
                     value = args[2];
                     clan.setEloJoinReq(Integer.parseInt(args[2]));
                     break;
-                case "description":
+                case "descrição":
                     if (msg.getContentRaw().replace(args[1], "").replace(args[0], "").trim().length() > Integer.parseInt(Config.getValue("clan-desc-max"))) {
                         Embed reply = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("desc-too-long"), 1);
                         msg.replyEmbeds(reply.build()).queue();
@@ -122,7 +122,7 @@ public class ClanSettingsCmd extends Command {
 
                     value = "icon.png";
                     break;
-                case "theme":
+                case "tema":
                     if (clan.getLevel().getLevel() < Integer.parseInt(Config.getValue("allow-setting-theme"))) {
                         Embed reply = new Embed(EmbedType.ERROR, "Erro", "Seu clan precisa do level " + Config.getValue("allow-setting-theme") + " para poder alterar o tema", 1);
                         msg.replyEmbeds(reply.build()).queue();

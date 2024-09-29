@@ -70,15 +70,15 @@ public class SubmitCmd extends Command {
 
         Embed scoring = new Embed(EmbedType.DEFAULT, "Jogo `#" + game.getNumber() + "` Pontuado", "", 1);
 
-        String t1 = "";
-        String t2 = "";
+        StringBuilder t1 = new StringBuilder();
+        StringBuilder t2 = new StringBuilder();
         for (Player p : game.getTeam1())
-            t1 += "• <@" + p.getID() + ">\n";
+            t1.append("• <@").append(p.getID()).append(">\n");
         for (Player p : game.getTeam2())
-            t2 += "• <@" + p.getID() + ">\n";
+            t2.append("• <@").append(p.getID()).append(">\n");
 
-        scoring.addField("Time 1:", t1, true);
-        scoring.addField("Time 2:", t2, true);
+        scoring.addField("Time 1:", t1.toString(), true);
+        scoring.addField("Time 2:", t2.toString(), true);
 
         if (!msg.getAttachments().isEmpty()) {
             scoring.setImageURL(msg.getAttachments().get(0).getUrl());

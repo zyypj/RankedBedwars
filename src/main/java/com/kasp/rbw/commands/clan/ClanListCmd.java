@@ -36,7 +36,7 @@ public class ClanListCmd extends Command {
         List<Clan> clans = new ArrayList<>(ClanCache.getClans().values());
         List<Clan> clanLB = new ArrayList<>(Leaderboard.getClansLeaderboard());
 
-        for (int j = 0; j < Math.ceil(clans.size()); j+=5) {
+        for (int j = 0; j < (double) clans.size(); j+=5) {
 
             Embed reply = new Embed(EmbedType.DEFAULT, "Todos os Clans", "", (int) Math.ceil(clans.size() / 5.0));
 

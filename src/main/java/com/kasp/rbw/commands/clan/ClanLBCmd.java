@@ -36,13 +36,13 @@ public class ClanLBCmd extends Command {
         for (int j = 0; j < Math.ceil(lb.size() / 10.0); j++) {
             Embed reply = new Embed(EmbedType.DEFAULT, "Clans Leaderboard", "isso é a lb de `reputação`\nvocê obtem jogando\nclan wars", (int) Math.ceil(lb.size() / 10.0));
 
-            String lbmsg = "";
+            StringBuilder lbmsg = new StringBuilder();
             for (int i = j * 10; i < j * 10 + 10; i++) {
                 if (i < lb.size()) {
-                    lbmsg += "**#" + (i + 1) + "** `" + lb.get(i).getName() + "` — " + lb.get(i).getReputation() + "\n";
+                    lbmsg.append("**#").append(i + 1).append("** `").append(lb.get(i).getName()).append("` — ").append(lb.get(i).getReputation()).append("\n");
                 }
             }
-            reply.setDescription(lbmsg);
+            reply.setDescription(lbmsg.toString());
 
             if (j == 0) {
                 embedmsg.editMessageEmbeds(reply.build()).setActionRow(Embed.createButtons(reply.getCurrentPage())).queue();

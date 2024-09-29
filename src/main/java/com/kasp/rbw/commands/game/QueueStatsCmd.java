@@ -34,41 +34,41 @@ public class QueueStatsCmd extends Command {
 
         Game game = GameCache.getGame(channel.getId());
 
-        String t1 = "";
+        StringBuilder t1 = new StringBuilder();
         for (Player p : game.getTeam1()) {
             double templosses = 1;
             if (p.getLosses() > 0)
                 templosses = p.getLosses();
 
             double wlr = p.getWins() / templosses;
-            t1 += "• <@" + p.getID() + "> — `" + p.getWins() + "W/" + p.getLosses() + "L` `(" + wlr + "WLR)`\n";
+            t1.append("• <@").append(p.getID()).append("> — `").append(p.getWins()).append("W/").append(p.getLosses()).append("L` `(").append(wlr).append("WLR)`\n");
         }
 
-        String t2 = "";
+        StringBuilder t2 = new StringBuilder();
         for (Player p : game.getTeam2()) {
             double templosses = 1;
             if (p.getLosses() > 0)
                 templosses = p.getLosses();
 
             double wlr = p.getWins() / templosses;
-            t2 += "• <@" + p.getID() + "> — `" + p.getWins() + "W/" + p.getLosses() + "L` `(" + wlr + "WLR)`\n";
+            t2.append("• <@").append(p.getID()).append("> — `").append(p.getWins()).append("W/").append(p.getLosses()).append("L` `(").append(wlr).append("WLR)`\n");
         }
 
-        String remaining = "";
+        StringBuilder remaining = new StringBuilder();
         for (Player p : game.getRemainingPlayers()) {
             double templosses = 1;
             if (p.getLosses() > 0)
                 templosses = p.getLosses();
 
             double wlr = p.getWins() / templosses;
-            remaining += "• <@" + p.getID() + "> — `" + p.getWins() + "W/" + p.getLosses() + "L` `(" + wlr + "WLR)`\n";
+            remaining.append("• <@").append(p.getID()).append("> — `").append(p.getWins()).append("W/").append(p.getLosses()).append("L` `(").append(wlr).append("WLR)`\n");
         }
 
         Embed embed = new Embed(EmbedType.DEFAULT, "Jogo `#" + game.getNumber() + "` QueueStats", "", 1);
-        embed.addField("Time 1", t1, true);
-        embed.addField("Time 2", t2, true);
-        if (!remaining.isEmpty()) {
-            embed.addField("Restando", remaining, false);
+        embed.addField("Time 1", t1.toString(), true);
+        embed.addField("Time 2", t2.toString(), true);
+        if (remaining.length() > 0) {
+            embed.addField("Restando", remaining.toString(), false);
         }
         msg.replyEmbeds(embed.build()).queue();
     }
