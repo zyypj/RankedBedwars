@@ -15,12 +15,14 @@ import com.kasp.rbw.instance.cache.PlayerCache;
 import com.kasp.rbw.instance.cache.ThemeCache;
 import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.utils.FileUpload;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +30,8 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
+
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class StatsCmd extends Command {
     public StatsCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -148,6 +152,7 @@ public class StatsCmd extends Command {
                     // rbw role
                     Role role = guild.getRoleById(player.getRank().getID());
                     gfx.setFont(new Font(Config.getValue("s-text-font"), Font.PLAIN, Integer.parseInt(Config.getValue("rbw-rank-size"))));
+                    assert role != null;
                     gfx.setColor(role.getColor());
                     gfx.drawString(role.getName(), Integer.parseInt(Config.getValue("rbw-rank-pixels").split(",")[0]), Integer.parseInt(Config.getValue("rbw-rank-pixels").split(",")[1]));
 
@@ -175,10 +180,18 @@ public class StatsCmd extends Command {
                     // finish
                     gfx.dispose();
 
+                    // Prepare to send the image
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     ImageIO.write(image, "png", stream);
 
-                    channel.sendFile(stream.toByteArray(), "stats.png").queue();
+                    // Use ByteArrayInputStream for sending the file
+                    ByteArrayInputStream inputStream = new ByteArrayInputStream(stream.toByteArray());
+
+                    // Create a FileUpload object from the input stream
+                    FileUpload fileUpload = FileUpload.fromData(inputStream, "stats.png");
+
+                    // Send the file
+                    channel.sendFiles(fileUpload).queue();
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (FontFormatException e) {
@@ -228,7 +241,7 @@ public class StatsCmd extends Command {
         else {
             StringBuilder themes = new StringBuilder();
             for (Theme t : player.getOwnedThemes()) {
-                themes.append(t.getName() + " ");
+                themes.append(t.getName()).append(" ");
             }
 
             embed.addField("__Outras Estatísticas__",

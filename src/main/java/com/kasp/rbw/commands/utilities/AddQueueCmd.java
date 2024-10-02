@@ -10,6 +10,8 @@ import com.kasp.rbw.instance.Queue;
 import com.kasp.rbw.instance.cache.QueueCache;
 import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 
 public class AddQueueCmd extends Command {
     public AddQueueCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -59,7 +61,7 @@ public class AddQueueCmd extends Command {
         embed.addField("VC", vc.getAsMention(), true);
         embed.addField("Jogadores por Time:", args[2], true);
         embed.addField("Modo de Escolha:", args[3], true);
-        embed.addField("Fila Casual:", casual + "", true);
+        embed.addField("É Casual:", casual + "", true);
         msg.replyEmbeds(embed.build()).queue();
     }
 }

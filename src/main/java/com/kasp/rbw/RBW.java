@@ -111,46 +111,46 @@ public final class RBW extends JavaPlugin {
 		Levels.loadLevels();
 		Levels.loadClanLevels();
 	}
-	
+
 	private void setupDiscordBot() {
 		String token = Config.getValue("token");
 		if (token == null) {
 			System.out.println("[!] Please set your token in config.yml");
 			return;
 		}
-		
+
 		try {
 			jda = JDABuilder.createDefault(token)
-			  .setStatus(OnlineStatus.valueOf(Config.getValue("status").toUpperCase()))
-			  .setChunkingFilter(ChunkingFilter.ALL)
-			  .setMemberCachePolicy(MemberCachePolicy.ALL)
-			  .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES)
-			  .addEventListeners(new CommandManager(), new PagesEvents(), new QueueJoin(), new ServerJoin(), new PartyInviteButton())
-			  .build();
-		} catch (LoginException e) {
+					.enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT)
+					.setStatus(OnlineStatus.valueOf(Config.getValue("status").toUpperCase()))
+					.setChunkingFilter(ChunkingFilter.ALL)
+					.setMemberCachePolicy(MemberCachePolicy.ALL)
+					.enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES)
+					.addEventListeners(new CommandManager(), new PagesEvents(), new QueueJoin(), new ServerJoin(), new PartyInviteButton())
+					.build()
+					.awaitReady();
+
+			initializeGuildAndLoadData();
+
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void initializeGuildAndLoadData() {
+		System.out.println("Guilds detected: " + jda.getGuilds().size());  // Debug para ver quantas guildas foram detectadas
+
 		jda.getGuilds().stream().findFirst()
-		  .ifPresentOrElse(
-			g -> {
-				guild = g;
-				loadThemesAndLevels();
-				loadDatabaseData();
-			},
-			() -> System.out.println("[!] Please invite this bot to your server first")
-		  );
-		
-		System.out.println("-------------------------------");
-		System.out.println("RankedBedwars has been successfully enabled!");
-		System.out.println("NOTE: this bot can only be in 1 server, otherwise it'll break");
-		System.out.println("Don't forget to configure config.yml and permissions.yml before using it.\nYou can also edit messages.yml (optional).");
-		System.out.println("IMPORTANT: if you add/remove maps in-game, please restart the bot");
-		System.out.println("-------------------------------");
+				.ifPresentOrElse(
+						g -> {
+							guild = g;
+							loadThemesAndLevels();
+							loadDatabaseData();
+						},
+						() -> System.out.println("[!] Please invite this bot to your server first")
+				);
 	}
-	
+
 	private void loadThemesAndLevels() {
 		File themesDir = new File(getDataFolder() + "/RankedBot/themes");
 		if (themesDir.exists()) {

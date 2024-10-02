@@ -13,7 +13,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class PartyListCmd extends Command {
     public PartyListCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -54,23 +54,23 @@ public class PartyListCmd extends Command {
         Party party = PartyCache.getParty(PlayerCache.getPlayer(ID));
 
         String title = "jogadores `[" + party.getMembers().size() + "/" + Config.getValue("max-party-members") + "]`";
-        String players = "";
+        StringBuilder players = new StringBuilder();
 
         for (Player p : party.getMembers()) {
-            players += "<@" + p.getID() + "> ";
+            players.append("<@").append(p.getID()).append("> ");
         }
 
-        String invited = "";
+        StringBuilder invited = new StringBuilder();
 
         for (Player p : party.getInvitedPlayers()) {
-            invited += "<@" + p.getID() + "> ";
+            invited.append("<@").append(p.getID()).append("> ");
         }
 
         Embed embed = new Embed(EmbedType.DEFAULT, party.getLeader().getIgn() + " party info", "", 1);
-        embed.addField(title, players, false);
+        embed.addField(title, players.toString(), false);
 
-        if (!invited.equals("")) {
-            embed.addField("Convidados", invited, false);
+        if (!invited.toString().isEmpty()) {
+            embed.addField("Convidados", invited.toString(), false);
         }
 
         msg.replyEmbeds(embed.build()).queue();

@@ -13,22 +13,22 @@ import java.util.Objects;
 public class UnbanTask {
 
     public static void checkAndUnbanPlayers() {
-        String unbanned = "";
+        StringBuilder unbanned = new StringBuilder();
 
         for (Player p : PlayerCache.getPlayers().values()) {
             if (p.isBanned()) {
                 if (p.getBannedTill() == null || p.getBannedTill().isBefore(LocalDateTime.now())) {
                     p.unban();
 
-                    unbanned += "<@" + p.getID() + "> (" + p.getIgn() + ") ";
+                    unbanned.append("<@").append(p.getID()).append("> (").append(p.getIgn()).append(") ");
                 }
             }
         }
 
-        if (unbanned != "") {
+        if (!unbanned.toString().isEmpty()) {
             if (!Objects.equals(Config.getValue("ban-channel"), null)) {
-                Embed embed = new Embed(EmbedType.DEFAULT, "Jogadores desbanidos `(auto)`:", unbanned, 1);
-                RBW.getGuild().getTextChannelById(Config.getValue("ban-channel")).sendMessageEmbeds(embed.build()).queue();
+                Embed embed = new Embed(EmbedType.DEFAULT, "Jogadores desbanidos `(auto)`:", unbanned.toString(), 1);
+                Objects.requireNonNull(RBW.getGuild().getTextChannelById(Config.getValue("ban-channel"))).sendMessageEmbeds(embed.build()).queue();
             }
         }
     }

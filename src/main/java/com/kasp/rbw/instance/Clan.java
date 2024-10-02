@@ -7,6 +7,7 @@ import com.kasp.rbw.database.SQLite;
 import com.kasp.rbw.instance.cache.ClanCache;
 import com.kasp.rbw.instance.cache.ClanLevelCache;
 import com.kasp.rbw.instance.cache.PlayerCache;
+import lombok.Getter;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,22 +21,33 @@ import java.util.List;
 public class Clan {
 
     // DATA
+    @Getter
     private String name;
+    @Getter
     private Player leader;
+    @Getter
     private List<Player> members;
+    @Getter
     private int reputation;
+    @Getter
     private int xp;
+    @Getter
     private ClanLevel level;
 
     // CLAN WAR
+    @Getter
     private int wins;
+    @Getter
     private int losses;
 
     // SETTINGS
     private boolean isPrivate;
+    @Getter
     private int eloJoinReq;
+    @Getter
     private String description;
 
+    @Getter
     private List<Player> invitedPlayers;
 
     // CREATE CLAN
@@ -124,52 +136,8 @@ public class Clan {
         }
     }
 
-    public int getReputation() {
-        return reputation;
-    }
-
-    public int getXp() {
-        return xp;
-    }
-
     public boolean isPrivate() {
         return isPrivate;
-    }
-
-    public int getEloJoinReq() {
-        return eloJoinReq;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public List<Player> getInvitedPlayers() {
-        return invitedPlayers;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Player getLeader() {
-        return leader;
-    }
-
-    public List<Player> getMembers() {
-        return members;
-    }
-
-    public ClanLevel getLevel() {
-        return level;
-    }
-
-    public int getWins() {
-        return wins;
-    }
-
-    public int getLosses() {
-        return losses;
     }
 
     public void addReputation(int number) {

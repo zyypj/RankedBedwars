@@ -12,7 +12,9 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+
+import java.util.Objects;
 
 public class PartyWarpCmd extends Command {
     public PartyWarpCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -43,18 +45,18 @@ public class PartyWarpCmd extends Command {
             return;
         }
 
-        String warped = "";
+        StringBuilder warped = new StringBuilder();
         for (Player p : party.getMembers()) {
             if (!p.getID().equals(sender.getId())) {
                 try {
-                    guild.moveVoiceMember(guild.getMemberById(p.getID()), sender.getVoiceState().getChannel()).queue();
-                    warped += "<@" + p.getID() + "> ";
+                    guild.moveVoiceMember(Objects.requireNonNull(guild.getMemberById(p.getID())), Objects.requireNonNull(sender.getVoiceState()).getChannel()).queue();
+                    warped.append("<@").append(p.getID()).append("> ");
                 } catch (Exception ignored) {}
             }
         }
 
         Embed embed;
-        if (warped.equals("")) {
+        if (warped.toString().isEmpty()) {
             embed = new Embed(EmbedType.ERROR, "", Msg.getMsg("couldnt-warp"), 1);
         }
         else {

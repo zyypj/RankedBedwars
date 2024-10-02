@@ -6,10 +6,10 @@ import lombok.Getter;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 @Getter
-public class Command{
+public abstract class Command{
 
     private final String command;
     private final String usage;
@@ -31,7 +31,12 @@ public class Command{
     }
 
     public String[] getPermissions() {
-        return Perms.getPerm(command).split(",");
-    }
+        String permString = Perms.getPerm(this.getCommand());
 
+        if (permString == null) {
+            return new String[]{"everyone"};
+        }
+
+        return permString.split(",");
+    };
 }

@@ -11,7 +11,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class RegisterCmd extends Command {
 
@@ -27,13 +27,6 @@ public class RegisterCmd extends Command {
             msg.replyEmbeds(reply.build()).queue();
             return;
         }
-
-        /*SQLPlayerManager.createPlayer(sender.getId(), ign);
-        Player player = new Player(sender.getId());
-        player.fix();
-
-        Embed reply = new Embed(EmbedType.SUCCESS, "", Msg.getMsg("successfully-registered"), 1);
-        msg.replyEmbeds(reply.build()).queue();*/
 
         int code = LinkManager.addPlayer(sender.getId());
 

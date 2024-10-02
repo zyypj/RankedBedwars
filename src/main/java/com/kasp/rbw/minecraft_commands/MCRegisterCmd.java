@@ -7,7 +7,7 @@ import com.kasp.rbw.database.SQLPlayerManager;
 import com.kasp.rbw.instance.Embed;
 import com.kasp.rbw.instance.LinkManager;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -76,6 +76,7 @@ public class MCRegisterCmd implements CommandExecutor {
 
         TextChannel alerts = RBW.guild.getTextChannelById(Config.getValue("alerts-channel"));
         Embed embed = new Embed(EmbedType.SUCCESS, "Vinculação Concluida", "Você foi registrado como `" + player.getName() + "`", 1);
+        assert alerts != null;
         alerts.sendMessage("<@" + member.getId() + ">").setEmbeds(embed.build()).queue();
 
         return true;

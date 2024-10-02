@@ -11,7 +11,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.interactions.components.ActionRow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,9 @@ public class ClanLBCmd extends Command {
             reply.setDescription(lbmsg.toString());
 
             if (j == 0) {
-                embedmsg.editMessageEmbeds(reply.build()).setActionRow(Embed.createButtons(reply.getCurrentPage())).queue();
+                embedmsg.editMessageEmbeds(reply.build())
+                        .setComponents(ActionRow.of(Embed.createButtons(reply.getCurrentPage())))
+                        .queue();
             }
 
             Embed.addPage(embedmsg.getId(), reply);

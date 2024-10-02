@@ -22,7 +22,8 @@ import com.kasp.rbw.instance.Player;
 import com.kasp.rbw.messages.Msg;
 import com.kasp.rbw.perms.Perms;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,26 +38,26 @@ public class CommandManager extends ListenerAdapter {
     public CommandManager() {
         commands.add(new HelpCmd("help", "help [sub-sistema]", new String[]{}, "Olhe todos os comandos", CommandSubsystem.SERVER));
         commands.add(new ReloadConfigCmd("reloadconfig", "reloadconfig", new String[]{"reload", "rc"}, "Reload the configs (update values)", CommandSubsystem.SERVER));
-        commands.add(new InfoCmd("info", "info", new String[]{}, "Informações Sobre Bot e Servidor", CommandSubsystem.SERVER));
+        commands.add(new InfoCmd("info", "info", new String[]{"informacoes"}, "Informações Sobre Bot e Servidor", CommandSubsystem.SERVER));
 
-        commands.add(new RegisterCmd("register", "register", new String[]{}, "Registre você antes de jogar", CommandSubsystem.PLAYER));
-        commands.add(new RenameCmd("rename", "rename", new String[]{}, "Mude seu nick in-game", CommandSubsystem.PLAYER));
-        commands.add(new FixCmd("fix", "fix [ID/menção]", new String[]{"correct"}, "Atuali", CommandSubsystem.PLAYER));
+        commands.add(new RegisterCmd("register", "register", new String[]{"registrar"}, "Registre você antes de jogar", CommandSubsystem.PLAYER));
+        commands.add(new RenameCmd("rename", "rename", new String[]{"renomear"}, "Mude seu nick in-game", CommandSubsystem.PLAYER));
+        commands.add(new FixCmd("fix", "fix [ID/menção]", new String[]{"correct"}, "Atualize seus cargos e apelido", CommandSubsystem.PLAYER));
         commands.add(new ForceRegisterCmd("forceregister", "forceregister <ID/menção> <ign>", new String[]{"freg"}, "Forçar registro", CommandSubsystem.PLAYER));
         commands.add(new ForceRenameCmd("forcerename", "forcerename <ID/menção> <novo ign>", new String[]{"fren"}, "Forçar mudança de nick", CommandSubsystem.PLAYER));
-        commands.add(new ForceUnregisterCmd("forceunregister", "forceunregister <ID/menção>", new String[]{"fren"}, "Forçar desregistro", CommandSubsystem.PLAYER));
-        commands.add(new WipeCmd("wipe", "wipe <ID/menção/\"everyone\">", new String[]{"reset"}, "Resetar todos as estatísticas", CommandSubsystem.PLAYER));
+        commands.add(new ForceUnregisterCmd("forceunregister", "forceunregister <ID/menção>", new String[]{"frunreg"}, "Forçar desregistro", CommandSubsystem.PLAYER));
+        commands.add(new WipeCmd("wipe", "wipe <ID/menção/\"everyone\">", new String[]{"reset", "resetar"}, "Resetar todos as estatísticas", CommandSubsystem.PLAYER));
         commands.add(new StatsCmd("stats", "stats [ID/menção/\"full\"]", new String[]{"s", "i"}, "Ver as estatísticas de alguem", CommandSubsystem.PLAYER));
         commands.add(new LeaderboardCmd("leaderboard", "leaderboard <estatística>", new String[]{"lb"}, "Leaderboard de uma estatística", CommandSubsystem.PLAYER));
-        commands.add(new ModifyCmd("modify", "modify <ID/menção> <estatística> <valor>", new String[]{"edit"}, "Modificar uma estatística", CommandSubsystem.PLAYER));
-        commands.add(new ScreenshareCmd("screenshare", "screenshare <ID/menção> <motivo>", new String[]{"ss"}, "Screenshare a player", CommandSubsystem.PLAYER));
+        commands.add(new ModifyCmd("modify", "modify <ID/menção> <estatística> <valor>", new String[]{"edit", "editar"}, "Modificar uma estatística", CommandSubsystem.PLAYER));
+        commands.add(new ScreenshareCmd("screenshare", "screenshare <ID/menção> <motivo>", new String[]{"ss"}, "Pedir Screenshare a player", CommandSubsystem.PLAYER));
         commands.add(new TransferGoldCmd("transfergold", "transfergold <ID/menção> <quantidade>", new String[]{"tg"}, "Transferir golds de uma conta a outra", CommandSubsystem.PLAYER));
 
-        commands.add(new PartyCreateCmd("partycreate", "partycreate", new String[]{"pcreate"}, "Criar uma party", CommandSubsystem.PARTY));
-        commands.add(new PartyInviteCmd("partyinvite", "partyinvite <ID/menção>", new String[]{"pinvite"}, "Convidar um jogador a sua party", CommandSubsystem.PARTY));
-        commands.add(new PartyJoinCmd("partyjoin", "partyjoin <ID/menção>", new String[]{"pjoin"}, "Entrar na party de alguem", CommandSubsystem.PARTY));
-        commands.add(new PartyLeaveCmd("partyleave", "partyleave", new String[]{"pleave"}, "Sair da sua party atual ou desfaze-la", CommandSubsystem.PARTY));
-        commands.add(new PartyPromoteCmd("partypromote", "partypromote <ID/menção>", new String[]{"ppromote"}, "Promover um jogador da party", CommandSubsystem.PARTY));
+        commands.add(new PartyCreateCmd("partycreate", "partycreate", new String[]{"pcreate", "partycriar"}, "Criar uma party", CommandSubsystem.PARTY));
+        commands.add(new PartyInviteCmd("partyinvite", "partyinvite <ID/menção>", new String[]{"pinvite", "partyinvite"}, "Convidar um jogador a sua party", CommandSubsystem.PARTY));
+        commands.add(new PartyJoinCmd("partyjoin", "partyjoin <ID/menção>", new String[]{"pjoin", "partyjoin"}, "Entrar na party de alguem", CommandSubsystem.PARTY));
+        commands.add(new PartyLeaveCmd("partyleave", "partyleave", new String[]{"pleave", "partysair"}, "Sair da sua party atual ou desfaze-la", CommandSubsystem.PARTY));
+        commands.add(new PartyPromoteCmd("partypromote", "partypromote <ID/menção>", new String[]{"ppromote", "partypromover"}, "Promover um jogador da party", CommandSubsystem.PARTY));
         commands.add(new PartyWarpCmd("partywarp", "partywarp", new String[]{"pwarp"}, "Puxar todos a sua caçç (apenas os que já estiverem em alguma outra call)", CommandSubsystem.PARTY));
         commands.add(new PartyListCmd("partylist", "partylist [ID/menção]", new String[]{"plist"}, "Ver a lista da sua party", CommandSubsystem.PARTY));
         commands.add(new PartyKickCmd("partykick", "partykick <ID/menção>", new String[]{"pkick"}, "Expulsar um jogador da sua party", CommandSubsystem.PARTY));
@@ -114,13 +115,13 @@ public class CommandManager extends ListenerAdapter {
     }
 
     @Override
-    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         String prefix = Config.getValue("prefix");
 
         String[] args = event.getMessage().getContentRaw().split(" ");
         Guild g = event.getGuild();
         Member m = event.getMember();
-        TextChannel c = event.getChannel();
+        TextChannel c = (TextChannel) event.getChannel();
         Message msg = event.getMessage();
 
         if (!msg.getContentRaw().startsWith(prefix)) {
@@ -135,8 +136,9 @@ public class CommandManager extends ListenerAdapter {
 
         if (!Boolean.parseBoolean(Config.getValue("unregistered-cmd-usage"))) {
             if (!args[0].replace(prefix, "").equalsIgnoreCase("register")) {
+                assert m != null;
                 if (!Player.isRegistered(m.getId())) {
-                    Embed reply = new Embed(EmbedType.ERROR, "Not Registered", Msg.getMsg("not-registered"), 1);
+                    Embed reply = new Embed(EmbedType.ERROR, "Não Registrado", Msg.getMsg("not-registered"), 1);
                     msg.replyEmbeds(reply.build()).queue();
                     return;
                 }
@@ -166,6 +168,7 @@ public class CommandManager extends ListenerAdapter {
         }
 
         if (Boolean.parseBoolean(Config.getValue("log-commands"))) {
+            assert m != null;
             System.out.println("[RankedBW] " + m.getUser() .getAsTag() + " used " + msg.getContentRaw());
         }
 

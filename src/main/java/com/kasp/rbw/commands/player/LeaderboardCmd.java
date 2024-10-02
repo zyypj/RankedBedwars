@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -39,9 +39,9 @@ public class LeaderboardCmd extends Command {
             try {
                 statistic = Statistic.valueOf(args[1].toUpperCase());
             } catch (Exception e) {
-                String stats = "";
+                StringBuilder stats = new StringBuilder();
                 for (Statistic s : Statistic.values()) {
-                    stats += "`" + s + "` ";
+                    stats.append("`").append(s).append("` ");
                 }
                 Embed embed = new Embed(EmbedType.ERROR, "Erro", "Essa estatística não existe\nDisponíveis: " + stats, 1);
                 msg.replyEmbeds(embed.build()).queue();
@@ -51,21 +51,21 @@ public class LeaderboardCmd extends Command {
 
         List<String> lb = new ArrayList<>(Leaderboard.getLeaderboard(statistic));
 
-        Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("carregando...").build()).complete();
+        Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("Carregando...").build()).complete();
 
         for (int j = 0; j < Math.ceil(lb.size() / 10.0); j++) {
 
             Embed reply = new Embed(EmbedType.DEFAULT, statistic + " Leaderboard", "", (int) Math.ceil(lb.size() / 10.0));
 
-            String lbmsg = "";
+            StringBuilder lbmsg = new StringBuilder();
             for (int i = j * 10; i < j * 10 + 10; i++) {
                 if (i < lb.size()) {
                     String[] values = lb.get(i).split("=");
                     Player p = PlayerCache.getPlayer(values[0]);
-                    lbmsg += "**#" + (i + 1) + "** `" + p.getIgn() + "` — " + formatter.format(Double.parseDouble(values[1])) + "\n";
+                    lbmsg.append("**#").append(i + 1).append("** `").append(p.getIgn()).append("` — ").append(formatter.format(Double.parseDouble(values[1]))).append("\n");
                 }
             }
-            reply.setDescription(lbmsg);
+            reply.setDescription(lbmsg.toString());
 
             if (j == 0) {
                 embedmsg.editMessageEmbeds(reply.build()).setActionRow(Embed.createButtons(reply.getCurrentPage())).queue();

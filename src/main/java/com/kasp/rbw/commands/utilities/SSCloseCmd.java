@@ -12,8 +12,9 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -49,7 +50,7 @@ public class SSCloseCmd extends Command {
             public void run() {
                 try {
                     if (guild.getTextChannelById(ss.getChannelID()) != null) {
-                        guild.getTextChannelById(ss.getChannelID()).delete().queue();
+                        Objects.requireNonNull(guild.getTextChannelById(ss.getChannelID())).delete().queue();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -66,6 +67,6 @@ public class SSCloseCmd extends Command {
                 "Screenshared por: <@" + sender.getId() + ">\n\n" +
                 "Motivo do fechamento: `" + reason + "`");
 
-        RBW.guild.getTextChannelById(Config.getValue("ss-log-channel")).sendMessageEmbeds(embed.build()).queue();
+        Objects.requireNonNull(RBW.guild.getTextChannelById(Config.getValue("ss-log-channel"))).sendMessageEmbeds(embed.build()).queue();
     }
 }

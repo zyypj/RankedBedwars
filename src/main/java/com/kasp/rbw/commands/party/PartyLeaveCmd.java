@@ -12,7 +12,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class PartyLeaveCmd extends Command {
     public PartyLeaveCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -41,13 +41,13 @@ public class PartyLeaveCmd extends Command {
             Embed reply = new Embed(EmbedType.SUCCESS, "", Msg.getMsg("party-disbanded"), 1);
             msg.replyEmbeds(reply.build()).queue();
 
-            String mentions = "";
+            StringBuilder mentions = new StringBuilder();
             for (Player p : party.getMembers()) {
-                mentions += "<@" + p.getID() + ">";
+                mentions.append("<@").append(p.getID()).append(">");
             }
 
             Embed embed = new Embed(EmbedType.DEFAULT, "", Msg.getMsg("your-party-disbanded"), 1);
-            channel.sendMessage(mentions).setEmbeds(embed.build()).queue();
+            channel.sendMessage(mentions.toString()).setEmbeds(embed.build()).queue();
 
             party.disband();
         }

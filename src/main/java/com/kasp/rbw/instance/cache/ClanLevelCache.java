@@ -2,12 +2,14 @@ package com.kasp.rbw.instance.cache;
 
 import com.kasp.rbw.config.Config;
 import com.kasp.rbw.instance.ClanLevel;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ClanLevelCache {
 
+    @Getter
     private static Map<Integer, ClanLevel> clanLevels = new HashMap<>();
 
     public static ClanLevel getLevel(int level) {
@@ -28,14 +30,11 @@ public class ClanLevelCache {
         return clanLevels.containsKey(level);
     }
 
-    public static ClanLevel initializeLevel(int level, ClanLevel lvlobj) {
+    public static void initializeLevel(int level, ClanLevel lvlobj) {
         if (!containsLevel(level))
             addLevel(lvlobj);
 
-        return getLevel(level);
+        getLevel(level);
     }
 
-    public static Map<Integer, ClanLevel> getClanLevels() {
-        return clanLevels;
-    }
 }

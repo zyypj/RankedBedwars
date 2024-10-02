@@ -10,10 +10,12 @@ import com.kasp.rbw.sample.EmbedType;
 import com.kasp.rbw.sample.GameState;
 import com.kasp.rbw.sample.PickingMode;
 import com.tomkeuper.bedwars.api.arena.IArena;
+import lombok.Getter;
+import lombok.Setter;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.channel.concrete.Category;
 import net.dv8tion.jda.api.exceptions.ErrorHandler;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 import org.bukkit.Bukkit;
@@ -24,46 +26,61 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class Game {
-	
-	private int number;
+
+	@Getter
+    private int number;
 	
 	// discord
-	private Guild guild;
-	
+	@Setter
+    @Getter
+    private Guild guild;
+
 	private Category channelsCategory;
 	private Category vcsCategory;
-	
-	private String channelID;
+
+	@Getter
+    private String channelID;
 	private String vc1ID;
 	private String vc2ID;
-	
-	private Queue queue;
-	
+
+	@Getter
+    private Queue queue;
+
 	// game
-	private List<Player> players;
+	@Getter
+    private List<Player> players;
 	// player, people in party
 	private Map<Player, Integer> playersInParties;
-	
+
 	private Player captain1;
 	private Player captain2;
 	private Player currentCaptain;
-	
-	private List<Player> team1;
-	private List<Player> team2;
-	private List<Player> remainingPlayers;
-	
-	private GameState state;
-	
-	private boolean casual;
-	private GameMap map;
-	private Player mvp;
-	private Member scoredBy; // this acts as voidedBy if game was voided
-	
+
+	@Getter
+    private List<Player> team1;
+	@Getter
+    private List<Player> team2;
+	@Getter
+    private List<Player> remainingPlayers;
+
+	@Getter
+    private GameState state;
+
+	@Getter
+    private boolean casual;
+	@Getter
+    private GameMap map;
+	@Getter
+    private Player mvp;
+	@Getter
+    private Member scoredBy; // this acts as voidedBy if game was voided
+
 	private TimerTask closingTask;
-	
+
 	// IF THE GAME WAS SCORED
-	
-	private HashMap<Player, Integer> eloGain; // used for =undogame
+
+	@Getter
+    private HashMap<Player, Integer> eloGain; // used for =undogame
 	
 	public Game(List<Player> players, Queue queue) {
 		
@@ -87,7 +104,7 @@ public class Game {
 					validMaps.add(map);
 		
 		Collections.shuffle(validMaps);
-		if (validMaps.size() > 0) {
+		if (!validMaps.isEmpty()) {
 			this.map = validMaps.get(0);
 		} else {
 			this.map = null;
@@ -95,7 +112,7 @@ public class Game {
 		
 		this.channelsCategory = guild.getCategoryById(Config.getValue("game-channels-category"));
 		this.vcsCategory = guild.getCategoryById(Config.getValue("game-vcs-category"));
-		
+
 		channelID = channelsCategory.createTextChannel(Config.getValue("game-channel-names").replaceAll("%number%", number + "").replaceAll("%mode%", queue.getPlayersEachTeam() + "v" + queue.getPlayersEachTeam())).complete().getId();
 		vc1ID = vcsCategory.createVoiceChannel(Config.getValue("game-vc-names").replaceAll("%number%", number + "").replaceAll("%mode%", queue.getPlayersEachTeam() + "v" + queue.getPlayersEachTeam()).replaceAll("%team%", "1")).setUserlimit(queue.getPlayersEachTeam()).complete().getId();
 		vc2ID = vcsCategory.createVoiceChannel(Config.getValue("game-vc-names").replaceAll("%number%", number + "").replaceAll("%mode%", queue.getPlayersEachTeam() + "v" + queue.getPlayersEachTeam()).replaceAll("%team%", "2")).setUserlimit(queue.getPlayersEachTeam()).complete().getId();
@@ -119,30 +136,39 @@ public class Game {
 			this.remainingPlayers.remove(captain2);
 			
 			try {
-				guild.moveVoiceMember(guild.getMemberById(captain1.getID()), guild.getVoiceChannelById(vc1ID)).queue(null, new ErrorHandler().ignore(ErrorResponse.USER_NOT_CONNECTED));
-				guild.moveVoiceMember(guild.getMemberById(captain2.getID()), guild.getVoiceChannelById(vc2ID)).queue(null, new ErrorHandler().ignore(ErrorResponse.USER_NOT_CONNECTED));
+				guild.moveVoiceMember(Objects.requireNonNull(guild.getMemberById(captain1.getID())), guild.getVoiceChannelById(vc1ID)).queue(null, new ErrorHandler().ignore(ErrorResponse.USER_NOT_CONNECTED));
+				guild.moveVoiceMember(Objects.requireNonNull(guild.getMemberById(captain2.getID())), guild.getVoiceChannelById(vc2ID)).queue(null, new ErrorHandler().ignore(ErrorResponse.USER_NOT_CONNECTED));
 			} catch (Exception ignored) {
 			}
 		}
 		
 		try {
 			for (Player p : players) {
-				guild.getTextChannelById(channelID).createPermissionOverride(guild.getMemberById(p.getID())).setAllow(Permission.VIEW_CHANNEL).queue();
-				guild.getVoiceChannelById(vc1ID).createPermissionOverride(guild.getMemberById(p.getID())).setAllow(Permission.VIEW_CHANNEL).setAllow(Permission.VOICE_CONNECT).queue();
-				guild.getVoiceChannelById(vc2ID).createPermissionOverride(guild.getMemberById(p.getID())).setAllow(Permission.VIEW_CHANNEL).setAllow(Permission.VOICE_CONNECT).queue();
+				Objects.requireNonNull(guild.getTextChannelById(channelID)).upsertPermissionOverride(Objects.requireNonNull(guild.getMemberById(p.getID())))
+						.setAllowed(Permission.VIEW_CHANNEL)
+						.queue();
+				
+				Objects.requireNonNull(guild.getVoiceChannelById(vc1ID)).upsertPermissionOverride(Objects.requireNonNull(guild.getMemberById(p.getID())))
+						.setAllowed(Permission.VIEW_CHANNEL, Permission.VOICE_CONNECT)
+						.queue();
+				
+				Objects.requireNonNull(guild.getVoiceChannelById(vc2ID)).upsertPermissionOverride(Objects.requireNonNull(guild.getMemberById(p.getID())))
+						.setAllowed(Permission.VIEW_CHANNEL, Permission.VOICE_CONNECT)
+						.queue();
 			}
-			
+
+
 			for (Player p : remainingPlayers) {
-				guild.moveVoiceMember(guild.getMemberById(p.getID()), guild.getVoiceChannelById(vc1ID)).queue(null, new ErrorHandler().ignore(ErrorResponse.USER_NOT_CONNECTED));
+				guild.moveVoiceMember(Objects.requireNonNull(guild.getMemberById(p.getID())), guild.getVoiceChannelById(vc1ID)).queue(null, new ErrorHandler().ignore(ErrorResponse.USER_NOT_CONNECTED));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			String mentions = "";
+			StringBuilder mentions = new StringBuilder();
 			for (Player p : players) {
-				mentions += "<@" + p.getID() + ">";
+				mentions.append("<@").append(p.getID()).append(">");
 			}
 			Embed embed = new Embed(EmbedType.ERROR, "Algo deu errado...", "O jogo não foi criado pois algo deu errado. Por favor, saia e entre novamente na fila. Se isso continuar acontecendo, contacte o @zyypj", 1);
-			guild.getTextChannelById(Config.getValue("alerts-channel")).sendMessage(mentions).setEmbeds(embed.build()).queue();
+			Objects.requireNonNull(guild.getTextChannelById(Config.getValue("alerts-channel"))).sendMessage(mentions.toString()).setEmbeds(embed.build()).queue();
 			return;
 		}
 		
@@ -226,12 +252,12 @@ public class Game {
 		if (this.map == null) {
 			Embed embed = new Embed(EmbedType.ERROR, "Nenhum Mapa Disponível", "Nenhum mapa foi encontrado, aguarde um momento e entre na fila novamente (`=maps`)", 1);
 			
-			String mentions = "";
+			StringBuilder mentions = new StringBuilder();
 			for (Player p : players) {
-				mentions += guild.getMemberById(p.getID()).getAsMention();
+				mentions.append(Objects.requireNonNull(guild.getMemberById(p.getID())).getAsMention());
 			}
 			
-			guild.getTextChannelById(channelID).sendMessage(mentions).setEmbeds(embed.build()).queue();
+			Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessage(mentions.toString()).setEmbeds(embed.build()).queue();
 			
 			closeChannel(300);
 			setState(GameState.VOIDED);
@@ -266,7 +292,7 @@ public class Game {
 				}
 			}
 			
-			if (parties.size() > 0) {
+			if (!parties.isEmpty()) {
 				for (Party p : parties) {
 					if (team1.size() < team2.size()) {
 						if (queue.getPlayersEachTeam() - team1.size() >= p.getMembers().size()) {
@@ -307,7 +333,7 @@ public class Game {
 		
 		for (Player p : team2) {
 			try {
-				guild.moveVoiceMember(guild.getMemberById(p.getID()), guild.getVoiceChannelById(vc2ID)).queue(null, new ErrorHandler().ignore(ErrorResponse.USER_NOT_CONNECTED));
+				guild.moveVoiceMember(Objects.requireNonNull(guild.getMemberById(p.getID())), guild.getVoiceChannelById(vc2ID)).queue(null, new ErrorHandler().ignore(ErrorResponse.USER_NOT_CONNECTED));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -326,22 +352,22 @@ public class Game {
 		Embed embed = new Embed(EmbedType.DEFAULT, "Jogo `#" + number + "`", "", 1);
 		
 		if (queue.getPickingMode() == PickingMode.CAPTAINS) {
-			embed.setDescription("Vez de " + guild.getMemberById(currentCaptain.getID()).getAsMention() + " `=pick`");
+			embed.setDescription("Vez de " + Objects.requireNonNull(guild.getMemberById(currentCaptain.getID())).getAsMention() + " `=pick`");
 		}
 		
-		String team1 = "";
+		StringBuilder team1 = new StringBuilder();
 		for (Player p : this.team1) {
-			team1 += "• <@!" + p.getID() + ">\n";
+			team1.append("• <@!").append(p.getID()).append(">\n");
 		}
-		embed.addField("Team 1", team1, true);
+		embed.addField("Team 1", team1.toString(), true);
 		
-		String team2 = "";
+		StringBuilder team2 = new StringBuilder();
 		for (Player p : this.team2) {
-			team2 += "• <@!" + p.getID() + ">\n";
+			team2.append("• <@!").append(p.getID()).append(">\n");
 		}
-		embed.addField("Team 2", team2, true);
+		embed.addField("Team 2", team2.toString(), true);
 		
-		if (remainingPlayers.size() != 0) {
+		if (!remainingPlayers.isEmpty()) {
 			String remaining = "";
 			for (Player p : remainingPlayers) {
 				remaining += "• <@!" + p.getID() + ">\n";
@@ -352,16 +378,16 @@ public class Game {
 		
 		embed.addField("Mapa Randomizado", "**" + map.getName() + "** — `Altura Máxima: " + map.getHeight() + "` (" + map.getTeam1() + " vs " + map.getTeam2() + ")", false);
 		
-		if (remainingPlayers.size() == 0) {
+		if (remainingPlayers.isEmpty()) {
 			embed.setDescription("");
 			embed.setTitle("Jogo `#" + number + "` começou!");
 			
-			guild.getTextChannelById(Config.getValue("games-announcing")).sendMessageEmbeds(embed.build()).queue();
+			Objects.requireNonNull(guild.getTextChannelById(Config.getValue("games-announcing"))).sendMessageEmbeds(embed.build()).queue();
 			
 			if (Config.getValue("party-invite-cmd") != null) {
-				String party = Config.getValue("party-invite-cmd");
+				StringBuilder party = new StringBuilder(Config.getValue("party-invite-cmd"));
 				for (Player p : players) {
-					party += " " + p.getIgn();
+					party.append(" ").append(p.getIgn());
 				}
 				embed.addField("Party Invite Cmd", "`" + party + "`", false);
 			}
@@ -373,12 +399,12 @@ public class Game {
 			embed.setDescription("não esqueça de usar `=submit` após o jogo terminar");
 		}
 		
-		String mentions = "";
+		StringBuilder mentions = new StringBuilder();
 		for (Player p : players) {
-			mentions += guild.getMemberById(p.getID()).getAsMention();
+			mentions.append(Objects.requireNonNull(guild.getMemberById(p.getID())).getAsMention());
 		}
 		
-		guild.getTextChannelById(channelID).sendMessage(mentions).setEmbeds(embed.build()).queue();
+		Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessage(mentions.toString()).setEmbeds(embed.build()).queue();
 	}
 	
 	// bool - was the action successful or not
@@ -495,18 +521,18 @@ public class Game {
 		
 		Embed embed = new Embed(EmbedType.SUCCESS, "Jogo `#" + number + "` foi pontuado", "", 1);
 		
-		String team1 = "";
+		StringBuilder team1 = new StringBuilder();
 		for (Player p : this.team1) {
-			team1 += "• <@" + p.getID() + "> `(+)`**" + eloGain.get(p) + "** `" + (p.getElo() - eloGain.get(p)) + "` > `" + p.getElo() + "`\n";
+			team1.append("• <@").append(p.getID()).append("> `(+)`**").append(eloGain.get(p)).append("** `").append(p.getElo() - eloGain.get(p)).append("` > `").append(p.getElo()).append("`\n");
 		}
 		
-		String team2 = "";
+		StringBuilder team2 = new StringBuilder();
 		for (Player p : this.team2) {
-			team2 += "• <@" + p.getID() + "> `(+)`**" + eloGain.get(p) + "** `" + (p.getElo() - eloGain.get(p)) + "` > `" + p.getElo() + "`\n";
+			team2.append("• <@").append(p.getID()).append("> `(+)`**").append(eloGain.get(p)).append("** `").append(p.getElo() - eloGain.get(p)).append("` > `").append(p.getElo()).append("`\n");
 		}
 		
-		embed.addField("Time 1:", team1, false);
-		embed.addField("Time 2:", team2, false);
+		embed.addField("Time 1:", team1.toString(), false);
+		embed.addField("Time 2:", team2.toString(), false);
 		
 		if (mvp != null) {
 			embed.addField("MVP", "<@" + mvp.getID() + ">", false);
@@ -515,11 +541,11 @@ public class Game {
 		embed.addField("Pontuado por", scoredBy.getAsMention(), false);
 		
 		if (!Objects.equals(Config.getValue("scored-announcing"), null)) {
-			guild.getTextChannelById(Config.getValue("scored-announcing")).sendMessageEmbeds(embed.build()).queue();
+			Objects.requireNonNull(guild.getTextChannelById(Config.getValue("scored-announcing"))).sendMessageEmbeds(embed.build()).queue();
 		}
 		
 		if (guild.getTextChannelById(channelID) != null) {
-			guild.getTextChannelById(channelID).sendMessageEmbeds(embed.build()).queue();
+			Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessageEmbeds(embed.build()).queue();
 		}
 		
 		// EMBED END
@@ -558,7 +584,7 @@ public class Game {
 	public void closeChannel(int timeSeconds) {
 		if (guild.getTextChannelById(channelID) != null) {
 			Embed embed = new Embed(EmbedType.DEFAULT, "", "Canal sendo deletado em `" + timeSeconds + "` segundos / `" + timeSeconds / 60 + "` minutos", 1);
-			guild.getTextChannelById(channelID).sendMessageEmbeds(embed.build()).queue();
+			Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessageEmbeds(embed.build()).queue();
 		}
 		
 		if (closingTask != null) {
@@ -570,13 +596,13 @@ public class Game {
 			public void run() {
 				try {
 					if (guild.getTextChannelById(channelID) != null) {
-						guild.getTextChannelById(channelID).delete().queue();
+						Objects.requireNonNull(guild.getTextChannelById(channelID)).delete().queue();
 					}
 					if (guild.getVoiceChannelById(vc1ID) != null) {
-						guild.getVoiceChannelById(vc1ID).delete().queue();
+						Objects.requireNonNull(guild.getVoiceChannelById(vc1ID)).delete().queue();
 					}
 					if (guild.getVoiceChannelById(vc2ID) != null) {
-						guild.getVoiceChannelById(vc2ID).delete().queue();
+						Objects.requireNonNull(guild.getVoiceChannelById(vc2ID)).delete().queue();
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -608,7 +634,7 @@ public class Game {
 							if (!arena.addPlayer(Bukkit.getPlayer(p.getIgn()), true)) {
 								Embed embed = new Embed(EmbedType.ERROR, "Falha ao Puxar", "<@" + p.getID() + "> entre em `" + Config.getValue("server-ip") + "`\nTentando novamente em `30` segundos `[Tentativas: " + tries + "/" + triesMax + "]`", 1);
 								
-								guild.getTextChannelById(channelID).sendMessage("<@" + p.getID() + ">").setEmbeds(embed.build()).queue();
+								Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessage("<@" + p.getID() + ">").setEmbeds(embed.build()).queue();
 							}
 							
 							// set team
@@ -624,7 +650,7 @@ public class Game {
 							if (!arena.addPlayer(Bukkit.getPlayer(p.getIgn()), true)) {
 								Embed embed = new Embed(EmbedType.ERROR, "Falha ao Puxar", "<@" + p.getID() + "> entre em `" + Config.getValue("server-ip") + "`\nTentando novamente em `30` segundos `[Tentativas: " + tries + "/" + triesMax + "]`", 1);
 								
-								guild.getTextChannelById(channelID).sendMessage("<@" + p.getID() + ">").setEmbeds(embed.build()).queue();
+								Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessage("<@" + p.getID() + ">").setEmbeds(embed.build()).queue();
 							}
 							
 							// set team
@@ -635,13 +661,13 @@ public class Game {
 							cancel();
 							
 							Embed embed = new Embed(EmbedType.SUCCESS, "Puxado para o Mapa", "Todos foram puxados para o Mapa `" + arena.getArenaName() + "`", 1);
-							guild.getTextChannelById(channelID).sendMessageEmbeds(embed.build()).queue();
+							Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessageEmbeds(embed.build()).queue();
 							return;
 						}
 						
 						if (tries == triesMax) {
 							Embed embed = new Embed(EmbedType.ERROR, "Falha ao Puxar", "Todas as tentativas `[" + triesMax + "/" + triesMax + "]` foram usadas\nPor favor, tente novamente com `=retry` ou `=void` o jogo", 1);
-							guild.getTextChannelById(channelID).sendMessageEmbeds(embed.build()).queue();
+							Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessageEmbeds(embed.build()).queue();
 							cancel();
 						}
 					} catch (Exception e) {
@@ -652,86 +678,26 @@ public class Game {
 			}.runTaskTimer(RBW.getInstance(), 20L, 20L * 30);
 		});
 	}
-	
-	public HashMap<Player, Integer> getEloGain() {
-		return eloGain;
-	}
-	
-	public int getNumber() {
-		return number;
-	}
-	
-	public String getChannelID() {
-		return channelID;
-	}
-	
-	public Guild getGuild() {
-		return guild;
-	}
-	
-	public void setGuild(Guild guild) {
-		this.guild = guild;
-	}
-	
-	public String getVC1ID() {
+
+    public String getVC1ID() {
 		return vc1ID;
 	}
 	
 	public String getVC2ID() {
 		return vc2ID;
 	}
-	
-	public Queue getQueue() {
-		return queue;
-	}
-	
-	public List<Player> getPlayers() {
-		return players;
-	}
-	
-	public List<Player> getTeam1() {
-		return team1;
-	}
-	
-	public List<Player> getTeam2() {
-		return team2;
-	}
-	
-	public List<Player> getRemainingPlayers() {
-		return remainingPlayers;
-	}
-	
-	public GameState getState() {
-		return state;
-	}
-	
-	public void setState(GameState state) {
+
+    public void setState(GameState state) {
 		this.state = state;
 		SQLGameManager.updateState(number);
 	}
-	
-	public boolean isCasual() {
-		return casual;
-	}
-	
-	public GameMap getMap() {
-		return map;
-	}
-	
-	public Player getMvp() {
-		return mvp;
-	}
-	
-	public void setMvp(Player mvp) {
+
+    public void setMvp(Player mvp) {
 		this.mvp = mvp;
 		SQLGameManager.updateMvp(number);
 	}
-	
-	public Member getScoredBy() {
-		return scoredBy;
-	}
-	
-	public void setScoredBy(Member scoredBy) {
+
+    public void setScoredBy(Member scoredBy) {
 		this.scoredBy = scoredBy;
 		SQLGameManager.updateScoredBy(number);
 	}

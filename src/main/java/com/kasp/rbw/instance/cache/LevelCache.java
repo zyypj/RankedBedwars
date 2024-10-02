@@ -2,12 +2,14 @@ package com.kasp.rbw.instance.cache;
 
 import com.kasp.rbw.config.Config;
 import com.kasp.rbw.instance.Level;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LevelCache {
 
+    @Getter
     private static Map<Integer, Level> levels = new HashMap<>();
 
     public static Level getLevel(int level) {
@@ -28,14 +30,11 @@ public class LevelCache {
         return levels.containsKey(level);
     }
 
-    public static Level initializeLevel(int level, Level lvlobj) {
+    public static void initializeLevel(int level, Level lvlobj) {
         if (!containsLevel(level))
             addLevel(lvlobj);
 
-        return getLevel(level);
+        getLevel(level);
     }
 
-    public static Map<Integer, Level> getLevels() {
-        return levels;
-    }
 }

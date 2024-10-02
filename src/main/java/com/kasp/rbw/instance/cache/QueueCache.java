@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class QueueCache {
 
-    private static HashMap<String, Queue> queues = new HashMap<>();
+    private static final HashMap<String, Queue> queues = new HashMap<>();
 
     public static Queue getQueue(String ID) {
         return queues.get(ID);
@@ -28,11 +28,11 @@ public class QueueCache {
         return queues.containsKey(ID);
     }
 
-    public static Queue initializeQueue(String ID, Queue queue) {
+    public static void initializeQueue(String ID, Queue queue) {
         if (!containsQueue(ID))
             addQueue(queue);
 
-        return getQueue(ID);
+        getQueue(ID);
     }
 
     public static Map<String, Queue> getQueues() {

@@ -2,13 +2,15 @@ package com.kasp.rbw.instance.cache;
 
 import com.kasp.rbw.config.Config;
 import com.kasp.rbw.instance.ScreenShare;
+import lombok.Getter;
 
 import java.util.HashMap;
 
 public class ScreenshareCache {
 
     // channelID, screenshare
-    private static HashMap<String, ScreenShare> screenshares = new HashMap<>();
+    @Getter
+    private static final HashMap<String, ScreenShare> screenshares = new HashMap<>();
 
     public static ScreenShare getScreenshare(String ID) {
         return screenshares.get(ID);
@@ -33,7 +35,4 @@ public class ScreenshareCache {
             addScreenshare(ss);
     }
 
-    public static HashMap<String, ScreenShare> getScreenshares() {
-        return screenshares;
-    }
 }

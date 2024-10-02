@@ -19,6 +19,7 @@ public class Levels {
         ClassLoader classLoader = RBW.class.getClassLoader();
 
         try (InputStream inputStream = classLoader.getResourceAsStream(filename)) {
+            assert inputStream != null;
             String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
 
             File file = new File(RBW.getInstance().getDataFolder() + "/RankedBot/" + filename);
@@ -50,6 +51,7 @@ public class Levels {
         ClassLoader classLoader = RBW.class.getClassLoader();
 
         try (InputStream inputStream = classLoader.getResourceAsStream(filename)) {
+            assert inputStream != null;
             String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
 
             File file = new File(RBW.getInstance().getDataFolder() + "/RankedBot/" + filename);

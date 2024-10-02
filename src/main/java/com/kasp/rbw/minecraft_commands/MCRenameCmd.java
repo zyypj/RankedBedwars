@@ -10,6 +10,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
+
 public class MCRenameCmd implements CommandExecutor {
 
     @Override
@@ -47,7 +49,7 @@ public class MCRenameCmd implements CommandExecutor {
 
         Member member = null;
         try {
-            member = RBW.guild.getMemberById(LinkManager.getMemberByCode(code));
+            member = RBW.guild.getMemberById(Objects.requireNonNull(LinkManager.getMemberByCode(code)));
         } catch (Exception ignored) {}
 
         if (member == null) {

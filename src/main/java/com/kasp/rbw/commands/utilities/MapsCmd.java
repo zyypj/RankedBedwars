@@ -10,7 +10,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class MapsCmd extends Command {
     public MapsCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -25,18 +25,18 @@ public class MapsCmd extends Command {
             return;
         }
 
-        String maps = "";
+        StringBuilder maps = new StringBuilder();
         for (GameMap m : MapCache.getMaps().values()) {
-            maps += "`[" + m.getArenaState() + "]` " + "**" + m.getName() + "** `(" + m.getMaxPlayers() + "v" + m.getMaxPlayers() + ")` — Altura: " + m.getHeight() + " (" + m.getTeam1() + " vs " + m.getTeam2() + ")\n";
+            maps.append("`[").append(m.getArenaState()).append("]` ").append("**").append(m.getName()).append("** `(").append(m.getMaxPlayers()).append("v").append(m.getMaxPlayers()).append(")` — Altura: ").append(m.getHeight()).append(" (").append(m.getTeam1()).append(" vs ").append(m.getTeam2()).append(")\n");
         }
 
         Embed embed;
 
-        if (maps.equals("")) {
+        if (maps.toString().isEmpty()) {
             embed = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("no-maps"), 1);
         }
         else {
-            embed = new Embed(EmbedType.DEFAULT, "Todos mapas", maps, 1);
+            embed = new Embed(EmbedType.DEFAULT, "Todos mapas", maps.toString(), 1);
         }
 
         msg.replyEmbeds(embed.build()).queue();

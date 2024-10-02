@@ -13,7 +13,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class ClanInfoCmd extends Command {
     public ClanInfoCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -50,14 +50,14 @@ public class ClanInfoCmd extends Command {
 
         Clan clan = ClanCache.getClan(clanName);
 
-        String members = "";
+        StringBuilder members = new StringBuilder();
         for (Player p : clan.getMembers()) {
-            members += "<@" + p.getID() + "> ";
+            members.append("<@").append(p.getID()).append("> ");
         }
 
-        String invited = "";
+        StringBuilder invited = new StringBuilder();
         for (Player p : clan.getInvitedPlayers()) {
-            invited += "<@" + p.getID() + "> ";
+            invited.append("<@").append(p.getID()).append("> ");
         }
 
         String eloReq = "";
@@ -68,9 +68,9 @@ public class ClanInfoCmd extends Command {
         Embed embed = new Embed(EmbedType.DEFAULT, clan.getName() + " Clan Info", "- Desative os stats com `=cstats`", 1);
         embed.addField("Privado", clan.isPrivate() + eloReq, false);
         embed.addField("Líder", "<@" + clan.getLeader().getID() + ">", false);
-        embed.addField("Membros `[" + clan.getMembers().size() + "/" + Config.getValue("l" + clan.getLevel().getLevel()) + "]`", members, false);
+        embed.addField("Membros `[" + clan.getMembers().size() + "/" + Config.getValue("l" + clan.getLevel().getLevel()) + "]`", members.toString(), false);
         if (!clan.getInvitedPlayers().isEmpty()) {
-            embed.addField("Jogadores Convidados `[" + clan.getInvitedPlayers().size() + "]`", invited, false);
+            embed.addField("Jogadores Convidados `[" + clan.getInvitedPlayers().size() + "]`", invited.toString(), false);
         }
         msg.replyEmbeds(embed.build()).queue();
     }

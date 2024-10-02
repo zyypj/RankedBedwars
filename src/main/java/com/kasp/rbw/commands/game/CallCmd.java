@@ -10,7 +10,9 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+
+import java.util.Objects;
 
 public class CallCmd extends Command {
     public CallCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -41,8 +43,12 @@ public class CallCmd extends Command {
 
         Embed embed = new Embed(EmbedType.SUCCESS, "", "<@" + ID + "> tem acesso ao seu vc", 1);
 
-        sender.getVoiceState().getChannel().getManager().setUserLimit(sender.getVoiceState().getChannel().getUserLimit()+1).queue();
-        sender.getVoiceState().getChannel().createPermissionOverride(guild.getMemberById(ID)).setAllow(Permission.VIEW_CHANNEL).setAllow(Permission.VOICE_CONNECT).queue();
+        Objects.requireNonNull(sender.getVoiceState().getChannel()).getManager().setUserLimit(sender.getVoiceState().getChannel().getUserLimit()+1).queue();
+        Objects.requireNonNull(sender.getVoiceState().getChannel())
+                .upsertPermissionOverride(Objects.requireNonNull(guild.getMemberById(ID)))
+                .grant(Permission.VIEW_CHANNEL)
+                .grant(Permission.VOICE_CONNECT)
+                .queue();
 
         msg.replyEmbeds(embed.build()).queue();
     }

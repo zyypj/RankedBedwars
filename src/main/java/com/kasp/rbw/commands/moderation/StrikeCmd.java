@@ -11,7 +11,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -62,7 +62,7 @@ public class StrikeCmd extends Command {
 
         msg.replyEmbeds(success.build()).queue();
         if (!Objects.equals(Config.getValue("ban-channel"), null)) {
-            guild.getTextChannelById(Config.getValue("ban-channel")).sendMessage("<@" + ID + ">").setEmbeds(embed.build()).queue();
+            Objects.requireNonNull(guild.getTextChannelById(Config.getValue("ban-channel"))).sendMessage("<@" + ID + ">").setEmbeds(embed.build()).queue();
         }
     }
 }

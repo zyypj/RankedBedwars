@@ -10,7 +10,9 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+
+import java.util.Objects;
 
 public class WinCmd extends Command {
     public WinCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -31,7 +33,7 @@ public class WinCmd extends Command {
         player.win(1.0);
         player.fix();
 
-        Embed embed = new Embed(EmbedType.SUCCESS, "", guild.getMemberById(ID).getAsMention() + " +1 vítoria e elo atualizado", 1);
+        Embed embed = new Embed(EmbedType.SUCCESS, "", Objects.requireNonNull(guild.getMemberById(ID)).getAsMention() + " +1 vítoria e elo atualizado", 1);
         msg.replyEmbeds(embed.build()).queue();
     }
 }

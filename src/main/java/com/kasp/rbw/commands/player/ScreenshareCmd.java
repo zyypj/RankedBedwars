@@ -9,11 +9,9 @@ import com.kasp.rbw.instance.ScreenShare;
 import com.kasp.rbw.instance.cache.PlayerCache;
 import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class ScreenshareCmd extends Command {
     public ScreenshareCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -62,10 +60,10 @@ public class ScreenshareCmd extends Command {
                 "se o staff não aparecer, você está livre para sair em " + Config.getValue("time-till-unfrozen") + "mins\n\n" +
                 "**Motivo SS**: " + reason + "\n\n**Pedido por**: " + sender.getAsMention());
 
-        guild.getTextChannelById(Config.getValue("ssreq-channel")).sendMessage(guild.retrieveMemberById(ID).complete().getAsMention()).setEmbeds(embed.build()).queue();
+        Objects.requireNonNull(guild.getTextChannelById(Config.getValue("ssreq-channel"))).sendMessage(guild.retrieveMemberById(ID).complete().getAsMention()).setEmbeds(embed.build()).queue();
 
         if (!channel.getId().equals(Config.getValue("ssreq-channel"))) {
-            msg.reply("screenshare request sent in " + guild.getTextChannelById(Config.getValue("ssreq-channel")).getAsMention()).queue();
+            msg.reply("screenshare request sent in " + Objects.requireNonNull(guild.getTextChannelById(Config.getValue("ssreq-channel"))).getAsMention()).queue();
         }
 
         new ScreenShare(PlayerCache.getPlayer(sender.getId()), PlayerCache.getPlayer(ID), reason);

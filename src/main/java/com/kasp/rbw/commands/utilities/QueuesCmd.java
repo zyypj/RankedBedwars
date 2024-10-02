@@ -11,7 +11,9 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+
+import java.util.Objects;
 
 public class QueuesCmd extends Command {
 
@@ -27,7 +29,7 @@ public class QueuesCmd extends Command {
             return;
         }
 
-        if (QueueCache.getQueues().size() < 1) {
+        if (QueueCache.getQueues().isEmpty()) {
             Embed reply = new Embed(EmbedType.ERROR, "Erro", "Você não tem nenhuma fila. Adicione uma `=addqueue`!", 1);
             msg.replyEmbeds(reply.build()).queue();
             return;
@@ -37,17 +39,17 @@ public class QueuesCmd extends Command {
 
         for (Queue q : QueueCache.getQueues().values()) {
 
-            String content = "Aqui não tem nenhum jogador na fila";
+            StringBuilder content = new StringBuilder("Aqui não tem nenhum jogador na fila");
             if (!q.getPlayers().isEmpty()) {
-                content = "";
+                content = new StringBuilder();
 
                 for (Player p : q.getPlayers()) {
-                    content += "<@" + p.getID() + ">\n";
+                    content.append("<@").append(p.getID()).append(">\n");
                 }
             }
 
-            embed.addField(guild.getVoiceChannelById(q.getID()).getName() + " - `" + q.getPlayers().size() + "/" + q.getPlayersEachTeam() * 2 + "`",
-                    content, false);
+            embed.addField(Objects.requireNonNull(guild.getVoiceChannelById(q.getID())).getName() + " - `" + q.getPlayers().size() + "/" + q.getPlayersEachTeam() * 2 + "`",
+                    content.toString(), false);
         }
 
         msg.replyEmbeds(embed.build()).queue();

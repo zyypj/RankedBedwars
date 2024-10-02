@@ -5,7 +5,10 @@ import com.kasp.rbw.RBW;
 import com.kasp.rbw.config.Config;
 import com.kasp.rbw.instance.cache.ScreenshareCache;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Category;
+import net.dv8tion.jda.api.entities.channel.concrete.Category;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+
+import java.util.Objects;
 
 public class ScreenShare {
 
@@ -20,8 +23,13 @@ public class ScreenShare {
         this.reason = reason;
         Category ssCategory = RBW.guild.getCategoryById(Config.getValue("ss-channels-category"));
 
-        channelID = ssCategory.createTextChannel("ss-" + target.getIgn()).complete().getId();
-        RBW.guild.getTextChannelById(channelID).createPermissionOverride(RBW.guild.getMemberById(target.getID())).setAllow(Permission.VIEW_CHANNEL).queue();
+        assert ssCategory != null;
+        TextChannel textChannel = ssCategory.createTextChannel("ss-" + target.getIgn()).complete();
+        channelID = textChannel.getId();
+
+        textChannel.upsertPermissionOverride(Objects.requireNonNull(RBW.guild.getMemberById(target.getID())))
+                .setAllowed(Permission.VIEW_CHANNEL, Permission.MESSAGE_SEND) // Definir a permissão de visualização
+                .queue();
 
         Embed embed = new Embed(EmbedType.DEFAULT, target.getIgn() + " screenshare", "", 1);
         embed.setDescription("Pedido por: <@" + requestedBy.getID() + ">\n" +
@@ -29,12 +37,12 @@ public class ScreenShare {
                 "Motivo: " + reason + "\n\n" +
                 "Por favor, use `=ssclose <reason (outcome)>` depois de terminar a ScreenShare");
 
-        String roles = "";
+        StringBuilder roles = new StringBuilder();
         for (String s : Config.getValue("ss-roles").split(",")) {
-            roles+=RBW.guild.getRoleById(s).getAsMention();
+            roles.append(Objects.requireNonNull(RBW.guild.getRoleById(s)).getAsMention());
         }
 
-        RBW.guild.getTextChannelById(channelID).sendMessage(roles + " <@" + target.getID() + ">").setEmbeds(embed.build()).queue();
+        textChannel.sendMessage(roles + " <@" + target.getID() + ">").setEmbeds(embed.build()).queue();
 
         ScreenshareCache.initializeScreenshare(this);
     }

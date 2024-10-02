@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class MapCache {
 
-    private static HashMap<String, GameMap> maps = new HashMap<>();
+    private static final HashMap<String, GameMap> maps = new HashMap<>();
 
     public static GameMap getMap(String name) {
         return maps.get(name);
@@ -28,11 +28,11 @@ public class MapCache {
         return maps.containsKey(name);
     }
 
-    public static GameMap initializeMap(String name, GameMap map) {
+    public static void initializeMap(String name, GameMap map) {
         if (!containsMap(name))
             addMap(map);
 
-        return getMap(name);
+        getMap(name);
     }
 
     public static Map<String, GameMap> getMaps() {

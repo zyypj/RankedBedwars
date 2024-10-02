@@ -12,7 +12,9 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+
+import java.util.Objects;
 
 public class RemoveThemeCmd extends Command {
     public RemoveThemeCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -49,7 +51,7 @@ public class RemoveThemeCmd extends Command {
 
         player.removeTheme(theme);
 
-        Embed embed = new Embed(EmbedType.SUCCESS, "", "Você removeu o tema `" + theme.getName() + "` de " + guild.getMemberById(ID).getAsMention(), 1);
+        Embed embed = new Embed(EmbedType.SUCCESS, "", "Você removeu o tema `" + theme.getName() + "` de " + Objects.requireNonNull(guild.getMemberById(ID)).getAsMention(), 1);
         msg.replyEmbeds(embed.build()).queue();
     }
 }

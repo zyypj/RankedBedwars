@@ -12,7 +12,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class LevelsCmd extends Command {
     public LevelsCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -27,20 +27,20 @@ public class LevelsCmd extends Command {
         }
 
         Embed embed = new Embed(EmbedType.DEFAULT, "Levels e Info", "", 1);
-        String levels = "";
+        StringBuilder levels = new StringBuilder();
         for (Level l : LevelCache.getLevels().values()) {
             if (l.getLevel() != 0) {
-                String rewards = "";
+                StringBuilder rewards = new StringBuilder();
                 for (String s : l.getRewards()) {
                     if (s.startsWith("GOLD")) {
-                        rewards += s.split("=")[1] + " Ouro ";
+                        rewards.append(s.split("=")[1]).append(" Ouro ");
                     }
                 }
-                if (rewards.equals("")) {
-                    levels += "**" + l.getLevel() + "** — XP Necessário: `" + l.getNeededXP() + "`\n";
+                if (rewards.toString().isEmpty()) {
+                    levels.append("**").append(l.getLevel()).append("** — XP Necessário: `").append(l.getNeededXP()).append("`\n");
                 }
                 else {
-                    levels += "**" + l.getLevel() + "** — XP Necessário: `" + l.getNeededXP() + "` Recompensas: `" + rewards + "`\n";
+                    levels.append("**").append(l.getLevel()).append("** — XP Necessário: `").append(l.getNeededXP()).append("` Recompensas: `").append(rewards).append("`\n");
                 }
 
             }
@@ -49,7 +49,7 @@ public class LevelsCmd extends Command {
         Player player = PlayerCache.getPlayer(sender.getId());
 
         embed.addField("Seu level", player.getLevel().getLevel() + " `(" + player.getXp() + "/" + LevelCache.getLevel(player.getLevel().getLevel() + 1).getNeededXP() + " XP)`", false);
-        embed.addField("Todos levels", levels, false);
+        embed.addField("Todos levels", levels.toString(), false);
         msg.replyEmbeds(embed.build()).queue();
     }
 }

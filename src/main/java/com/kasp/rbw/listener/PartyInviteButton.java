@@ -8,18 +8,20 @@ import com.kasp.rbw.instance.Player;
 import com.kasp.rbw.instance.cache.PartyCache;
 import com.kasp.rbw.instance.cache.PlayerCache;
 import com.kasp.rbw.messages.Msg;
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import java.util.Objects;
 
 public class PartyInviteButton extends ListenerAdapter {
 
-    public void onButtonClick(ButtonClickEvent event) {
-        if (event.getButton().getId().startsWith("rankedbot-pinvitation-")) {
-            String players[] = event.getButton().getId().replace("rankedbot-pinvitation-", "").split("=");
+    public void onButtonClick(ButtonInteractionEvent event) {
+        if (Objects.requireNonNull(Objects.requireNonNull(event.getButton()).getId()).startsWith("rankedbot-pinvitation-")) {
+            String[] players = event.getButton().getId().replace("rankedbot-pinvitation-", "").split("=");
             Player leader = PlayerCache.getPlayer(players[0]);
             Player invited = PlayerCache.getPlayer(players[1]);
 
-            if (!event.getMember().getId().equals(invited.getID())) {
+            if (!Objects.requireNonNull(event.getMember()).getId().equals(invited.getID())) {
                 event.reply(Msg.getMsg("not-invited")).setEphemeral(true).queue();
                 return;
             }

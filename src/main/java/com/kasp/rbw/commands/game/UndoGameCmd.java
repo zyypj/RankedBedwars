@@ -12,7 +12,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.util.Objects;
 
@@ -56,7 +56,7 @@ public class UndoGameCmd extends Command {
         embed.setDescription("");
 
         if (!Objects.equals(Config.getValue("scored-announcing"), null)) {
-            guild.getTextChannelById(Config.getValue("scored-announcing")).sendMessageEmbeds(embed.build()).queue();
+            Objects.requireNonNull(guild.getTextChannelById(Config.getValue("scored-announcing"))).sendMessageEmbeds(embed.build()).queue();
         }
     }
 }

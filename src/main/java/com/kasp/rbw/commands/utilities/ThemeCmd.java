@@ -12,7 +12,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class ThemeCmd extends Command {
     public ThemeCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -30,12 +30,12 @@ public class ThemeCmd extends Command {
         String name = args[1];
 
         if (name.equals("list")) {
-            String themes = "";
+            StringBuilder themes = new StringBuilder();
             for (Theme t : ThemeCache.getThemes().values()) {
-                themes += "`" + t.getName() + "` ";
+                themes.append("`").append(t.getName()).append("` ");
             }
 
-            Embed embed = new Embed(EmbedType.DEFAULT, "Todos os Temas `(" + ThemeCache.getThemes().size() + ")`", themes, 1);
+            Embed embed = new Embed(EmbedType.DEFAULT, "Todos os Temas `(" + ThemeCache.getThemes().size() + ")`", themes.toString(), 1);
             msg.replyEmbeds(embed.build()).queue();
         }
         else {

@@ -10,7 +10,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -49,7 +49,7 @@ public class RanksCmd extends Command {
         String display = "";
         Embed embed;
 
-        if (ranks.size() == 0) {
+        if (ranks.isEmpty()) {
             embed = new Embed(EmbedType.ERROR, "Erro", Msg.getMsg("no-ranks"), 1);
         }
         else {

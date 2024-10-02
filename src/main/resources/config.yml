@@ -7,11 +7,11 @@ debug: false
 token: "MTI5MDAyMjgxODc5MjA4MzUxNw.GYIJjM.Q5lZZBgDYVMKQg8oEkRVDlMzg4_AmuPIbul0Jo"
 
 # Bot's status (ONLINE, IDLE, DO_NOT_DISTURB, INVISIBLE)
-status: DO_NOT_DISTURB
+status: IDLE
 
 # Your server's name
 server-name: PulseMC
-
+  
 # Your server's IP
 server-ip: pulsemc.com.br
 
@@ -38,7 +38,7 @@ starting-elo: 0
 #============================== EMBEDS
 
 # Embed colors (you MUST use RGB values separated by ","):
-default: 35,35,35
+default: 226,15,15
 success: 116,227,121
 error: 227,93,93
 

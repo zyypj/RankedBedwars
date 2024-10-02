@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class ThemeCache {
 
-    private static HashMap<String, Theme> themes = new HashMap<>();
+    private static final HashMap<String, Theme> themes = new HashMap<>();
 
     public static Theme getTheme(String name) {
         return themes.get(name);

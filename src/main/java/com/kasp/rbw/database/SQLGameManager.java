@@ -27,20 +27,20 @@ public class SQLGameManager {
     }
 
     public static void updateGame(Game g) {
-        String team1 = "";
-        String team2 = "";
+        StringBuilder team1 = new StringBuilder();
+        StringBuilder team2 = new StringBuilder();
 
         for (Player p : g.getTeam1()) {
-            team1 += p.getID();
+            team1.append(p.getID());
             if (g.getTeam1().indexOf(p)+1 < g.getTeam1().size()) {
-                team1 += ",";
+                team1.append(",");
             }
         }
 
         for (Player p : g.getTeam2()) {
-            team2 += p.getID();
+            team2.append(p.getID());
             if (g.getTeam2().indexOf(p)+1 < g.getTeam2().size()) {
-                team2 += ",";
+                team2.append(",");
             }
         }
 
@@ -91,20 +91,20 @@ public class SQLGameManager {
     public static void updateEloGain(int number) {
         Game g = GameCache.getGame(number);
 
-        String team1 = "";
-        String team2 = "";
+        StringBuilder team1 = new StringBuilder();
+        StringBuilder team2 = new StringBuilder();
 
         for (Player p : g.getTeam1()) {
-            team1 += p.getID() + "=" + g.getEloGain().get(p);
+            team1.append(p.getID()).append("=").append(g.getEloGain().get(p));
             if (g.getTeam1().indexOf(p)+1 < g.getTeam1().size()) {
-                team1 += ",";
+                team1.append(",");
             }
         }
 
         for (Player p : g.getTeam2()) {
-            team2 += p.getID() + "=" + g.getEloGain().get(p);
+            team2.append(p.getID()).append("=").append(g.getEloGain().get(p));
             if (g.getTeam2().indexOf(p)+1 < g.getTeam2().size()) {
-                team2 += ",";
+                team2.append(",");
             }
         }
 
@@ -115,20 +115,20 @@ public class SQLGameManager {
     public static void removeEloGain(int number) {
         Game g = GameCache.getGame(number);
 
-        String team1 = "";
-        String team2 = "";
+        StringBuilder team1 = new StringBuilder();
+        StringBuilder team2 = new StringBuilder();
 
         for (Player p : g.getTeam1()) {
-            team1 += p.getID();
+            team1.append(p.getID());
             if (g.getTeam1().indexOf(p)+1 < g.getTeam1().size()) {
-                team1 += ",";
+                team1.append(",");
             }
         }
 
         for (Player p : g.getTeam2()) {
-            team2 += p.getID();
+            team2.append(p.getID());
             if (g.getTeam2().indexOf(p)+1 < g.getTeam2().size()) {
-                team2 += ",";
+                team2.append(",");
             }
         }
 

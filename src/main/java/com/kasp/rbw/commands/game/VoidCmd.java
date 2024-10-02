@@ -11,7 +11,8 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,15 +37,14 @@ public class VoidCmd extends Command {
         }
 
         Game game = GameCache.getGame(channel.getId());
-
         int number = game.getNumber();
 
         Embed embed = new Embed(EmbedType.DEFAULT, "Jogo `#" + number + "` Voiding", "votos contados em `30s`", 1);
         embed.addField("Pedido por: ", sender.getAsMention(), false);
-        channel.sendMessageEmbeds(embed.build()).queue(message -> {
-            message.addReaction("✔").queue();
-            message.addReaction("❌").queue();
 
+        channel.sendMessageEmbeds(embed.build()).queue(message -> {
+            message.addReaction(Emoji.fromUnicode("✔")).queue();
+            message.addReaction(Emoji.fromUnicode("❌")).queue();
 
             TimerTask task = new TimerTask() {
                 @Override
@@ -58,11 +58,9 @@ public class VoidCmd extends Command {
                     }
 
                     Embed done = new Embed(EmbedType.DEFAULT, "Jogo `#" + number + "` Foi Voided", "se esse comando for mal utilizado, /*por favor, tire print e nos mande em ticket\n\ncanal sendo excluido em `60s`", 1);
-
                     done.addField("Pedido por: ", sender.getAsMention(), false);
                     game.setState(GameState.VOIDED);
                     game.setScoredBy(sender);
-
                     game.closeChannel(60);
 
                     message1.editMessageEmbeds(done.build()).queue();

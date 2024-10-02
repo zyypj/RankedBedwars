@@ -15,7 +15,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class SubmitCmd extends Command {
     public SubmitCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -58,11 +58,11 @@ public class SubmitCmd extends Command {
 
         Embed embed = new Embed(EmbedType.SUCCESS, "Jogo `#" + game.getNumber() + "` finalizado", "", 1);
 
-        String queues = "";
+        StringBuilder queues = new StringBuilder();
         for (Queue q : QueueCache.getQueues().values()) {
-            queues += "<#" + q.getID() + ">\n";
+            queues.append("<#").append(q.getID()).append(">\n");
         }
-        embed.addField("Entre novamente aquo:", queues, false);
+        embed.addField("Entre novamente aquo:", queues.toString(), false);
         embed.setFooter("Academy Ranked (PulseMC)");
         channel.sendMessageEmbeds(embed.build()).queue();
 

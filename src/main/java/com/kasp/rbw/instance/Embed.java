@@ -5,11 +5,13 @@ import com.kasp.rbw.RBW;
 import com.kasp.rbw.config.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.interactions.components.Button;
+import net.dv8tion.jda.api.interactions.components.ItemComponent;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,7 +82,7 @@ public class Embed {
         return fields;
     }
 
-    public static List<Button> createButtons(int currentPage) {
+    public static Collection<? extends ItemComponent> createButtons(int currentPage) {
         List<Button> buttons = new ArrayList<>();
         buttons.add(Button.secondary("rankedbot-page-" + (currentPage - 1), "←"));
         buttons.add(Button.secondary("rankedbot-page-" + (currentPage + 1), "→"));

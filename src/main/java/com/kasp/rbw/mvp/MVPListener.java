@@ -31,7 +31,7 @@ public class MVPListener implements Listener {
         if (bedwarsAPI.getArenaUtil().isPlaying(killer)) {
             IArena arena = e.getArena();
             String group = arena.getGroup();
-            if (group.startsWith("Ranked")) {
+            if (group.equalsIgnoreCase("Ranked4s")) {
                 if (e.getCause().isFinalKill()) {
                     mvpManager.addFinalKillsPoints(killer, arena);
                 }
@@ -43,7 +43,7 @@ public class MVPListener implements Listener {
     public void onBedBreaking(PlayerBedBreakEvent e) {
         IArena arena = e.getArena();
         String group = arena.getGroup();
-        if (group.startsWith("Ranked")) {
+        if (group.equalsIgnoreCase("Ranked4s")) {
             Player player = e.getPlayer();
             if (player != null) {
                 mvpManager.addBedBreakingPoints(player, arena);
@@ -55,7 +55,7 @@ public class MVPListener implements Listener {
     public void onGameEnd(GameEndEvent e) {
         IArena arena = e.getArena();
         String group = arena.getGroup();
-        if (group.startsWith("Ranked")) {
+        if (group.equalsIgnoreCase("Ranked4s")) {
             Player mvp = mvpManager.determineMVP(arena);
             List<Player> players = e.getArena().getPlayers();
 

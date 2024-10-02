@@ -14,8 +14,9 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
+import java.io.File;
 import java.util.Arrays;
 
 public class ClanSettingsCmd extends Command {
@@ -118,7 +119,7 @@ public class ClanSettingsCmd extends Command {
                         return;
                     }
 
-                    msg.getAttachments().get(0).downloadToFile(RBW.getInstance().getDataFolder() + "/RankedBot/clans/" + clan.getName() + "/" + msg.getAttachments().get(0).getFileName());
+                    msg.getAttachments().get(0).getProxy().downloadToFile(new File(RBW.getInstance().getDataFolder() + "/RankedBot/clans/" + clan.getName() + "/" + msg.getAttachments().get(0).getFileName()));
 
                     value = "icon.png";
                     break;
@@ -149,7 +150,7 @@ public class ClanSettingsCmd extends Command {
                         return;
                     }
 
-                    msg.getAttachments().get(0).downloadToFile("RankedBot/clans/" + clan.getName() + "/" + msg.getAttachments().get(0).getFileName());
+                    msg.getAttachments().get(0).getProxy().downloadToFile(new File("RankedBot/clans/" + clan.getName() + "/" + msg.getAttachments().get(0).getFileName()));
 
                     value = "theme.png";
                     break;

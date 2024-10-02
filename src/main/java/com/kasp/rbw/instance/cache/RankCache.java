@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class RankCache {
 
-    private static HashMap<String, Rank> ranks = new HashMap<>();
+    private static final HashMap<String, Rank> ranks = new HashMap<>();
 
     public static Rank getRank(String ID) {
         return ranks.get(ID);
@@ -28,11 +28,11 @@ public class RankCache {
         return ranks.containsKey(ID);
     }
 
-    public static Rank initializeRank(String ID, Rank rank) {
+    public static void initializeRank(String ID, Rank rank) {
         if (!containsRank(ID))
             addRank(rank);
 
-        return getRank(ID);
+        getRank(ID);
     }
 
     public static Map<String, Rank> getRanks() {

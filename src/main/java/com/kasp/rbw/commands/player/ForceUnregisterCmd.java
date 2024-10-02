@@ -10,7 +10,9 @@ import com.kasp.rbw.sample.EmbedType;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+
+import java.util.Objects;
 
 public class ForceUnregisterCmd extends Command {
     public ForceUnregisterCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -35,7 +37,7 @@ public class ForceUnregisterCmd extends Command {
 
         SQLPlayerManager.unregisterPlayer(ID);
 
-        Embed reply = new Embed(EmbedType.SUCCESS, "", "Você desregistrou " + guild.getMemberById(ID).getAsMention() + " com sucesso!", 1);
+        Embed reply = new Embed(EmbedType.SUCCESS, "", "Você desregistrou " + Objects.requireNonNull(guild.getMemberById(ID)).getAsMention() + " com sucesso!", 1);
         msg.replyEmbeds(reply.build()).queue();
     }
 }

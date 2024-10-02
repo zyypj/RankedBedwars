@@ -12,7 +12,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class ClanInviteCmd extends Command {
     public ClanInviteCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {

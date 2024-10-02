@@ -12,7 +12,9 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+
+import java.util.Objects;
 
 public class GiveThemeCmd extends Command {
     public GiveThemeCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -49,7 +51,7 @@ public class GiveThemeCmd extends Command {
 
         player.giveTheme(theme);
 
-        Embed embed = new Embed(EmbedType.SUCCESS, "", "Você deu a " + guild.getMemberById(ID).getAsMention() + " o tema `" + theme.getName() + "`", 1);
+        Embed embed = new Embed(EmbedType.SUCCESS, "", "Você deu a " + Objects.requireNonNull(guild.getMemberById(ID)).getAsMention() + " o tema `" + theme.getName() + "`", 1);
         msg.replyEmbeds(embed.build()).queue();
     }
 }

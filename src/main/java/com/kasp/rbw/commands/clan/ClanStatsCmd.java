@@ -15,7 +15,8 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.utils.FileUpload;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
@@ -167,7 +168,7 @@ public class ClanStatsCmd extends Command {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 ImageIO.write(image, "png", stream);
 
-                channel.sendFile(stream.toByteArray(), "stats.png").queue();
+                channel.sendFiles(FileUpload.fromData(stream.toByteArray(), "stats.png")).queue();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (FontFormatException e) {

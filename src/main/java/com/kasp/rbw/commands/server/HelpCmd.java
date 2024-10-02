@@ -11,9 +11,10 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class HelpCmd extends Command {
 
@@ -47,9 +48,9 @@ public class HelpCmd extends Command {
             try {
                 subsystem = CommandSubsystem.valueOf(args[1].toUpperCase());
             } catch (Exception e) {
-                String subsystems = "";
+                StringBuilder subsystems = new StringBuilder();
                 for (CommandSubsystem s :CommandSubsystem.values()) {
-                    subsystems += "`" + s + "` ";
+                    subsystems.append("`").append(s).append("` ");
                 }
                 Embed embed = new Embed(EmbedType.ERROR, "Erro", "Esse SubSistema não existe\nSubsistemas Disponíveis: " + subsystems, 1);
                 msg.replyEmbeds(embed.build()).queue();
@@ -63,35 +64,35 @@ public class HelpCmd extends Command {
                     subsystemCmds.add(cmd);
             }
 
-            Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("carregando...").build()).complete();
+            Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("Carregando...").build()).complete();
 
-            for (int j = 0; j < Math.ceil(subsystemCmds.size()); j+=3) {
+            for (int j = 0; j < (double) subsystemCmds.size(); j+=3) {
 
                 Embed reply = new Embed(EmbedType.DEFAULT, "Todos os comandos: " + subsystem, "", (int) Math.ceil(subsystemCmds.size() / 3.0));
 
                 for (int i = 0; i < 3; i++) {
                     if (i + j < subsystemCmds.size()) {
 
-                        String aliases = "";
-                        String permissions = "";
+                        StringBuilder aliases = new StringBuilder();
+                        StringBuilder permissions = new StringBuilder();
 
                         for (String s : subsystemCmds.get(i + j).getAliases())
-                            aliases += "`" + s + "` ";
+                            aliases.append("`").append(s).append("` ");
 
                         for (String s : subsystemCmds.get(i + j).getPermissions()) {
                             if (s.equals("everyone"))
-                                permissions = "@everyone";
+                                permissions = new StringBuilder("@everyone");
                             else
-                                permissions += guild.getRoleById(s).getAsMention();
+                                permissions.append(Objects.requireNonNull(guild.getRoleById(s)).getAsMention());
                         }
 
                         reply.addField("• " + subsystemCmds.get(i + j).getCommand(), subsystemCmds.get(i + j).getDescription() +
                                 "\n> Uso: `" + Config.getValue("prefix") + subsystemCmds.get(i + j).getUsage() +
-                                "`\n> Aliases: " + aliases +
+                                "`\n> Atalho: " + aliases +
                                 "\n> Permissões: " + permissions + "\n", false);
                     }
                 }
-                reply.addField("Nota", "`<something>` - required\n`[something]` - optional", false);
+                reply.addField("Nota", "`<something>` - obrigatório\n`[something]` - opcional", false);
 
                 if (j == 0) {
                     embedmsg.editMessageEmbeds(reply.build()).setActionRow(Embed.createButtons(reply.getCurrentPage())).queue();

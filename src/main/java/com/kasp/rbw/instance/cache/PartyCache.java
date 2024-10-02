@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PartyCache {
 	
-	private static List<Party> parties = new ArrayList<>();
+	private static final List<Party> parties = new ArrayList<>();
 	
 	public static Party getParty(Player player) {
 		return parties.stream().filter(party -> party.getMembers().contains(player)).findFirst().orElse(null);

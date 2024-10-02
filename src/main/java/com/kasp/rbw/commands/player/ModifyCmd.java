@@ -12,7 +12,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class ModifyCmd extends Command {
     public ModifyCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -33,9 +33,9 @@ public class ModifyCmd extends Command {
         try {
             stat = Statistic.valueOf(args[2].toUpperCase());
         } catch (Exception e) {
-            String stats = "";
+            StringBuilder stats = new StringBuilder();
             for (Statistic s : Statistic.values()) {
-                stats += "`" + s + "` ";
+                stats.append("`").append(s).append("` ");
             }
             Embed embed = new Embed(EmbedType.ERROR, "Erro", "**Essa estatística não existe**\nDisponíveis: " + stats, 1);
             msg.replyEmbeds(embed.build()).queue();

@@ -11,7 +11,7 @@ import com.kasp.rbw.messages.Msg;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class QueueCmd extends Command {
     public QueueCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -36,25 +36,25 @@ public class QueueCmd extends Command {
 
         int number = game.getNumber();
 
-        String t1 = "";
+        StringBuilder t1 = new StringBuilder();
         for (Player p : game.getTeam1()) {
-            t1 += "• <@" + p.getID() + ">\n";
+            t1.append("• <@").append(p.getID()).append(">\n");
         }
-        String t2 = "";
+        StringBuilder t2 = new StringBuilder();
         for (Player p : game.getTeam2()) {
-            t2 += "• <@" + p.getID() + ">\n";
+            t2.append("• <@").append(p.getID()).append(">\n");
         }
 
-        String remaining = "";
+        StringBuilder remaining = new StringBuilder();
         for (Player p : game.getRemainingPlayers()) {
-            remaining += "• <@" + p.getID() + ">\n";
+            remaining.append("• <@").append(p.getID()).append(">\n");
         }
 
         Embed embed = new Embed(EmbedType.DEFAULT, "Jogo `#" + number + "` Queue", "", 1);
-        embed.addField("Time 1", t1, true);
-        embed.addField("Time 2", t2, true);
-        if (!remaining.isEmpty()) {
-            embed.addField("Restando", remaining, false);
+        embed.addField("Time 1", t1.toString(), true);
+        embed.addField("Time 2", t2.toString(), true);
+        if (remaining.length() > 0) {
+            embed.addField("Restando", remaining.toString(), false);
         }
         msg.replyEmbeds(embed.build()).queue();
     }

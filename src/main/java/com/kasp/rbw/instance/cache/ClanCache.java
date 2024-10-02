@@ -3,13 +3,15 @@ package com.kasp.rbw.instance.cache;
 import com.kasp.rbw.config.Config;
 import com.kasp.rbw.instance.Clan;
 import com.kasp.rbw.instance.Player;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ClanCache {
 
-    private static Map<String, Clan> clans = new HashMap<>();
+    @Getter
+    private static final Map<String, Clan> clans = new HashMap<>();
 
     public static Clan getClan(String name) {
         return clans.values().stream().filter(c -> c.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
@@ -33,14 +35,10 @@ public class ClanCache {
         return clans.containsKey(name);
     }
 
-    public static Clan initializeClan(String name, Clan clan) {
+    public static void initializeClan(String name, Clan clan) {
         if (!containsClan(name))
             addClan(clan);
 
-        return getClan(name);
-    }
-
-    public static Map<String, Clan> getClans() {
-        return clans;
+        getClan(name);
     }
 }
