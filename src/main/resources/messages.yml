@@ -1,0 +1,102 @@
+# You can change the default messages here:
+
+# general
+no-perms: "You don't have permission for that"
+wrong-usage: "Use: `=%usage%`"
+not-registered: "You cannot use this command because you are not registered (=register)"
+invalid-player: "Player not found (wrong ID?)"
+invalid-role: "Role not found (wrong ID?)"
+invalid-vc: "Voice channel not found (wrong ID?)"
+invalid-game: "Game not found (wrong number?)"
+not-game-channel: "This command can only be used in game channels"
+
+# player
+already-registered: "You are already registered"
+successfully-registered: "You have been registered!"
+successfully-wiped: "General statistics have been reset!"
+player-already-registered: "The player you tried to register is already registered"
+player-not-registered: "That player is not registered (=forceregister)"
+ss-self: "You cannot give SS to yourself"
+not-enough-gold: "You don't have enough gold"
+too-little-gold: "You cannot transfer zero or negative gold"
+
+# rank
+rank-already-exists: "That rank already exists"
+rank-doesnt-exist: "That rank does not exist"
+rank-deleted: "Rank deactivated"
+no-ranks: "No ranks configured"
+
+# map
+no-maps: "No maps configured"
+map-already-exists: "That map already exists"
+map-doesnt-exist: "That map does not exist"
+map-deleted: "Map deleted"
+
+# queue
+q-more-players: "Players per team must be one or more"
+q-already-exists: "That queue already exists"
+q-invalid-mode: "Invalid team sorting mode. Use `captains` or `automatic`"
+q-casual: "The parameter should be `true` or `false`"
+q-doesnt-exist: "That queue does not exist"
+q-deleted: "Queue deleted"
+
+# moderation
+incorrect-time-format: "Incorrect time format (m for minutes, h for hours, d for days)"
+banned-role-not-set: "Please set the banned role in `config.yml`"
+player-not-banned: "That player is not banned"
+player-unbanned: "Player unbanned"
+
+# game
+game-started: "This game has already started"
+not-captain: "You are not the captain"
+picked-yourself: "You cannot pick yourself"
+casual-game: "You don't need to do that, the game is casual"
+not-submitted: "This game has not been finished (`=gameinfo`)"
+not-scored: "You cannot undo because the game hasn't been scored yet"
+
+# theme
+already-has-theme: "That player already has this theme"
+doesnt-have-theme: "That player doesn't have this theme"
+theme-access-denied: "You don't own this theme"
+
+# party
+already-in-party: "You are already in a party. Use `=pleave` to leave"
+not-in-party: "You are not in a party. Use `=pcreate` to create one"
+party-created: "You have created a party. Invite people using `=pinvite <ID/mention>`"
+not-party-leader: "You are not the party leader."
+player-already-invited: "That player is already invited"
+not-invited: "You have not been invited to this party or your invitation has expired"
+player-not-in-party: "That player is not in a party"
+player-not-in-ur-party: "That player is not in your party"
+joined-party: "You have joined the party"
+party-left: "You have left the party"
+party-disbanded: "You have disbanded the party"
+your-party-disbanded: "Your party has been disbanded"
+party-full: "Your party is already full"
+this-party-full: "This party is already full"
+player-not-in-your-party: "That player is not in your party"
+couldnt-warp: "Your party members need to be in a voice channel"
+player-kicked-party: "You have kicked the player from the party"
+youre-kicked-party: "You have been kicked from the party"
+
+# clan
+clan-doesnt-exist: "That clan does not exist"
+clan-already-exists: "A clan with that name already exists"
+already-in-clan: "You are already in a clan"
+not-in-clan: "You are not in a clan. Use `=ccreate` to create one!"
+name-too-long: "The maximum number of characters for the name is 20"
+not-enough-elo: "You don't have enough ELO to create a clan"
+clan-created: "You have created a clan! Invite someone using `=cinvite` or make it open using `=csettings`"
+not-clan-leader: "You are not the leader of this clan"
+clan-leader: "You cannot leave the clan because you are the leader. Use `=cdisband` if you want to disband"
+clan-disbanded: "You have disbanded your clan"
+player-invited: "You have invited a player to the clan"
+clan-not-invited: "You have not been invited to the clan"
+clan-left: "You have left the clan"
+clan-max-players: "That clan is full"
+player-not-in-clan: "That player is not in your clan"
+clan-joined: "You have joined the clan"
+player-kicked: "You have kicked the player from the clan"
+invalid-setting: "That setting does not exist"
+desc-too-long: "Description too long (max is `37` characters)"
+not-enough-elo-join: "You don't have enough ELO to join"

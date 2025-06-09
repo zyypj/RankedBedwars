@@ -1,0 +1,8 @@
+package me.zypj.rbw.sample;
+
+public enum Statistic {
+    ID, ELO, PEAK_ELO, WINS, LOSSES, WINSTREAK,
+    LOSS_STREAK, HIGHEST_WINSTREAK, HIGHEST_LOSS_STREAK,
+    MVP, KILLS, DEATHS, KDR, STRIKES, SCORED, GOLD, LEVEL,
+    XP, WLR, GAMES;
+}

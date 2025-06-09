@@ -1,0 +1,10 @@
+name: RankedBedwars
+version: '${project.version}'
+main: me.zypj.rbw.RBWPlugin
+authors: [tadeu]
+depend: [BedWars2023]
+commands:
+  register:
+    description: Link your discord with mc account
+  rename:
+    description: Re-link your discord with mc account

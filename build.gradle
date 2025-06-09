@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '9.0.0-beta13'
+}
+
+group = 'com.kasp'
+version = '1.1.4'
+description = 'by kasp#0675'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+    mavenCentral()
+
+    maven {
+        name = 'spigotmc-repo'
+        url  = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        name = 'bedwars2023-releases'
+        url  = 'https://repo.tomkeuper.com/repository/releases/'
+    }
+    maven {
+        name = 'm2-dv8tion'
+        url  = 'https://m2.dv8tion.net/releases'
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+    compileOnly files('libs/BedWars.jar')
+
+    implementation 'org.yaml:snakeyaml:1.32'
+
+    implementation("net.dv8tion:JDA:5.6.1")
+
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.xerial:sqlite-jdbc:3.42.0.1'
+    implementation 'org.jsoup:jsoup:1.15.4'
+    implementation 'org.json:json:20231013'
+
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.yml', '**/*.properties'
+        expand project.properties
+    }
+}
+
+shadowJar {
+    archiveBaseName.set(project.name)
+    archiveClassifier.set('')
+    mergeServiceFiles()
+}
+
+build.dependsOn shadowJar

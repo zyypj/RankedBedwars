@@ -1,0 +1,398 @@
+#============================== GENERAL
+# THIS IS PRECONFIGURED FOR MY TEST SERVER, YOU CAN CHANGE ANYTHING YOU WANT
+
+debug: false
+
+# Bot's token
+token: "YOUR_TOKEN"
+
+# Bot's status (ONLINE, IDLE, DO_NOT_DISTURB, INVISIBLE)
+status: IDLE
+
+# Your server's name
+server-name: ServerName
+  
+# Your server's IP
+server-ip: github.com/zyypj
+
+# Bot's prefix
+prefix: =
+
+# Alerts channel
+alerts-channel: 0
+
+# Elo prefix formatting, use %elo% for player elo
+elo-formatting: "[%elo%] "
+
+# Allow unregistered players to use commands? Enable this to set up the bot
+unregistered-cmd-usage: true
+
+#============================== REGISTERING
+
+# Registered role ID
+registered-role: 0
+
+# Starting elo
+starting-elo: 0
+
+#============================== EMBEDS
+
+# Embed colors (you MUST use RGB values separated by ","):
+default: 226,15,15
+success: 116,227,121
+error: 227,93,93
+
+# Embed footers (leave blank to disable). Use {%version} to write bot's version, use {%name} to write your server's name that you set above
+footer: "RankedRBW"
+
+#============================== LOGGING
+
+# Log every command players do?
+log-commands: false
+
+#============================== BANNING
+
+banned-role: 0
+
+# Channel where the bans are announced, leave blank to disable announcing bans
+ban-channel: 0
+
+# Ban time for strikes (in hours)
+strike-1: 0
+strike-2: 2
+strike-3: 12
+strike-4: 24
+# 5+
+strike-5: 48
+
+#============================== SCREENSHARING
+
+# How many images do people need to attach for proof when using the command?
+ss-attachments: 1
+ssreq-channel: 0
+ss-log-channel: 0
+frozen-role: 0
+ss-channels-category: 0
+# How many mins will ppl be automatically unfrozen in after getting ss requested
+time-till-unfrozen: 10
+
+# SSERS Roles IDS (you can add multiple roles separated by ",")
+ss-roles: 0,1
+
+#============================== GAMES
+
+game-channels-category: 10
+game-vcs-category: 0
+
+# use %number% to get game number
+# use %mode% to get game mode (4v4 / 3v3 etc)
+game-channel-names: "Game #%number%"
+
+# use %number% to get game number
+# use %mode% to get game mode (4v4 / 3v3 etc)
+# use %team% to get the team number
+game-vc-names: "Game #%number% | Time %team%"
+
+# Games announcing channel (leave blank to disable)
+games-announcing: 0
+
+# Scored games announcing channel (leave blank to disable)
+scored-announcing: 0
+
+# Display text helping people to invite eachother to party
+# useful for ranked servers which depends on other mc servers (leave blank to disable)
+party-invite-cmd: "/p invite"
+
+# Game channel deleting time after its scored (in seconds)
+game-deleting-time: 600
+
+# How many screenshots do players have to attach when using =submit (for proof)
+submitting-attachments: 1
+
+# Role to ping when game gets submitted
+scorer-role: 0
+
+#============================== LEVELS
+
+# set to "false" to disable levels completely
+levels-enabled: false
+
+# xp for winning a game
+win-xp: 50
+
+# xp for playing a game (doesn't matter if won or lost)
+play-xp: 25
+
+#============================== PARTY
+
+# you can disable parties by simply disabling every command in permissions.yml
+# keep in mind parties only work in automatic queues
+
+# after how many minutes party invite expires
+invite-expiration: 3
+
+# how many members maximum can a party have
+max-party-members: 3
+
+# how much elo maximum can party members have combined
+max-party-elo: 1800
+
+#============================== CLAN
+
+# max characters in clan name
+clan-name-max: 20
+
+# max characters in clan description
+clan-desc-max: 37
+
+# how much gold does it cost to create a clan
+gold-to-create: 5000000
+
+# how much elo is required to create a clan
+elo-to-create: 30000000
+
+# starting reputation (reputation is like elo for a clan)
+clan-starting-rep: 0
+
+# How many members MAX can a clan have at certain level
+# please put as many levels here as the clanlevels.yml file has
+l0: 10
+l1: 11
+l2: 12
+l3: 13
+l4: 14
+l5: 15
+l6: 16
+l7: 17
+l8: 18
+l9: 19
+l10: 20
+
+# what level does a clan need to reach to be able to set a clan icon?
+# put this to a high number to disable it
+# default icon is the one which you put in RankedBot/clans/icon.png
+allow-setting-icon: 5
+
+# what level does a clan need to reach to be able to set a =clanstats theme?
+# put this to a high number to disable it
+# default theme is the one which you put in RankedBot/clans/theme.png
+allow-setting-theme: 10
+
+# how much clan XP do players get from winning
+clanxp-win: 50
+
+# how much clan XP do players get from playing a game
+# it doesn't matter if they lose or win, they still get it for playing
+clanxp-play: 25
+
+#============================== CLAN WAR
+
+# how much clan reputation does a clan get from winning a clan war battle
+cw-rep-win: 25
+
+# how much clan reputation does a clan get from losing a clan war battle
+cw-rep-loss: -25
+
+#============================== ELO MULTIPLIER
+
+# if the player is not in a party
+solo-multiplier: 1
+
+# if the player is in a party
+# for more than 4 ppl in party you can set it yourself
+# just use this formatting "party-multiplier-<players-in-p>: multiplier"
+party-multiplier-2: 0.85
+party-multiplier-3: 0.75
+party-multiplier-4: 0.65
+
+#============================== STATS IMAGE(S)
+
+s-enabled: true
+
+# don't change this if you dk what you're doing
+s-text-font: "Minecraft"
+
+# configure the size, color and pixels location of where the values (numbers/text for a certain stat) are displayed
+# or write big numbers (like 9999,9999) to disable showing those values
+
+# yes this is a big one, but I really wanted to give u full control
+# over the stats img so u can make whatever you want
+
+ign-size: 40
+ign-color: 255,255,255
+ign-pixels: 30,46
+
+ELO-size: 36
+ELO-color: 255,96,109
+ELO-pixels: 131,139
+
+PEAKELO-size: 36
+PEAKELO-color: 255,101,124
+PEAKELO-pixels: 191,180
+
+WINS-size: 34
+WINS-color: 255,100,121
+WINS-pixels: 776,173
+
+WINSTREAK-size: 34
+WINSTREAK-color: 255,133,133
+WINSTREAK-pixels: 9999,9999
+
+HIGHESTWS-size: 34
+HIGHESTWS-color: 255,133,133
+HIGHESTWS-pixels: 9999,9999
+
+LOSSES-size: 34
+LOSSES-color: 255,104,132
+LOSSES-pixels: 834,210
+
+LOSSSTREAK-size: 30
+LOSSSTREAK-color: 255,255,255
+LOSSSTREAK-pixels: 9999,9999
+
+HIGHESTLS-size: 30
+HIGHESTLS-color: 255,255,255
+HIGHESTLS-pixels: 9999,9999
+
+GAMES-size: 34
+GAMES-color: 255,97,107
+GAMES-pixels: 823,136
+
+WLR-size: 34
+WLR-color: 255,107,145
+WLR-pixels: 768,245
+
+MVP-size: 34
+MVP-color: 255,115,171
+MVP-pixels: 768,318
+
+KILLS-size: 34
+KILLS-color: 255,123,198
+KILLS-pixels: 775,401
+
+DEATHS-size: 34
+DEATHS-color: 255,126,209
+DEATHS-pixels: 825,437
+
+KDR-size: 34
+KDR-color: 255,133,235
+KDR-pixels: 768,510
+
+STRIKES-size: 36
+STRIKES-color: 255,129,222
+STRIKES-pixels: 195,449
+
+SCORED-size: 36
+SCORED-color: 255,133,236
+SCORED-pixels: 197,489
+
+rbw-rank-size: 36
+# color - role color
+rbw-rank-pixels: 40,290
+
+GOLD-size: 40
+GOLD-color: 247,199,42
+GOLD-pixels: 513,49
+
+LEVEL-size: 40
+LEVEL-color: 134,230,99
+LEVEL-pixels: 684,47
+
+XP-size: 24
+XP-color: 134,230,99
+XP-pixels: 841,28
+
+needed-xp-size: 24
+needed-xp-color: 153,255,110
+needed-xp-pixels: 841,53
+
+# theme name
+theme-size: 30
+theme-color: 255,255,255
+theme-pixels: 9999,9999
+
+# if player is banned the text will be "BANNED"
+# if player is not banned this won't even be displayed
+banned-size: 30
+banned-color: 255,255,255
+banned-pixels: 9999,9999
+
+clan-size: 36
+clan-color: 124,125,207
+clan-pixels: 43,408
+
+skin-pixels: 390,115
+skin-size: 400
+
+#============================== CLAN STATS IMAGE
+
+# configure the size, color and pixels location of where the values (numbers/text for a certain stat) are displayed
+# or write big numbers (like 9999,9999) to disable showing those values
+
+# yes this is a big one, but I really wanted to give u full control
+# over the stats img so u can make whatever you want
+
+name-size: 44
+name-color: 255,255,255
+name-pixels: 375,78
+
+reputation-size: 44
+reputation-color: 242,66,54
+reputation-pixels: 206,78
+
+description-size: 30
+description-color: 255,255,255
+description-pixels: 202,146
+
+ranking-size: 34
+ranking-color: 242,66,54
+ranking-pixels: 244,232
+
+xp-size: 34
+xp-color: 242,66,54
+xp-pixels: 150,307
+
+level-size: 34
+level-color: 242,66,54
+level-pixels: 207,345
+
+allelo-size: 34
+allelo-color: 242,66,54
+allelo-pixels: 191,422
+
+allgold-size: 34
+allgold-color: 242,66,54
+allgold-pixels: 202,459
+
+members-size: 34
+members-color: 242,66,54
+members-pixels: 519,223
+
+invited-size: 34
+invited-color: 242,66,54
+invited-pixels: 490,263
+
+cwplayed-size: 34
+cwplayed-color: 242,66,54
+cwplayed-pixels: 515,336
+
+cwwins-size: 34
+cwwins-color: 242,66,54
+cwwins-pixels: 466,374
+
+cwlosses-size: 34
+cwlosses-color: 242,66,54
+cwlosses-pixels: 525,412
+
+cwwlr-size: 34
+cwwlr-color: 242,66,54
+cwwlr-pixels: 458,489
+
+leaderign-size: 34
+leaderign-color: 255,255,255
+leaderign-pixels: 650,225
+
+icon-pixels: 20,20
+
+leaderskin-size: 240
+leaderskin-pixels: 725,259

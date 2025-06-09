@@ -1,0 +1,85 @@
+# Put Role IDS here (you can put multiple IDS separated by ",")
+# example: 955865900916043797,955865900916873792,95586590078873791
+# write "everyone" instead of an id to make it so everyone can use the command
+# leave blank to disable the command
+
+# server commands
+help: everyone
+reloadconfig: 0
+savedata: 0
+info: everyone
+
+# player commands
+register: everyone
+rename: everyone
+fix: everyone
+forceregister: 0
+forcerename: 0
+forceunregister: 0
+wipe: 0
+stats: everyone
+leaderboard: everyone
+modify: 0
+screenshare: everyone
+transfergold: everyone
+
+# party commands
+partycreate: everyone
+partyinvite: everyone
+partyjoin: everyone
+partyleave: everyone
+partylist: everyone
+partypromote: everyone
+partywarp: everyone
+partykick: everyone
+
+# game commands
+retry: everyone
+queue: everyone
+queuestats: everyone
+gameinfo: everyone
+pick: everyone
+void: everyone
+submit: everyone
+score: 0
+undogame: 0
+win: 0
+lose: 0
+forcevoid: everyone
+call: everyone
+
+# utilities commands
+addqueue: 0
+deletequeue: 0
+queues: everyone
+addrank: 0
+deleterank: 0
+ranks: everyone
+addmap: 0
+deletemap: 0
+maps: everyone
+levels: everyone
+
+givetheme: 0
+removetheme: 0
+theme: everyone
+
+# moderation commands
+ban: 0
+unban: 0
+baninfo: 0
+strike: everyone
+
+# clan
+clancreate: 0
+clandisband: 0
+claninvite: 0
+clanjoin: 0
+clanleave: 0
+clanstats: 0
+clanforcedisband: 0
+clankick: 0
+clansettings: 0
+claninfo: 0
+clanlb: 0
+clanlist: 0
