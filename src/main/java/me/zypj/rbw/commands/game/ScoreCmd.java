@@ -47,6 +47,7 @@ public class ScoreCmd extends Command {
         }
 
         String team = args[2];
+        String mvpID = args[3].replaceAll("[^0-9]","");
 
         List<Player> winningTeam;
         List<Player> losingTeam;
@@ -61,9 +62,9 @@ public class ScoreCmd extends Command {
         }
 
         if (args[3].equalsIgnoreCase("none"))
-            game.scoreGame(winningTeam, losingTeam, sender);
+            game.scoreGame(winningTeam, losingTeam, null, sender);
         else
-            game.scoreGame(winningTeam, losingTeam, sender);
+            game.scoreGame(winningTeam, losingTeam, PlayerCache.getPlayer(mvpID), sender);
 
         Embed reply = new Embed(EmbedType.SUCCESS, "", "You scored the Game `#" + game.getNumber() + "`", 1);
         msg.replyEmbeds(reply.build()).queue();

@@ -11,6 +11,7 @@ import me.zypj.rbw.instance.GameMap;
 import me.zypj.rbw.instance.cache.GameCache;
 import me.zypj.rbw.instance.cache.MapCache;
 import me.zypj.rbw.instance.cache.PlayerCache;
+import me.zypj.rbw.mvp.MVPManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -48,6 +49,11 @@ public class BW2023Events implements Listener {
         }
 
         if (game != null) {
+
+            Player mvpPlayer = MVPManager.getMvpManager().determineMVP(event.getArena());
+
+            me.zypj.rbw.instance.Player mvp = PlayerCache.getPlayerByIgn(mvpPlayer.getName());
+
             List<me.zypj.rbw.instance.Player> winningTeam;
             List<me.zypj.rbw.instance.Player> losingTeam;
 
@@ -61,7 +67,7 @@ public class BW2023Events implements Listener {
                 losingTeam = game.getTeam1();
             }
 
-            game.scoreGame(winningTeam, losingTeam, RBWPlugin.guild.getMemberById(RBWPlugin.jda.getSelfUser().getId()));
+            game.scoreGame(winningTeam, losingTeam, mvp, RBWPlugin.guild.getMemberById(RBWPlugin.jda.getSelfUser().getId()));
         }
     }
 

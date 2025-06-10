@@ -467,7 +467,7 @@ public class Game {
         return null;
     }
 
-    public void scoreGame(List<Player> winningTeam, List<Player> losingTeam, Member scoredBy) {
+    public void scoreGame(List<Player> winningTeam, List<Player> losingTeam, Player mvp, Member scoredBy) {
 
         eloGain = new HashMap<>();
 
