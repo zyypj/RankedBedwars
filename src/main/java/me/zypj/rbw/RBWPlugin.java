@@ -215,7 +215,7 @@ public final class RBWPlugin extends JavaPlugin {
 
     private void loadArenas() {
         bedwarsAPI.getArenaUtil().getArenas().stream()
-                .filter(arena -> arena.getGroup().equalsIgnoreCase("RBW"))
+                .filter(arena -> arena.getGroup().equalsIgnoreCase(Config.getValue("bedwars-plugin-group")))
                 .forEach(arena -> {
                     try {
                         new GameMap(arena.getArenaName());

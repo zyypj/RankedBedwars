@@ -93,6 +93,9 @@ game-channel-names: "Game #%number%"
 # use %team% to get the team number
 game-vc-names: "Game #%number% | Time %team%"
 
+# Bedwars plugin group that RBW will control
+bedwars-plugin-group: "rbw"
+
 # Games announcing channel (leave blank to disable)
 games-announcing: 0
 

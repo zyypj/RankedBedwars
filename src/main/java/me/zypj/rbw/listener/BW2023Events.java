@@ -6,6 +6,7 @@ import com.tomkeuper.bedwars.api.events.player.PlayerKillEvent;
 import com.tomkeuper.bedwars.api.events.server.ArenaDisableEvent;
 import com.tomkeuper.bedwars.api.events.server.ArenaEnableEvent;
 import me.zypj.rbw.RBWPlugin;
+import me.zypj.rbw.config.Config;
 import me.zypj.rbw.instance.Game;
 import me.zypj.rbw.instance.GameMap;
 import me.zypj.rbw.instance.cache.GameCache;
@@ -28,7 +29,7 @@ public class BW2023Events implements Listener {
 
     @EventHandler
     public void teamAssignEvent(TeamAssignEvent event) {
-        if (event.getArena().getGroup().equalsIgnoreCase("rbw")) {
+        if (event.getArena().getGroup().equalsIgnoreCase(Config.getValue("bedwars-plugin-group"))) {
             event.setCancelled(true);
 
             event.getArena();
@@ -73,7 +74,7 @@ public class BW2023Events implements Listener {
 
     @EventHandler
     public void arenaEnableEvent(ArenaEnableEvent event) {
-        if (!event.getArena().getGroup().equalsIgnoreCase("rbw")) {
+        if (!event.getArena().getGroup().equalsIgnoreCase(Config.getValue("bedwars-plugin-group"))) {
             return;
         }
 
@@ -84,7 +85,7 @@ public class BW2023Events implements Listener {
 
     @EventHandler
     public void arenaDisableEvent(ArenaDisableEvent event) {
-        if (!RBWPlugin.bedwarsAPI.getArenaUtil().getArenaByName(event.getArenaName()).getGroup().equalsIgnoreCase("rbw")) {
+        if (!RBWPlugin.bedwarsAPI.getArenaUtil().getArenaByName(event.getArenaName()).getGroup().equalsIgnoreCase(Config.getValue("bedwars-plugin-group"))) {
             return;
         }
 
