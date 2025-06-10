@@ -2,6 +2,7 @@ package me.zypj.rbw.database;
 
 import me.zypj.rbw.RBWPlugin;
 import lombok.SneakyThrows;
+import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class SQLite {
             
             String link = "jdbc:sqlite:" + file.getPath();
             connection = DriverManager.getConnection(link);
-            System.out.println("Successfully connected to the database");
+            Bukkit.getServer().getConsoleSender().sendMessage("Successfully connected to the database");
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }

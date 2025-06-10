@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import org.bukkit.Bukkit;
 
 public class WipeCmd extends Command {
     public WipeCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -64,7 +65,7 @@ public class WipeCmd extends Command {
                 if (guild.getMemberById(p.getID()) != null) {
                     p.fix();
                 }
-                System.out.println("[=wipe] successfully reset " + p.getIgn() + " (" + p.getID() + ")");
+                Bukkit.getServer().getConsoleSender().sendMessage("§a[=wipe] succesfully reset " + p.getIgn() + " (" + p.getID() + ")");
             }
 
             long end = System.currentTimeMillis();

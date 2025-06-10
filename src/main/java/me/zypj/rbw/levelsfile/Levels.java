@@ -2,6 +2,7 @@ package me.zypj.rbw.levelsfile;
 
 import me.zypj.rbw.RBWPlugin;
 import org.apache.commons.io.IOUtils;
+import org.bukkit.Bukkit;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
@@ -47,7 +48,7 @@ public class Levels {
             e.printStackTrace();
         }
 
-        System.out.println("Successfully loaded the levels file into memory");
+        Bukkit.getServer().getConsoleSender().sendMessage("Successfully loaded the levels file into memory");
     }
 
     public static String getLevel(String key) {
@@ -87,7 +88,7 @@ public class Levels {
             e.printStackTrace();
         }
 
-        System.out.println("Successfully loaded the clan levels file into memory");
+        Bukkit.getServer().getConsoleSender().sendMessage("Successfully loaded the clan levels file into memory");
     }
 
     public static String getClanLevel(String key) {

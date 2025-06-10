@@ -46,7 +46,7 @@ public class Player {
     private String banReason;
 
     public Player(String ID) {
-        System.out.println("ID: " + ID);
+        Bukkit.getServer().getConsoleSender().sendMessage("ID: " + ID);
         this.ID = ID;
 
         ResultSet resultSet = SQLite.queryData("SELECT * FROM players WHERE discordID='" + ID + "';");
@@ -135,7 +135,7 @@ public class Player {
                 member.modifyNickname(Config.getValue("elo-formatting").replaceAll("%elo%", elo + "") + ign).queue();
             }
             else {
-                System.out.println("[RBW] Couldn't modify " + member.getUser().getAsTag() + "'s roles and nickname");
+                Bukkit.getServer().getConsoleSender().sendMessage("[RBW] Couldn't modify " + member.getUser().getAsTag() + "'s roles and nickname");
             }
         }
     }

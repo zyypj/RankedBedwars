@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import org.bukkit.Bukkit;
 
 @Getter
 public abstract class Command{
@@ -18,7 +19,7 @@ public abstract class Command{
     private final CommandSubsystem subsystem;
 
     public Command (String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
-        System.out.println(command + " command successfully loaded");
+        Bukkit.getServer().getConsoleSender().sendMessage(command + " command successfully loaded");
         this.command = command;
         this.usage = usage;
         this.aliases = aliases;
@@ -27,7 +28,7 @@ public abstract class Command{
     }
 
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
-        System.out.println("Something went wrong...");
+        Bukkit.getServer().getConsoleSender().sendMessage("§cSomething went wrong...");
     }
 
     public String[] getPermissions() {

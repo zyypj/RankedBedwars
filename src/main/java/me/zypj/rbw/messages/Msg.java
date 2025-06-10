@@ -2,6 +2,7 @@ package me.zypj.rbw.messages;
 
 import me.zypj.rbw.RBWPlugin;
 import org.apache.commons.io.IOUtils;
+import org.bukkit.Bukkit;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
@@ -46,7 +47,7 @@ public class Msg {
             e.printStackTrace();
         }
 
-        System.out.println("Successfully loaded the messages file into memory");
+        Bukkit.getServer().getConsoleSender().sendMessage("Successfully loaded the messages file into memory");
     }
 
     public static void reload() {

@@ -25,6 +25,7 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -169,7 +170,7 @@ public class CommandManager extends ListenerAdapter {
 
         if (Boolean.parseBoolean(Config.getValue("log-commands"))) {
             assert m != null;
-            System.out.println("[RankedBW] " + m.getUser() .getAsTag() + " used " + msg.getContentRaw());
+            Bukkit.getServer().getConsoleSender().sendMessage("[RankedBW] " + m.getUser() .getAsTag() + " used " + msg.getContentRaw());
         }
 
         command.execute(args, g, m, c, msg);

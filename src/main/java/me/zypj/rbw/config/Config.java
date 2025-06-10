@@ -2,6 +2,7 @@ package me.zypj.rbw.config;
 
 import me.zypj.rbw.RBWPlugin;
 import org.apache.commons.io.IOUtils;
+import org.bukkit.Bukkit;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
@@ -48,7 +49,7 @@ public class Config {
             e.printStackTrace();
         }
 
-        System.out.println("Successfully loaded the config file into memory");
+        Bukkit.getServer().getConsoleSender().sendMessage("§aSuccessfully loaded the config file into memory");
     }
 
     public static void reload() {
@@ -58,7 +59,7 @@ public class Config {
 
     public static void debug(String message) {
         if ("true".equalsIgnoreCase(getValue("debug"))) {
-            System.out.println(message);
+            Bukkit.getServer().getConsoleSender().sendMessage(message);
         }
     }
 

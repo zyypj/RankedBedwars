@@ -2,6 +2,7 @@ package me.zypj.rbw.instance;
 
 import me.zypj.rbw.config.Config;
 import me.zypj.rbw.database.SQLClanWars;
+import org.bukkit.Bukkit;
 
 import java.util.List;
 
@@ -46,15 +47,15 @@ public class ClanWar {
     public void registerClan(String clanName) {
         if (getRegisteredClans().size() < maxClans) {
             SQLClanWars.registerClan(warId, clanName);
-            System.out.println("Clan " + clanName + " registered for war ID: " + warId);
+            Bukkit.getServer().getConsoleSender().sendMessage("Clan " + clanName + " registered for war ID: " + warId);
         } else {
-            System.out.println("War is full. Cannot register more clans.");
+            Bukkit.getServer().getConsoleSender().sendMessage("§cWar is full. Cannot register more clans.");
         }
     }
 
     public void unregisterClan(String clanName) {
         SQLClanWars.unregisterClan(warId, clanName);
-        System.out.println("Clan " + clanName + " unregistered from war ID: " + warId);
+        Bukkit.getServer().getConsoleSender().sendMessage("Clan " + clanName + " unregistered for war ID: " + warId);
     }
 
     public List<String> getRegisteredClans() {
