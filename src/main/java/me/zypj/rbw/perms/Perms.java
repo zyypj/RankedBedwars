@@ -2,6 +2,7 @@ package me.zypj.rbw.perms;
 
 import me.zypj.rbw.RBWPlugin;
 import org.apache.commons.io.IOUtils;
+import org.bukkit.Bukkit;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
@@ -17,35 +18,41 @@ public class Perms {
         String filename = "permissions.yml";
         ClassLoader classLoader = RBWPlugin.class.getClassLoader();
 
-        try (InputStream inputStream = classLoader.getResourceAsStream(filename)) {
-            assert inputStream != null;
-            String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+        try (InputStream resourceStream = classLoader.getResourceAsStream(filename)) {
+            if (resourceStream == null) {
+                throw new RuntimeException("Resource not found: " + filename);
+            }
+            String defaultContent = IOUtils.toString(resourceStream, StandardCharsets.UTF_8);
 
-            File file = new File(RBWPlugin.getInstance().getDataFolder() + "/RankedBot/" + filename);
+            File file = new File(RBWPlugin.getInstance().getDataFolder(), "RankedBot/" + filename);
             if (!file.exists()) {
-                file.createNewFile();
-                BufferedWriter bw = new BufferedWriter(new FileWriter(RBWPlugin.getInstance().getDataFolder() + "/RankedBot/" + filename));
-                bw.write(result);
-                bw.close();
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                try (Writer writer = new BufferedWriter(new FileWriter(file))) {
+                    writer.write(defaultContent);
+                }
             }
 
             Yaml yaml = new Yaml();
-            Map<String, Object> data = yaml.load(new FileInputStream(RBWPlugin.getInstance().getDataFolder() + "/RankedBot/permissions.yml"));
-            for (String s : data.keySet()) {
-                if (data.get(s) != null) {
-                    permsData.put(s, data.get(s).toString());
+            try (InputStream fis = new FileInputStream(file)) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> data = yaml.loadAs(fis, Map.class);
+                for (Map.Entry<String, Object> entry : data.entrySet()) {
+                    if (entry.getValue() != null) {
+                        permsData.put(entry.getKey(), entry.getValue().toString());
+                    }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Successfully loaded the permissions file into memory");
+        Bukkit.getServer().getConsoleSender().sendMessage("§aSuccessfully loaded the permissions file into memory");
     }
 
     public static void reload() {
         permsData.clear();
-
         loadPerms();
     }
 

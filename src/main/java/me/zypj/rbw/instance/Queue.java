@@ -123,8 +123,8 @@ public class Queue {
                                         mentions+="<@" + p.getID() + ">";
                                     }
 
-                                    Embed embed = new Embed(EmbedType.ERROR, "Limite de Jogos Atingido!", "Atualmente há mais de 50 canais de voz (máximo pelo Discord) e eu não posso fazer mais\n" +
-                                            "Por favor, espere até alguma partida termine", 1);
+                                    Embed embed = new Embed(EmbedType.ERROR, "Game Limit Reached!", "There are currently over 50 voice channels (maximum for Discord) and I can't do any more\n" +
+                                            "Please wait until some matches finish", 1);
                                     RBWPlugin.guild.getTextChannelById(Config.getValue("alerts-channel")).sendMessage(mentions).setEmbeds(embed.build()).queue();
                                 }
                             }

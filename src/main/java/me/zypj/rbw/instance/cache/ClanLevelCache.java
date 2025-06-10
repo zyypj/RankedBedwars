@@ -19,7 +19,7 @@ public class ClanLevelCache {
     public static void addLevel(ClanLevel level) {
         clanLevels.put(level.getLevel(), level);
 
-        Config.debug("ClanLevel " + level.getLevel() + " foi carregado na memoria");
+        Config.debug("ClanLevel " + level.getLevel() + " has loaded");
     }
 
     public static void removeLevel(int level) {

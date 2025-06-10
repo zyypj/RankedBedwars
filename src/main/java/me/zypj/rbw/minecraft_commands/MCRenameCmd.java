@@ -33,27 +33,28 @@ public class MCRenameCmd implements CommandExecutor {
         try {
             code = Integer.parseInt(args[0]);
         } catch (Exception e) {
-            player.sendMessage(ChatColor.RED + "O código correto tem 6 " + ChatColor.UNDERLINE + "números");
+            player.sendMessage(ChatColor.RED + "The code has 6 " + ChatColor.UNDERLINE + "numbers");
             return false;
         }
 
         if (code == 0) {
-            player.sendMessage(ChatColor.RED + "Something went wrong.. Tente novamente mais tarde");
+            player.sendMessage(ChatColor.RED + "Something went wrong.. Try again later");
             return false;
         }
 
         if (!LinkManager.isValidCode(code)) {
-            player.sendMessage(ChatColor.RED + "O código é invalido. Por favor use =rename novamente");
+            player.sendMessage(ChatColor.RED + "The code is invalid. Use =rename again");
             return false;
         }
 
         Member member = null;
         try {
             member = RBWPlugin.guild.getMemberById(Objects.requireNonNull(LinkManager.getMemberByCode(code)));
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         if (member == null) {
-            player.sendMessage(ChatColor.RED + "Something went wrong.. Tente novamete mais tarde.");
+            player.sendMessage(ChatColor.RED + "Something went wrong.. Try again later");
             return false;
         }
 
@@ -63,7 +64,7 @@ public class MCRenameCmd implements CommandExecutor {
 
         LinkManager.removePlayer(code);
 
-        player.sendMessage(ChatColor.GREEN + "Renomeado para " + ChatColor.DARK_GREEN + "(" + member.getUser().getAsTag() + ")");
+        player.sendMessage(ChatColor.GREEN + "Renamed to " + ChatColor.DARK_GREEN + "(" + member.getUser().getAsTag() + ")");
 
         return true;
     }

@@ -19,7 +19,7 @@ public class LevelCache {
     public static void addLevel(Level level) {
         levels.put(level.getLevel(), level);
 
-        Config.debug("Level" + level.getLevel() + " foi carregado na memoria");
+        Config.debug("Level" + level.getLevel() + " has loaded");
     }
 
     public static void removeLevel(int level) {

@@ -30,8 +30,8 @@ public class QueueJoin extends ListenerAdapter {
                 if (!Player.isRegistered(ID)) {
                     event.getGuild().kickVoiceMember(event.getMember()).queue();
 
-                    Embed embed = new Embed(EmbedType.ERROR, "Você Não Pode Entrar na Fila", "", 1);
-                    embed.setDescription("Você não está registrado. Por favor use `=register <seu nick>` e tente novamente");
+                    Embed embed = new Embed(EmbedType.ERROR, "You Cannot Join the Queue", "", 1);
+                    embed.setDescription("You are not registered. Please use `=register <your nickname>` and try again");
                     assert alerts != null;
                     alerts.sendMessage(event.getMember().getAsMention()).setEmbeds(embed.build()).queue();
                     return;
@@ -40,8 +40,8 @@ public class QueueJoin extends ListenerAdapter {
                 if (player.isBanned()) {
                     event.getGuild().kickVoiceMember(event.getMember()).queue();
 
-                    Embed embed = new Embed(EmbedType.ERROR, "Você Não Pode Entrar na Fila", "", 1);
-                    embed.addField("Isso aconteceu pois você está banido!", "Se isso é um erro, por favor use `=fix`. Se isso não remover seu cargo de banido, abra um ticket para Appeal", false);
+                    Embed embed = new Embed(EmbedType.ERROR, "You Cannot Join the Queue", "", 1);
+                    embed.addField("This happened because you are banned!", "If this is an error, please use `=fix`. If this does not remove your banned status, please open an Appeal ticket", false);
                     assert alerts != null;
                     alerts.sendMessage(event.getMember().getAsMention()).setEmbeds(embed.build()).queue();
                     return;
@@ -50,7 +50,7 @@ public class QueueJoin extends ListenerAdapter {
                 if (!player.isOnline()) {
                     event.getGuild().kickVoiceMember(event.getMember()).queue();
 
-                    Embed embed = new Embed(EmbedType.ERROR, "Você Não Pode Entrar na Fila", "Você precisa estar online em `" + Config.getValue("server-ip") + "` para entrar na fila", 1);
+                    Embed embed = new Embed(EmbedType.ERROR, "You Cannot Join the Queue", "You must be online at `" + Config.getValue("server-ip") + "` to join the queue", 1);
                     assert alerts != null;
                     alerts.sendMessage(event.getMember().getAsMention()).setEmbeds(embed.build()).queue();
                     return;

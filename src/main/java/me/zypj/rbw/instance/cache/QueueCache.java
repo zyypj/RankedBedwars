@@ -17,7 +17,7 @@ public class QueueCache {
     public static void addQueue(Queue queue) {
         queues.put(queue.getID(), queue);
 
-        Config.debug("Queue " + queue.getID() + " foi carregado na memoria");
+        Config.debug("Queue " + queue.getID() + " has loaded");
     }
 
     public static void removeQueue(Queue queue) {

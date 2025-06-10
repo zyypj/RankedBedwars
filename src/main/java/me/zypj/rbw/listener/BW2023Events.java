@@ -27,7 +27,7 @@ public class BW2023Events implements Listener {
 
     @EventHandler
     public void teamAssignEvent(TeamAssignEvent event) {
-        if (event.getArena().getGroup().equalsIgnoreCase("Ranked4s")) {
+        if (event.getArena().getGroup().equalsIgnoreCase("rbw")) {
             event.setCancelled(true);
 
             event.getArena();
@@ -67,7 +67,7 @@ public class BW2023Events implements Listener {
 
     @EventHandler
     public void arenaEnableEvent(ArenaEnableEvent event) {
-        if (!event.getArena().getGroup().equalsIgnoreCase("Ranked4s")) {
+        if (!event.getArena().getGroup().equalsIgnoreCase("rbw")) {
             return;
         }
 
@@ -78,7 +78,7 @@ public class BW2023Events implements Listener {
 
     @EventHandler
     public void arenaDisableEvent(ArenaDisableEvent event) {
-        if (!RBWPlugin.bedwarsAPI.getArenaUtil().getArenaByName(event.getArenaName()).getGroup().equalsIgnoreCase("Ranked4s")) {
+        if (!RBWPlugin.bedwarsAPI.getArenaUtil().getArenaByName(event.getArenaName()).getGroup().equalsIgnoreCase("rbw")) {
             return;
         }
 

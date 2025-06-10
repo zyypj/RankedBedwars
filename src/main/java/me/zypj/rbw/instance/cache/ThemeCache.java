@@ -17,7 +17,7 @@ public class ThemeCache {
     public static void addTheme(Theme theme) {
         themes.put(theme.getName(), theme);
 
-        Config.debug("Theme " + theme.getName() + " foi carregado na memoria");
+        Config.debug("Theme " + theme.getName() + " has loaded");
     }
 
     public static void removeTheme(Theme theme) {

@@ -17,7 +17,7 @@ public class RankCache {
     public static void addRank(Rank rank) {
         ranks.put(rank.getID(), rank);
 
-        Config.debug("Rank " + rank.getID() + " foi carregado na memoria");
+        Config.debug("Rank " + rank.getID() + " has loaded");
     }
 
     public static void removeRank(Rank rank) {

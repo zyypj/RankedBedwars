@@ -17,7 +17,7 @@ public class MapCache {
     public static void addMap(GameMap map) {
         maps.put(map.getName(), map);
 
-        Config.debug("Map " + map.getName() + " foi carregado na memoria");
+        Config.debug("Map " + map.getName() + " has loaded");
     }
 
     public static void removeMap(GameMap map) {

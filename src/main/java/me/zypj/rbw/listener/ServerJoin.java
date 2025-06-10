@@ -20,8 +20,8 @@ public class ServerJoin extends ListenerAdapter {
             Player player = PlayerCache.getPlayer(event.getMember().getId());
             player.fix();
 
-            Embed embed = new Embed(EmbedType.DEFAULT, "Seja bem vindo de volta", "Bons ventos me disseram que não é a sua primeira vez aqui" +
-                    "\nEu devolvi suas estatísticas e seu apelido - você não precisa se registrar novamente!", 1);
+            Embed embed = new Embed(EmbedType.DEFAULT, "Welcome back", "Good winds tell me this isn't your first time here" +
+                    "\nI've given you back your stats and nickname - you don't need to register again!", 1);
 
             Objects.requireNonNull(event.getGuild().getTextChannelById(Config.getValue("alerts-channel"))).sendMessage(event.getMember().getAsMention()).setEmbeds(embed.build()).queue();
         }

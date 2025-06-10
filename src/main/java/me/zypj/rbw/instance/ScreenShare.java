@@ -33,9 +33,9 @@ public class ScreenShare {
 
         Embed embed = new Embed(EmbedType.DEFAULT, target.getIgn() + " screenshare", "", 1);
         embed.setDescription("Request by: <@" + requestedBy.getID() + ">\n" +
-                "Suspeito: <@" + target.getID() + ">\n" +
+                "Suspicious: <@" + target.getID() + ">\n" +
                 "Reason: " + reason + "\n\n" +
-                "Por favor, use `=ssclose <reason (outcome)>` depois de terminar a ScreenShare");
+                "Please use `=ssclose <reason (outcome)>` after finishing ScreenShare");
 
         StringBuilder roles = new StringBuilder();
         for (String s : Config.getValue("ss-roles").split(",")) {

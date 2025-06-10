@@ -37,17 +37,17 @@ public class MCRegisterCmd implements CommandExecutor {
         try {
             code = Integer.parseInt(args[0]);
         } catch (Exception e) {
-            player.sendMessage(ChatColor.RED + "O código correto tem 6 " + ChatColor.UNDERLINE + "números");
+            player.sendMessage(ChatColor.RED + "The code has 6 " + ChatColor.UNDERLINE + "numbers");
             return false;
         }
 
         if (code == 0) {
-            player.sendMessage(ChatColor.RED + "Something went wrong.. Tente novamente mais tarde");
+            player.sendMessage(ChatColor.RED + "Something went wrong.. Try again later");
             return false;
         }
 
         if (!LinkManager.isValidCode(code)) {
-            player.sendMessage(ChatColor.RED + "O código é inválido. Por favor use =register novamente");
+            player.sendMessage(ChatColor.RED + "The code is invalid. Use =register again");
             return false;
         }
 
@@ -57,12 +57,12 @@ public class MCRegisterCmd implements CommandExecutor {
         } catch (Exception ignored) {}
 
         if (member == null) {
-            player.sendMessage(ChatColor.RED + "Something went wrong.. Tente novamente mais tarde");
+            player.sendMessage(ChatColor.RED + "Something went wrong.. Try again later");
             return false;
         }
 
         if (me.zypj.rbw.instance.Player.isRegistered(member.getId())) {
-            player.sendMessage(ChatColor.RED + "Você já está registrado\nUse /rename para mudar seu nome");
+            player.sendMessage(ChatColor.RED + "You are already registered\nUse /rename to change your name");
             return false;
         }
 
@@ -72,10 +72,10 @@ public class MCRegisterCmd implements CommandExecutor {
 
         LinkManager.removePlayer(code);
 
-        player.sendMessage(ChatColor.GREEN + "Vinculado a " + ChatColor.DARK_GREEN + member.getUser().getAsTag());
+        player.sendMessage(ChatColor.GREEN + "Linked to " + ChatColor.DARK_GREEN + member.getUser().getAsTag());
 
         TextChannel alerts = RBWPlugin.guild.getTextChannelById(Config.getValue("alerts-channel"));
-        Embed embed = new Embed(EmbedType.SUCCESS, "Vinculação Concluida", "Você foi registrado como `" + player.getName() + "`", 1);
+        Embed embed = new Embed(EmbedType.SUCCESS, "Linking Completed", "You have been registered as `" + player.getName() + "`", 1);
         assert alerts != null;
         alerts.sendMessage("<@" + member.getId() + ">").setEmbeds(embed.build()).queue();
 

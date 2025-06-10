@@ -5,11 +5,9 @@ import me.zypj.rbw.instance.cache.LevelCache;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 public class Level {
 
@@ -19,47 +17,46 @@ public class Level {
 
     public Level(int level) {
         this.level = level;
-        rewards = new ArrayList<>();
+        this.rewards = new ArrayList<>();
 
         if (level == 0) {
             this.neededXP = 0;
-        }
-        else {
+        } else {
             Yaml yaml = new Yaml();
-            try {
-                Map<String, Object> data = yaml.load(new FileInputStream(RBWPlugin.getInstance().getDataFolder() + "/RankedBot/levels.yml"));
+            String path = RBWPlugin.getInstance().getDataFolder() + "/RankedBot/levels.yml";
+            try (InputStream in = new FileInputStream(path)) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> data = yaml.loadAs(in, Map.class);
 
-                String levelData = data.get("l" + level).toString();
+                String levelData = Objects.requireNonNull(data.get("l" + level)).toString();
 
                 if (levelData.contains(";;;")) {
-                    this.neededXP = Integer.parseInt(levelData.split(";;;")[0]);
+                    String[] parts = levelData.split(";;;");
+                    this.neededXP = Integer.parseInt(parts[0]);
 
-                    String rewards = levelData.split(";;;")[1];
-
-                    if (rewards.contains(",")) {
-                        this.rewards.addAll(Arrays.asList(rewards.split(",")));
+                    String rewardsPart = parts[1];
+                    if (rewardsPart.contains(",")) {
+                        this.rewards.addAll(Arrays.asList(rewardsPart.split(",")));
+                    } else {
+                        this.rewards.add(rewardsPart);
                     }
-                    else {
-                        this.rewards.add(rewards);
-                    }
-                }
-                else {
+                } else {
                     this.neededXP = Integer.parseInt(levelData);
                 }
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException("Error when reading levels.yml", e);
             }
         }
 
         LevelCache.initializeLevel(level, this);
     }
 
-    public int getNeededXP() {
-        return neededXP;
-    }
-
     public int getLevel() {
         return level;
+    }
+
+    public int getNeededXP() {
+        return neededXP;
     }
 
     public List<String> getRewards() {

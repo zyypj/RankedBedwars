@@ -21,7 +21,7 @@ public class GameCache {
     public static void addGame(Game game) {
         games.put(game.getNumber(), game);
 
-        Config.debug("Game " + game.getNumber() + " foi carregado na memoria");
+        Config.debug("Game " + game.getNumber() + " has loaded");
     }
 
     public static void removeGame(Game game) {

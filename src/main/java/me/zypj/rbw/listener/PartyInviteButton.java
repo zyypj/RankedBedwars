@@ -54,7 +54,7 @@ public class PartyInviteButton extends ListenerAdapter {
             }
 
             if (partyElo + invited.getElo() > Integer.parseInt(Config.getValue("max-party-elo"))) {
-                event.reply("Você tem muito elo para entrar nessa party\nParty elo: `" + partyElo + "`\nSeu elo: `" + invited.getElo() + "`\nLimite da Party: `" + Config.getValue("max-party-elo") + "`").setEphemeral(true).queue();
+                event.reply("You have too much elo to join this party\nParty elo: `" + partyElo + "`\nYour elo: `" + invited.getElo() + "`\nParty limit: `" + Config.getValue("max-party-elo") + "`").setEphemeral(true).queue();
                 return;
             }
 
@@ -63,7 +63,7 @@ public class PartyInviteButton extends ListenerAdapter {
             Embed reply = new Embed(EmbedType.SUCCESS, "", Msg.getMsg("joined-party"), 1);
             event.replyEmbeds(reply.build()).setEphemeral(true).queue();
 
-            Embed embed = new Embed(EmbedType.DEFAULT, "", "<@" + invited.getID() + "> entrou na party", 1);
+            Embed embed = new Embed(EmbedType.DEFAULT, "", "<@" + invited.getID() + "> joined in party", 1);
             event.getChannel().sendMessage("<@" + leader.getID() + ">").setEmbeds(embed.build()).queue();
         }
     }

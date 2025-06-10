@@ -18,7 +18,7 @@ public class PartyCache {
 	public static void addParty(Party party) {
 		parties.add(party);
 		
-		Config.debug("Party created by " + party.getLeader().getIgn() + " foi carregado na memoria");
+		Config.debug("Party created by " + party.getLeader().getIgn() + " has loaded");
 	}
 	
 	public static void removeParty(Party party) {

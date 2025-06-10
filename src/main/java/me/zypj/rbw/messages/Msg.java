@@ -18,22 +18,30 @@ public class Msg {
         ClassLoader classLoader = RBWPlugin.class.getClassLoader();
 
         try (InputStream inputStream = classLoader.getResourceAsStream(filename)) {
-            assert inputStream != null;
-            String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            if (inputStream == null) {
+                throw new RuntimeException("Resource not found: " + filename);
+            }
+            String defaultContent = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
 
-            File file = new File(RBWPlugin.getInstance().getDataFolder() + "/RankedBot/" + filename);
+            File file = new File(RBWPlugin.getInstance().getDataFolder(), "RankedBot/" + filename);
             if (!file.exists()) {
-                file.createNewFile();
-                BufferedWriter bw = new BufferedWriter(new FileWriter(RBWPlugin.getInstance().getDataFolder() + "/RankedBot/" + filename));
-                bw.write(result);
-                bw.close();
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                try (Writer writer = new BufferedWriter(new FileWriter(file))) {
+                    writer.write(defaultContent);
+                }
             }
 
             Yaml yaml = new Yaml();
-            Map<String, Object> data = yaml.load(new FileInputStream(RBWPlugin.getInstance().getDataFolder() + "/RankedBot/messages.yml"));
-            for (String s : data.keySet()) {
-                msgData.put(s, data.get(s).toString());
+            try (InputStream fis = new FileInputStream(file)) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> data = yaml.loadAs(fis, Map.class);
+                for (Map.Entry<String, Object> entry : data.entrySet()) {
+                    msgData.put(entry.getKey(), entry.getValue().toString());
+                }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,11 +51,10 @@ public class Msg {
 
     public static void reload() {
         msgData.clear();
-
         loadMsg();
     }
 
-    public static String getMsg(String msg) {
-        return msgData.get(msg);
+    public static String getMsg(String key) {
+        return msgData.get(key);
     }
 }

@@ -16,13 +16,13 @@ public class PagesEvents extends ListenerAdapter {
             int number = Integer.parseInt(event.getButton().getId().replace("rankedbot-page-", ""));
 
             if (number <= -1) {
-                event.reply("Você já está na primeira página").setEphemeral(true).queue();
+                event.reply("You are already on the first page").setEphemeral(true).queue();
 
                 return;
             }
 
             if (Embed.embedPages.get(msg.getId()).size() <= number) {
-                event.reply("Você já está na última página").setEphemeral(true).queue();
+                event.reply("You are already on the last page").setEphemeral(true).queue();
 
                 return;
             }

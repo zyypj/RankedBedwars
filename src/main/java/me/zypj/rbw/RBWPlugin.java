@@ -50,13 +50,20 @@ public final class RBWPlugin extends JavaPlugin {
         rbwPlugin = this;
         bedwarsAPI = Bukkit.getServicesManager().getRegistration(BedWars.class).getProvider();
 
+        if (bedwarsAPI == null) {
+            getServer().getConsoleSender().sendMessage("§cBedWars2023 not found.");
+            getServer().getConsoleSender().sendMessage("§cDisabling plugin...");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
         registerCommandsAndEvents();
         createDirectories();
         setupDatabase();
         loadConfigurations();
         setupDiscordBot();
 
-        System.out.println("\n[!] Finishing up... this might take around 10 seconds\n");
+        getServer().getConsoleSender().sendMessage("\n§e[!] Finishing up... this might take around 10 seconds\n");
 
         new Timer().schedule(new TimerTask() {
             @Override
@@ -114,7 +121,7 @@ public final class RBWPlugin extends JavaPlugin {
     private void setupDiscordBot() {
         String token = Config.getValue("token");
         if (token == null) {
-            System.out.println("[!] Please set your token in config.yml");
+            getServer().getConsoleSender().sendMessage("§e[!] Please set your token in config.yml");
             return;
         }
 
@@ -137,7 +144,7 @@ public final class RBWPlugin extends JavaPlugin {
     }
 
     private void initializeGuildAndLoadData() {
-        System.out.println("Guilds detected: " + jda.getGuilds().size());
+        getServer().getConsoleSender().sendMessage("§aGuilds detected: " + jda.getGuilds().size());
 
         jda.getGuilds().stream().findFirst()
                 .ifPresentOrElse(
@@ -146,7 +153,7 @@ public final class RBWPlugin extends JavaPlugin {
                             loadThemesAndLevels();
                             loadDatabaseData();
                         },
-                        () -> System.out.println("[!] Please invite this bot to your server first")
+                        () -> getServer().getConsoleSender().sendMessage("§c[!] Please invite this bot to your server first")
                 );
     }
 
@@ -183,7 +190,7 @@ public final class RBWPlugin extends JavaPlugin {
                     list.add(rs.getString(1));
                 }
             } catch (SQLException e) {
-                System.out.println("[!] There was a problem loading data from " + table + ".");
+                getServer().getConsoleSender().sendMessage("§c[!] There was a problem loading data from " + table + ".");
                 e.printStackTrace();
             }
         });
@@ -201,19 +208,19 @@ public final class RBWPlugin extends JavaPlugin {
             try {
                 consumer.accept(s);
             } catch (Exception e) {
-                System.out.println("[!] An entity could not be loaded!");
+                getServer().getConsoleSender().sendMessage("§c[!] An entiy could not be loaded!");
             }
         });
     }
 
     private void loadArenas() {
         bedwarsAPI.getArenaUtil().getArenas().stream()
-                .filter(arena -> arena.getGroup().equalsIgnoreCase("Ranked4s"))
+                .filter(arena -> arena.getGroup().equalsIgnoreCase("RBW"))
                 .forEach(arena -> {
                     try {
                         new GameMap(arena.getArenaName());
                     } catch (Exception e) {
-                        System.out.println("[!] An arena could not be loaded!");
+                        getServer().getConsoleSender().sendMessage("§c[!] An arena could not be loaded!");
                     }
                 });
     }

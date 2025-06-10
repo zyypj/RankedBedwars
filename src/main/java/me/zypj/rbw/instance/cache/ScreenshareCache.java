@@ -19,7 +19,7 @@ public class ScreenshareCache {
     public static void addScreenshare(ScreenShare ss) {
         screenshares.put(ss.getChannelID(), ss);
 
-        Config.debug("Screenshare for " + ss.getTarget().getIgn() + " foi carregado na memoria");
+        Config.debug("Screenshare for " + ss.getTarget().getIgn() + " has loaded");
     }
 
     public static void removeScreenshare(String ID) {

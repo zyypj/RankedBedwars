@@ -78,7 +78,7 @@ public class Player {
                 ownedThemes.add(ThemeCache.getTheme(s));
             }
             
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
             this.isBanned = Boolean.parseBoolean(resultSet.getString(21));
             if (isBanned) {
                 this.bannedTill = LocalDateTime.parse(resultSet.getString(22), formatter);
@@ -214,7 +214,7 @@ public class Player {
                     }
                 }
 
-                Embed embed = new Embed(EmbedType.SUCCESS, "LEVEL UP", "Você evoluiu para o `LEVEL " + i + "` \uD83C\uDF89", 1);
+                Embed embed = new Embed(EmbedType.SUCCESS, "LEVEL UP", "You have evolved to `LEVEL " + i + "` \uD83C\uDF89", 1);
                 RBWPlugin.getGuild().getTextChannelById(Config.getValue("alerts-channel")).sendMessage("<@" + ID + ">").setEmbeds(embed.build()).queue();
 
                 return;
@@ -229,7 +229,7 @@ public class Player {
                 if (clan.getXp() >= ClanLevelCache.getLevel(i).getNeededXP()) {
                     clan.setLevel(ClanLevelCache.getLevel(i));
 
-                    Embed embed = new Embed(EmbedType.SUCCESS, "CLAN LEVEL UP", "O Clan " + clan.getName() + " evoluiu para `LEVEL " + i + "` \uD83C\uDF89", 1);
+                    Embed embed = new Embed(EmbedType.SUCCESS, "CLAN LEVEL UP", "Clan " + clan.getName() + " has evolved to `LEVEL " + i + "` \uD83C\uDF89", 1);
                     RBWPlugin.getGuild().getTextChannelById(Config.getValue("alerts-channel")).sendMessage("<@" + clan.getLeader().getID() + ">").setEmbeds(embed.build()).queue();
 
                     return;

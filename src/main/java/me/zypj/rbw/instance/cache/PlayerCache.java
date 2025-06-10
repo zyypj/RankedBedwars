@@ -21,7 +21,7 @@ public class PlayerCache {
     public static void addPlayer(Player player) {
         players.put(player.getID(), player);
 
-        Config.debug("Player " + player.getIgn() + " (" + player.getID() + ")" + " foi carregado na memoria");
+        Config.debug("Player " + player.getIgn() + " (" + player.getID() + ")" + " has loaded");
     }
 
     public static void removePlayer(Player player) {

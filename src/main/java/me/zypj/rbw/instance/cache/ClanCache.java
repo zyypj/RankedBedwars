@@ -24,7 +24,7 @@ public class ClanCache {
     public static void addClan(Clan clan) {
         clans.put(clan.getName(), clan);
 
-        Config.debug("Clan" + clan.getName() + " foi carregado na memoria!");
+        Config.debug("Clan " + clan.getName() + " has loaded!");
     }
 
     public static void removeClan(String name) {
