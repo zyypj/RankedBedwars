@@ -83,6 +83,9 @@ public final class RBWPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (jda != null) {
+            jda.shutdownNow();
+        }
         SQLite.disconnect();
     }
 
