@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.exceptions.ErrorHandler;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,7 +76,7 @@ public class Game {
     @Getter
     private Member scoredBy; // this acts as voidedBy if game was voided
 
-    private TimerTask closingTask;
+    private BukkitTask closingTask;
 
     // IF THE GAME WAS SCORED
 
@@ -591,26 +592,21 @@ public class Game {
             closingTask.cancel();
         }
 
-        closingTask = new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    if (guild.getTextChannelById(channelID) != null) {
-                        Objects.requireNonNull(guild.getTextChannelById(channelID)).delete().queue();
-                    }
-                    if (guild.getVoiceChannelById(vc1ID) != null) {
-                        Objects.requireNonNull(guild.getVoiceChannelById(vc1ID)).delete().queue();
-                    }
-                    if (guild.getVoiceChannelById(vc2ID) != null) {
-                        Objects.requireNonNull(guild.getVoiceChannelById(vc2ID)).delete().queue();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+        closingTask = Bukkit.getScheduler().runTaskLater(RBWPlugin.getInstance(), () -> {
+            try {
+                if (guild.getTextChannelById(channelID) != null) {
+                    Objects.requireNonNull(guild.getTextChannelById(channelID)).delete().queue();
                 }
+                if (guild.getVoiceChannelById(vc1ID) != null) {
+                    Objects.requireNonNull(guild.getVoiceChannelById(vc1ID)).delete().queue();
+                }
+                if (guild.getVoiceChannelById(vc2ID) != null) {
+                    Objects.requireNonNull(guild.getVoiceChannelById(vc2ID)).delete().queue();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        };
-
-        new Timer().schedule(closingTask, timeSeconds * 1000L);
+        }, timeSeconds * 20L);
     }
 
     public void warpToMap(int triesMax) {

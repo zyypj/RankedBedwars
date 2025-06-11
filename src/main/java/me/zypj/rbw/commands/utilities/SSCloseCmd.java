@@ -15,8 +15,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
+import org.bukkit.Bukkit;
 
 public class SSCloseCmd extends Command {
     public SSCloseCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -45,20 +44,15 @@ public class SSCloseCmd extends Command {
 
         msg.reply("<@" + ss.getTarget().getID() + ">").setEmbeds(embed.build()).queue();
 
-        TimerTask closingTask = new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    if (guild.getTextChannelById(ss.getChannelID()) != null) {
-                        Objects.requireNonNull(guild.getTextChannelById(ss.getChannelID())).delete().queue();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+        Bukkit.getScheduler().runTaskLater(RBWPlugin.getInstance(), () -> {
+            try {
+                if (guild.getTextChannelById(ss.getChannelID()) != null) {
+                    Objects.requireNonNull(guild.getTextChannelById(ss.getChannelID())).delete().queue();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        };
-
-        new Timer().schedule(closingTask, 180 * 1000L);
+        }, 20L * 60 * 3);
 
         embed.setType(EmbedType.DEFAULT);
         embed.setTitle(ss.getTarget().getIgn() + " (" + ss.getTarget().getID() + ")");

@@ -12,8 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 public class Queue {
 
@@ -24,7 +25,7 @@ public class Queue {
     private List<Player> players;
     private double eloMultiplier;
 
-    TimerTask queueTimer;
+    BukkitTask queueTimer;
 
     public Queue(String ID) {
         this.ID = ID;
@@ -48,7 +49,7 @@ public class Queue {
 
         Queue q = this;
 
-        queueTimer = new TimerTask() {
+        queueTimer = new BukkitRunnable() {
             @Override
             public void run() {
                 try {
@@ -134,9 +135,7 @@ public class Queue {
                     e.printStackTrace();
                 }
             }
-        };
-
-        new Timer().schedule(queueTimer, 0L, 7000L);
+        }.runTaskTimer(RBWPlugin.getInstance(), 0L, 140L);
     }
 
     public void addPlayer(Player player) {

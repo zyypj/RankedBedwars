@@ -1,5 +1,7 @@
 package me.zypj.rbw.instance;
 
+import me.zypj.rbw.RBWPlugin;
+import org.bukkit.Bukkit;
 import java.util.*;
 
 public class LinkManager {
@@ -19,15 +21,8 @@ public class LinkManager {
 
         links.put(ID, code);
 
-        TimerTask task = new TimerTask () {
-            @Override
-            public void run () {
-                links.remove(ID);
-            }
-        };
-
-        // 5 mins
-        new Timer().schedule(task, 1000 * 60 * 5);
+        Bukkit.getScheduler().runTaskLater(RBWPlugin.getInstance(), () ->
+                links.remove(ID), 20L * 60 * 5);
 
         return code;
     }

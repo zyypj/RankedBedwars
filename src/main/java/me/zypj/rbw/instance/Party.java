@@ -5,8 +5,8 @@ import me.zypj.rbw.instance.cache.PartyCache;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import me.zypj.rbw.RBWPlugin;
+import org.bukkit.Bukkit;
 
 public class Party {
 
@@ -27,15 +27,11 @@ public class Party {
 
         invitedPlayers.add(invited);
 
-        TimerTask inviteExpiration = new TimerTask() {
-            @Override
-            public void run() {
-                if (invitedPlayers.contains(invited)) {
-                    invitedPlayers.remove(invited);
-                }
+        Bukkit.getScheduler().runTaskLater(RBWPlugin.getInstance(), () -> {
+            if (invitedPlayers.contains(invited)) {
+                invitedPlayers.remove(invited);
             }
-        };
-        new Timer().schedule(inviteExpiration, Integer.parseInt(Config.getValue("invite-expiration")) * 60 * 1000L);
+        }, Integer.parseInt(Config.getValue("invite-expiration")) * 60L * 20L);
     }
 
     public void disband() {
