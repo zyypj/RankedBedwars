@@ -49,6 +49,8 @@ public class SQLPlayerManager {
             return resultSet.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            SQLite.closeResultSet(resultSet);
         }
 
         return 0;
@@ -56,12 +58,13 @@ public class SQLPlayerManager {
 
     public static boolean isRegistered(String ID) {
         ResultSet resultSet = SQLite.queryData("SELECT EXISTS(SELECT 1 FROM players WHERE discordID=?)", ID);
-
         try {
             if (resultSet.getInt(1) == 1)
                 return true;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            SQLite.closeResultSet(resultSet);
         }
 
         return false;

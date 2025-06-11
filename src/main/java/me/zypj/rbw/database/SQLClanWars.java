@@ -38,6 +38,8 @@ public class SQLClanWars {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            SQLite.closeResultSet(resultSet);
         }
         return clans;
     }
@@ -57,6 +59,8 @@ public class SQLClanWars {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            SQLite.closeResultSet(resultSet);
         }
         return null;
     }
