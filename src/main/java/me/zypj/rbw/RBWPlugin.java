@@ -40,6 +40,7 @@ public final class RBWPlugin extends JavaPlugin {
     public static JDA jda;
     @Getter
     public static Guild guild;
+    private volatile boolean jdaReady = false;
 
     public static RBWPlugin getInstance() {
         return rbwPlugin;
@@ -64,8 +65,6 @@ public final class RBWPlugin extends JavaPlugin {
         setupDiscordBot();
 
         getServer().getConsoleSender().sendMessage("[RBW] \n§e[!] Finishing up... this might take around 10 seconds\n");
-
-        Bukkit.getScheduler().runTaskLater(this, this::initializeGuildAndLoadData, 20L * 10);
 
         Bukkit.getScheduler().runTaskTimer(this, UnbanTask::checkAndUnbanPlayers, 20L * 60 * 60, 20L * 60 * 60);
 		
@@ -119,23 +118,26 @@ public final class RBWPlugin extends JavaPlugin {
             getServer().getConsoleSender().sendMessage("[RBW] §e[!] Please set your token in config.yml");
             return;
         }
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+            try {
+                jda = JDABuilder.createDefault(token)
+                        .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT)
+                        .setStatus(OnlineStatus.valueOf(Config.getValue("status").toUpperCase()))
+                        .setChunkingFilter(ChunkingFilter.ALL)
+                        .setMemberCachePolicy(MemberCachePolicy.ALL)
+                        .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES)
+                        .addEventListeners(new CommandManager(), new PagesEvents(), new QueueJoin(), new ServerJoin(), new PartyInviteButton(), new BotReadyListener())
+                        .build();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-        try {
-            jda = JDABuilder.createDefault(token)
-                    .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT)
-                    .setStatus(OnlineStatus.valueOf(Config.getValue("status").toUpperCase()))
-                    .setChunkingFilter(ChunkingFilter.ALL)
-                    .setMemberCachePolicy(MemberCachePolicy.ALL)
-                    .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES)
-                    .addEventListeners(new CommandManager(), new PagesEvents(), new QueueJoin(), new ServerJoin(), new PartyInviteButton())
-                    .build()
-                    .awaitReady();
-
-            initializeGuildAndLoadData();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void onJdaReady() {
+        if (jdaReady) return;
+        jdaReady = true;
+        Bukkit.getScheduler().runTask(this, this::initializeGuildAndLoadData);
     }
 
     private void initializeGuildAndLoadData() {
