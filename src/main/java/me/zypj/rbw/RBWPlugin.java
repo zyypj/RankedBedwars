@@ -7,6 +7,7 @@ import me.zypj.rbw.commands.moderation.UnbanTask;
 import me.zypj.rbw.config.Config;
 import me.zypj.rbw.database.SQLTableManager;
 import me.zypj.rbw.database.SQLite;
+import me.zypj.rbw.hook.PAPIExpansion;
 import me.zypj.rbw.instance.*;
 import me.zypj.rbw.instance.Queue;
 import me.zypj.rbw.levelsfile.Levels;
@@ -56,6 +57,10 @@ public final class RBWPlugin extends JavaPlugin {
             getServer().getConsoleSender().sendMessage("[RBW] §cDisabling plugin...");
             getServer().getPluginManager().disablePlugin(this);
             return;
+        }
+
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new PAPIExpansion().register();
         }
 
         registerCommandsAndEvents();

@@ -2,7 +2,7 @@ name: RankedBedwars
 version: '${version}'
 main: me.zypj.rbw.RBWPlugin
 authors: [tadeu]
-depend: [BedWars2023]
+softdepend: [BedWars2023, PlaceholderAPI]
 commands:
   register:
     description: Link your discord with mc account
