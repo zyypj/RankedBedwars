@@ -14,6 +14,8 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
+import me.zypj.rbw.RBWPlugin;
+import org.bukkit.Bukkit;
 import java.util.*;
 
 public class ScreenshareCmd extends Command {
@@ -70,14 +72,9 @@ public class ScreenshareCmd extends Command {
         guild.modifyMemberRoles(target, freeze, null).queue();
 
         // Schedule unfreeze
-        long delayMillis = Integer.parseInt(Config.getValue("time-till-unfrozen")) * 60_000L;
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                guild.modifyMemberRoles(target, null, freeze).queue();
-            }
-        }, delayMillis);
+        long delayTicks = Integer.parseInt(Config.getValue("time-till-unfrozen")) * 60L * 20L;
+        Bukkit.getScheduler().runTaskLater(RBWPlugin.getInstance(), () ->
+                guild.modifyMemberRoles(target, null, freeze).queue(), delayTicks);
 
         // Notify in the SS request channel
         Embed embed = new Embed(

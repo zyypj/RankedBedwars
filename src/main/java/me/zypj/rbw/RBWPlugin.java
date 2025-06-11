@@ -65,19 +65,9 @@ public final class RBWPlugin extends JavaPlugin {
 
         getServer().getConsoleSender().sendMessage("[RBW] \n§e[!] Finishing up... this might take around 10 seconds\n");
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                initializeGuildAndLoadData();
-            }
-        }, 10000);
+        Bukkit.getScheduler().runTaskLater(this, this::initializeGuildAndLoadData, 20L * 10);
 
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                UnbanTask.checkAndUnbanPlayers();
-            }
-        }, 1000 * 60 * 60, 1000 * 60 * 60);
+        Bukkit.getScheduler().runTaskTimer(this, UnbanTask::checkAndUnbanPlayers, 20L * 60 * 60, 20L * 60 * 60);
 		
 		/*
 		Register new api

@@ -14,8 +14,8 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import me.zypj.rbw.RBWPlugin;
+import org.bukkit.Bukkit;
 
 public class VoidCmd extends Command {
     public VoidCmd(String command, String usage, String[] aliases, String description, CommandSubsystem subsystem) {
@@ -46,30 +46,24 @@ public class VoidCmd extends Command {
             message.addReaction(Emoji.fromUnicode("✔")).queue();
             message.addReaction(Emoji.fromUnicode("❌")).queue();
 
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                    Message message1 = channel.retrieveMessageById(message.getId()).complete();
+            Bukkit.getScheduler().runTaskLater(RBWPlugin.getInstance(), () -> {
+                Message message1 = channel.retrieveMessageById(message.getId()).complete();
 
-                    if (message1.getReactions().get(0).getCount() - 1 < message1.getReactions().get(1).getCount()) {
-                        Embed reply = new Embed(EmbedType.ERROR, "", "Voiding has cancelled", 1);
-                        msg.replyEmbeds(reply.build()).queue();
-                        return;
-                    }
-
-                    Embed done = new Embed(EmbedType.DEFAULT, "Game `#" + number + "` has Voided", "If this command is misused, please take a print and send it to us in a ticket channel being deleted in `60s`", 1);
-                    done.addField("Request by: ", sender.getAsMention(), false);
-                    game.setState(GameState.VOIDED);
-                    game.setScoredBy(sender);
-                    game.closeChannel(60);
-
-                    message1.editMessageEmbeds(done.build()).queue();
-                    message1.clearReactions().queue();
+                if (message1.getReactions().get(0).getCount() - 1 < message1.getReactions().get(1).getCount()) {
+                    Embed reply = new Embed(EmbedType.ERROR, "", "Voiding has cancelled", 1);
+                    msg.replyEmbeds(reply.build()).queue();
+                    return;
                 }
-            };
 
-            Timer timer = new Timer();
-            timer.schedule(task, 30000);
+                Embed done = new Embed(EmbedType.DEFAULT, "Game `#" + number + "` has Voided", "If this command is misused, please take a print and send it to us in a ticket channel being deleted in `60s`", 1);
+                done.addField("Request by: ", sender.getAsMention(), false);
+                game.setState(GameState.VOIDED);
+                game.setScoredBy(sender);
+                game.closeChannel(60);
+
+                message1.editMessageEmbeds(done.build()).queue();
+                message1.clearReactions().queue();
+            }, 20L * 30);
         });
     }
 }

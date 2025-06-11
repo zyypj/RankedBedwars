@@ -4,8 +4,8 @@ import me.zypj.rbw.RBWPlugin;
 import me.zypj.rbw.instance.cache.MapCache;
 import com.tomkeuper.bedwars.api.arena.GameState;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameMap {
 
@@ -27,9 +27,9 @@ public class GameMap {
 
         MapCache.initializeMap(name, this);
 
-        TimerTask checkTask = new TimerTask () {
+        new BukkitRunnable() {
             @Override
-            public void run () {
+            public void run() {
                 if (RBWPlugin.bedwarsAPI.getArenaUtil().getArenaByName(name) == null) {
                     cancel();
                     if (MapCache.containsMap(name))
@@ -39,9 +39,7 @@ public class GameMap {
 
                 MapCache.getMap(name).setArenaState(RBWPlugin.bedwarsAPI.getArenaUtil().getArenaByName(name).getStatus());
             }
-        };
-
-        new Timer().schedule(checkTask, 1000, 1000);
+        }.runTaskTimer(RBWPlugin.getInstance(), 20L, 20L);
     }
 
     public String getName() {
