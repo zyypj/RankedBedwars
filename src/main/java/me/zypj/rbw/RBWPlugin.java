@@ -126,6 +126,7 @@ public final class RBWPlugin extends JavaPlugin {
             getServer().getConsoleSender().sendMessage("[RBW] §e[!] Please set your token in config.yml");
             return;
         }
+
         Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
             try {
                 jda = JDABuilder.createDefault(token)
