@@ -10,20 +10,18 @@ import java.sql.SQLException;
 public class SQLGameManager {
 
     public static void createGame(Game g) {
-        String team1 = "";
-        String team2 = "";
-
-        SQLite.updateData("INSERT INTO games(number, state, casual, map, channelID, vc1ID, vc2ID, queueID, team1, team2)" +
-                " VALUES(" + g.getNumber() + "," +
-                "'" + g.getState().toString().toUpperCase() + "'," +
-                "'" + g.isCasual() + "'," +
-                "'" + (g.getMap() == null ? null : g.getMap().getName()) + "'," +
-                "'" + g.getChannelID() + "'," +
-                "'" + g.getVC1ID() + "'," +
-                "'" + g.getVC2ID() + "'," +
-                "'" + g.getQueue().getID() + "'," +
-                "'" + team1 + "'," +
-                "'" + team2 + "');");
+        String sql = "INSERT INTO games(number, state, casual, map, channelID, vc1ID, vc2ID, queueID, team1, team2) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        SQLite.updateData(sql,
+                g.getNumber(),
+                g.getState().toString().toUpperCase(),
+                String.valueOf(g.isCasual()),
+                g.getMap() == null ? null : g.getMap().getName(),
+                g.getChannelID(),
+                g.getVC1ID(),
+                g.getVC2ID(),
+                g.getQueue().getID(),
+                "",
+                "");
     }
 
     public static void updateGame(Game g) {
@@ -44,25 +42,27 @@ public class SQLGameManager {
             }
         }
 
-        ResultSet resultSet = SQLite.queryData("SELECT EXISTS(SELECT 1 FROM games WHERE number='" + g.getNumber() + "');");
+        ResultSet resultSet = SQLite.queryData("SELECT EXISTS(SELECT 1 FROM games WHERE number=?)", g.getNumber());
         try {
-            if (resultSet.getInt(1) == 1)
-                SQLite.updateData("DELETE FROM games WHERE number = " + g.getNumber() + ";");
+            if (resultSet.getInt(1) == 1) {
+                SQLite.updateData("DELETE FROM games WHERE number=?", g.getNumber());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        SQLite.updateData("INSERT INTO games(number, state, casual, map, channelID, vc1ID, vc2ID, queueID, team1, team2)" +
-                " VALUES(" + g.getNumber() + "," +
-                "'" + g.getState().toString().toUpperCase() + "'," +
-                "'" + g.isCasual() + "'," +
-                "'" + g.getMap().getName() + "'," +
-                "'" + g.getChannelID() + "'," +
-                "'" + g.getVC1ID() + "'," +
-                "'" + g.getVC2ID() + "'," +
-                "'" + g.getQueue().getID() + "'," +
-                "'" + team1 + "'," +
-                "'" + team2 + "');");
+        String sql = "INSERT INTO games(number, state, casual, map, channelID, vc1ID, vc2ID, queueID, team1, team2) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        SQLite.updateData(sql,
+                g.getNumber(),
+                g.getState().toString().toUpperCase(),
+                String.valueOf(g.isCasual()),
+                g.getMap().getName(),
+                g.getChannelID(),
+                g.getVC1ID(),
+                g.getVC2ID(),
+                g.getQueue().getID(),
+                team1.toString(),
+                team2.toString());
     }
 
     public static int getGameSize() {
@@ -77,15 +77,18 @@ public class SQLGameManager {
     }
 
     public static void updateState(int number) {
-        SQLite.updateData("UPDATE games SET state = '" + GameCache.getGame(number).getState().toString().toUpperCase() + "' WHERE number=" + number + ";");
+        String sql = "UPDATE games SET state = ? WHERE number=?";
+        SQLite.updateData(sql, GameCache.getGame(number).getState().toString().toUpperCase(), number);
     }
 
     public static void updateMvp(int number) {
-        SQLite.updateData("UPDATE games SET mvp = '" + GameCache.getGame(number).getMvp().getIgn() + "' WHERE number=" + number + ";");
+        String sql = "UPDATE games SET mvp = ? WHERE number=?";
+        SQLite.updateData(sql, GameCache.getGame(number).getMvp().getIgn(), number);
     }
 
     public static void updateScoredBy(int number) {
-        SQLite.updateData("UPDATE games SET scoredBy = '" + GameCache.getGame(number).getScoredBy().getId() + "' WHERE number=" + number + ";");
+        String sql = "UPDATE games SET scoredBy = ? WHERE number=?";
+        SQLite.updateData(sql, GameCache.getGame(number).getScoredBy().getId(), number);
     }
 
     public static void updateEloGain(int number) {
@@ -108,8 +111,8 @@ public class SQLGameManager {
             }
         }
 
-        SQLite.updateData("UPDATE games SET team1 = '" + team1 + "' WHERE number=" + number + ";");
-        SQLite.updateData("UPDATE games SET team2 = '" + team2 + "' WHERE number=" + number + ";");
+        SQLite.updateData("UPDATE games SET team1 = ? WHERE number=?", team1.toString(), number);
+        SQLite.updateData("UPDATE games SET team2 = ? WHERE number=?", team2.toString(), number);
     }
 
     public static void removeEloGain(int number) {
@@ -132,7 +135,8 @@ public class SQLGameManager {
             }
         }
 
-        SQLite.updateData("UPDATE games SET team1 = '" + team1 + "' WHERE number=" + number + ";");
-        SQLite.updateData("UPDATE games SET team2 = '" + team2 + "' WHERE number=" + number + ";");
+        SQLite.updateData("UPDATE games SET team1 = ? WHERE number=?", team1.toString(), number);
+        SQLite.updateData("UPDATE games SET team2 = ? WHERE number=?", team2.toString(), number);
     }
 }
+
