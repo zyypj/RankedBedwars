@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'me.zypj.rbw'
-version = '1.2'
+version = '1.3'
 description = 'by kasp#0675'
 
 java {
