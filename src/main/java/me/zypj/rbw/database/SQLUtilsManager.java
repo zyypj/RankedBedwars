@@ -8,13 +8,8 @@ import java.sql.SQLException;
 public class SQLUtilsManager {
 
     public static void createRank(String ID, String startingElo, String endingElo, String winElo, String loseElo, String mvpElo) {
-        SQLite.updateData("INSERT INTO ranks(discordID, startingElo, endingElo, winElo, loseElo, mvpElo)" +
-                " VALUES('" + ID + "'," +
-                startingElo + "," +
-                endingElo + "," +
-                winElo + "," +
-                loseElo + "," +
-                mvpElo + ");");
+        String sql = "INSERT INTO ranks(discordID, startingElo, endingElo, winElo, loseElo, mvpElo) VALUES(?,?,?,?,?,?)";
+        SQLite.updateData(sql, ID, startingElo, endingElo, winElo, loseElo, mvpElo);
     }
 
     public static int getRankSize() {
@@ -29,12 +24,8 @@ public class SQLUtilsManager {
     }
 
     public static void createQueue(String ID, int playersEachTeam, PickingMode pickingMode, boolean casual) {
-        SQLite.updateData("INSERT INTO queues(discordID, playersEachTeam, pickingMode, casual, eloMultiplier)" +
-                " VALUES('" + ID + "'," +
-                playersEachTeam + "," +
-                "'" + pickingMode.toString().toUpperCase() + "'," +
-                "'" + casual + "'," +
-                "1.0);");
+        String sql = "INSERT INTO queues(discordID, playersEachTeam, pickingMode, casual, eloMultiplier) VALUES(?,?,?,?,?)";
+        SQLite.updateData(sql, ID, playersEachTeam, pickingMode.toString().toUpperCase(), String.valueOf(casual), 1.0);
     }
 
     public static int getQueueSize() {
@@ -48,3 +39,4 @@ public class SQLUtilsManager {
         return 0;
     }
 }
+

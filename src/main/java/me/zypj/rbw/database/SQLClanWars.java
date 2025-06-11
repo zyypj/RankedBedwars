@@ -10,31 +10,27 @@ import java.util.List;
 public class SQLClanWars {
 
     public static void createWar(int playersPerTeam, int minClans, int maxClans, int xpPerWin, int goldPerWin) {
-        SQLite.updateData("INSERT INTO clanwars(playersPerTeam, minClans, maxClans, xpPerWin, goldPerWin, active)" +
-                " VALUES(" + playersPerTeam + "," +
-                minClans + "," +
-                maxClans + "," +
-                xpPerWin + "," +
-                goldPerWin + "," +
-                "'true');");
+        String sql = "INSERT INTO clanwars(playersPerTeam, minClans, maxClans, xpPerWin, goldPerWin, active) VALUES(?,?,?,?,?,?)";
+        SQLite.updateData(sql, playersPerTeam, minClans, maxClans, xpPerWin, goldPerWin, "true");
     }
 
     public static void registerClan(String warId, String clanName) {
-        SQLite.updateData("INSERT INTO clanwar_registrations(warId, clanName) VALUES(" +
-                "'" + warId + "'," +
-                "'" + clanName + "');");
+        String sql = "INSERT INTO clanwar_registrations(warId, clanName) VALUES(?,?)";
+        SQLite.updateData(sql, warId, clanName);
     }
 
     public static void unregisterClan(String warId, String clanName) {
-        SQLite.updateData("DELETE FROM clanwar_registrations WHERE warId='" + warId + "' AND clanName='" + clanName + "';");
+        String sql = "DELETE FROM clanwar_registrations WHERE warId=? AND clanName=?";
+        SQLite.updateData(sql, warId, clanName);
     }
 
     public static void updateWarStatus(String warId, boolean isActive) {
-        SQLite.updateData("UPDATE clanwars SET active = '" + isActive + "' WHERE warId='" + warId + "';");
+        String sql = "UPDATE clanwars SET active = ? WHERE warId=?";
+        SQLite.updateData(sql, isActive, warId);
     }
 
     public static List<String> getRegisteredClans(String warId) {
-        ResultSet resultSet = SQLite.queryData("SELECT clanName FROM clanwar_registrations WHERE warId='" + warId + "';");
+        ResultSet resultSet = SQLite.queryData("SELECT clanName FROM clanwar_registrations WHERE warId=?", warId);
         List<String> clans = new ArrayList<>();
         try {
             while (resultSet.next()) {
@@ -47,7 +43,7 @@ public class SQLClanWars {
     }
 
     public static ClanWar getWar(String warId) {
-        ResultSet resultSet = SQLite.queryData("SELECT * FROM clanwars WHERE warId='" + warId + "';");
+        ResultSet resultSet = SQLite.queryData("SELECT * FROM clanwars WHERE warId=?", warId);
         try {
             if (resultSet.next()) {
                 int playersPerTeam = resultSet.getInt("playersPerTeam");
@@ -65,3 +61,4 @@ public class SQLClanWars {
         return null;
     }
 }
+

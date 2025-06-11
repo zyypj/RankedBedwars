@@ -8,18 +8,20 @@ import java.sql.SQLException;
 public class SQLClanManager {
 
     public static void createClan(String name, String leader) {
-        SQLite.updateData("INSERT INTO clans(name, leader, members, reputation, clanXP, clanLevel, wins, losses, private, eloJoinReq, description)" +
-                " VALUES('" + name + "'," +
-                "'" + leader + "'," +
-                "'" + leader + "'," +
-                0 + "," +
-                0 + "," +
-                0 + "," +
-                0 + "," +
-                0 + "," +
-                "'true'," +
-                0 + "," +
-                "'A newly created RBW clan');");
+        String sql = "INSERT INTO clans(name, leader, members, reputation, clanXP, clanLevel, wins, losses, private, eloJoinReq, description)"
+                + " VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        SQLite.updateData(sql,
+                name,
+                leader,
+                leader,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "true",
+                0,
+                "A newly created RBW clan");
     }
 
     public static int getClanSize() {
@@ -34,26 +36,33 @@ public class SQLClanManager {
     }
 
     public static void updateReputation(String name) {
-        SQLite.updateData("UPDATE clans SET reputation = '" + ClanCache.getClan(name).getReputation() + "' WHERE name='" + name + "';");
+        String sql = "UPDATE clans SET reputation = ? WHERE name=?";
+        SQLite.updateData(sql, ClanCache.getClan(name).getReputation(), name);
     }
 
     public static void updateXP(String name) {
-        SQLite.updateData("UPDATE clans SET xp = '" + ClanCache.getClan(name).getXp() + "' WHERE name='" + name + "';");
+        String sql = "UPDATE clans SET xp = ? WHERE name=?";
+        SQLite.updateData(sql, ClanCache.getClan(name).getXp(), name);
     }
 
     public static void updateLevel(String name) {
-        SQLite.updateData("UPDATE clans SET level = '" + ClanCache.getClan(name).getLevel().getLevel() + "' WHERE name='" + name + "';");
+        String sql = "UPDATE clans SET level = ? WHERE name=?";
+        SQLite.updateData(sql, ClanCache.getClan(name).getLevel().getLevel(), name);
     }
 
     public static void updatePrivate(String name) {
-        SQLite.updateData("UPDATE clans SET private = '" + ClanCache.getClan(name).isPrivate() + "' WHERE name='" + name + "';");
+        String sql = "UPDATE clans SET private = ? WHERE name=?";
+        SQLite.updateData(sql, ClanCache.getClan(name).isPrivate(), name);
     }
 
     public static void updateEloJoinReq(String name) {
-        SQLite.updateData("UPDATE clans SET eloJoinReq = '" + ClanCache.getClan(name).getEloJoinReq() + "' WHERE name='" + name + "';");
+        String sql = "UPDATE clans SET eloJoinReq = ? WHERE name=?";
+        SQLite.updateData(sql, ClanCache.getClan(name).getEloJoinReq(), name);
     }
 
     public static void updateDescription(String name) {
-        SQLite.updateData("UPDATE clans SET description = '" + ClanCache.getClan(name).getDescription() + "' WHERE name='" + name + "';");
+        String sql = "UPDATE clans SET description = ? WHERE name=?";
+        SQLite.updateData(sql, ClanCache.getClan(name).getDescription(), name);
     }
 }
+

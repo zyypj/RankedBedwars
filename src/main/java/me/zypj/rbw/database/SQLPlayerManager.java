@@ -12,34 +12,35 @@ import java.time.format.DateTimeFormatter;
 public class SQLPlayerManager {
 
     public static void createPlayer(String ID, String ign) {
-        SQLite.updateData("INSERT INTO players(discordID, ign, elo, peakElo, wins, losses, winStreak, lossStreak, highestWS, highestLS," +
-                "mvp, kills, deaths, strikes, scored, gold, level, xp, theme, ownedThemes, isBanned, bannedTill)" +
-                " VALUES('" + ID + "'," +
-                "'" + ign + "'," +
-                Config.getValue("starting-elo") + "," + // elo
-                Config.getValue("starting-elo") + "," + // peak elo
-                "0," + // wins
-                "0," + // losses
-                "0," + // ws
-                "0," + // ls
-                "0," + // highest ws
-                "0," + // highest ls
-                "0," + // mvp
-                "0," + // kills
-                "0," + // deaths0
-                "0," + // strikes
-                "0," + // scored
-                "0," + // gold
-                "0," + // level
-                "0," + // xp
-                "'default'," + // theme
-                "'default'," + // owned themes
-                "'false'," + // is banned
-                "'');"); // banned till
+        String sql = "INSERT INTO players(discordID, ign, elo, peakElo, wins, losses, winStreak, lossStreak, highestWS, highestLS," +
+                " mvp, kills, deaths, strikes, scored, gold, level, xp, theme, ownedThemes, isBanned, bannedTill)" +
+                " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        SQLite.updateData(sql,
+                ID,
+                ign,
+                Integer.parseInt(Config.getValue("starting-elo")),
+                Integer.parseInt(Config.getValue("starting-elo")),
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "default",
+                "default",
+                "false",
+                "");
     }
 
     public static void unregisterPlayer(String ID) {
-        SQLite.updateData("DELETE FROM players WHERE discordID = '" + ID + "';");
+        SQLite.updateData("DELETE FROM players WHERE discordID = ?", ID);
     }
 
     public static int getPlayerSize() {
@@ -54,7 +55,7 @@ public class SQLPlayerManager {
     }
 
     public static boolean isRegistered(String ID) {
-        ResultSet resultSet = SQLite.queryData("SELECT EXISTS(SELECT 1 FROM players WHERE discordID='" + ID + "');");
+        ResultSet resultSet = SQLite.queryData("SELECT EXISTS(SELECT 1 FROM players WHERE discordID=?)", ID);
 
         try {
             if (resultSet.getInt(1) == 1)
@@ -67,75 +68,75 @@ public class SQLPlayerManager {
     }
 
     public static void updateIgn(String ID) {
-        SQLite.updateData("UPDATE players SET ign = '" + PlayerCache.getPlayer(ID).getIgn() + "' WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET ign = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getIgn(), ID);
     }
 
     public static void updateElo(String ID) {
-        SQLite.updateData("UPDATE players SET elo = " + PlayerCache.getPlayer(ID).getElo() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET elo = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getElo(), ID);
     }
 
     public static void updatePeakElo(String ID) {
-        SQLite.updateData("UPDATE players SET peakElo = " + PlayerCache.getPlayer(ID).getPeakElo() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET peakElo = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getPeakElo(), ID);
     }
 
     public static void updateWins(String ID) {
-        SQLite.updateData("UPDATE players SET wins = " + PlayerCache.getPlayer(ID).getWins() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET wins = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getWins(), ID);
     }
 
     public static void updateLosses(String ID) {
-        SQLite.updateData("UPDATE players SET losses = " + PlayerCache.getPlayer(ID).getLosses() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET losses = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getLosses(), ID);
     }
 
     public static void updateWinStreak(String ID) {
-        SQLite.updateData("UPDATE players SET winStreak = " + PlayerCache.getPlayer(ID).getWinStreak() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET winStreak = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getWinStreak(), ID);
     }
 
     public static void updateLossStreak(String ID) {
-        SQLite.updateData("UPDATE players SET lossStreak = " + PlayerCache.getPlayer(ID).getLossStreak() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET lossStreak = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getLossStreak(), ID);
     }
 
     public static void updateHighestWS(String ID) {
-        SQLite.updateData("UPDATE players SET highestWS = " + PlayerCache.getPlayer(ID).getHighestWS() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET highestWS = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getHighestWS(), ID);
     }
 
     public static void updateHighestLS(String ID) {
-        SQLite.updateData("UPDATE players SET highestLS = " + PlayerCache.getPlayer(ID).getHighestLS() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET highestLS = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getHighestLS(), ID);
     }
 
     public static void updateMvp(String ID) {
-        SQLite.updateData("UPDATE players SET mvp = " + PlayerCache.getPlayer(ID).getMvp() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET mvp = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getMvp(), ID);
     }
 
     public static void updateKills(String ID) {
-        SQLite.updateData("UPDATE players SET kills = " + PlayerCache.getPlayer(ID).getKills() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET kills = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getKills(), ID);
     }
 
     public static void updateDeaths(String ID) {
-        SQLite.updateData("UPDATE players SET deaths = " + PlayerCache.getPlayer(ID).getDeaths() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET deaths = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getDeaths(), ID);
     }
 
     public static void updateStrikes(String ID) {
-        SQLite.updateData("UPDATE players SET strikes = " + PlayerCache.getPlayer(ID).getStrikes() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET strikes = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getStrikes(), ID);
     }
 
     public static void updateScored(String ID) {
-        SQLite.updateData("UPDATE players SET scored = " + PlayerCache.getPlayer(ID).getScored() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET scored = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getScored(), ID);
     }
 
     public static void updateGold(String ID) {
-        SQLite.updateData("UPDATE players SET gold = " + PlayerCache.getPlayer(ID).getGold() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET gold = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getGold(), ID);
     }
 
     public static void updateLevel(String ID) {
-        SQLite.updateData("UPDATE players SET level = " + PlayerCache.getPlayer(ID).getLevel().getLevel() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET level = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getLevel().getLevel(), ID);
     }
 
     public static void updateXP(String ID) {
-        SQLite.updateData("UPDATE players SET xp = " + PlayerCache.getPlayer(ID).getXp() + " WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET xp = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getXp(), ID);
     }
 
     public static void updateTheme(String ID) {
-        SQLite.updateData("UPDATE players SET theme = '" + PlayerCache.getPlayer(ID).getTheme().getName() + "' WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET theme = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getTheme().getName(), ID);
     }
 
     public static void updateOwnedThemes(String ID) {
@@ -149,11 +150,11 @@ public class SQLPlayerManager {
             }
         }
 
-        SQLite.updateData("UPDATE players SET ownedThemes = '" + themes + "' WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET ownedThemes = ? WHERE discordID=?", themes.toString(), ID);
     }
 
     public static void updateIsBanned(String ID) {
-        SQLite.updateData("UPDATE players SET isBanned = '" + PlayerCache.getPlayer(ID).isBanned() + "' WHERE discordID='" + ID + "';");
+        SQLite.updateData("UPDATE players SET isBanned = ? WHERE discordID=?", PlayerCache.getPlayer(ID).isBanned(), ID);
     }
 
     public static void updateBannedTill(String ID) {
@@ -163,9 +164,9 @@ public class SQLPlayerManager {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             String bannedTill = formatter.format(player.getBannedTill());
 
-            SQLite.updateData("UPDATE players SET bannedTill = '" + bannedTill + "' WHERE discordID='" + ID + "';");
+            SQLite.updateData("UPDATE players SET bannedTill = ? WHERE discordID=?", bannedTill, ID);
         } else {
-            SQLite.updateData("UPDATE players SET bannedTill = '' WHERE discordID='" + ID + "';");
+            SQLite.updateData("UPDATE players SET bannedTill = '' WHERE discordID=?", ID);
         }
     }
 
@@ -173,9 +174,10 @@ public class SQLPlayerManager {
         Player player = PlayerCache.getPlayer(ID);
 
         if (player.isBanned()) {
-            SQLite.updateData("UPDATE players SET banReason = '" + PlayerCache.getPlayer(ID).getBanReason() + "' WHERE discordID='" + ID + "';");
+            SQLite.updateData("UPDATE players SET banReason = ? WHERE discordID=?", PlayerCache.getPlayer(ID).getBanReason(), ID);
         } else {
-            SQLite.updateData("UPDATE players SET banReason = '' WHERE discordID='" + ID + "';");
+            SQLite.updateData("UPDATE players SET banReason = '' WHERE discordID=?", ID);
         }
     }
 }
+

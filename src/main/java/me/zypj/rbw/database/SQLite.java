@@ -12,6 +12,10 @@ public class SQLite {
 
     private static Connection connection;
 
+    public static Connection getConnection() {
+        return connection;
+    }
+
     public static void connect() {
         connection = null;
         try {
@@ -47,6 +51,17 @@ public class SQLite {
         }
     }
 
+    public static void updateData(String sql, Object... params) {
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            for (int i = 0; i < params.length; i++) {
+                ps.setObject(i + 1, params[i]);
+            }
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static ResultSet queryData(String sql) {
         ResultSet resultSet = null;
         try {
@@ -56,6 +71,19 @@ public class SQLite {
             e.printStackTrace();
         }
         return resultSet;
+    }
+
+    public static ResultSet queryData(String sql, Object... params) {
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                ps.setObject(i + 1, params[i]);
+            }
+            return ps.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void closeResultSet(ResultSet resultSet) {
