@@ -14,14 +14,15 @@ import java.awt.*;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
 public class Embed {
 
-    public static HashMap<String, List<Embed>> embedPages = new HashMap<>();
+    public static Map<String, List<Embed>> embedPages = new ConcurrentHashMap<>();
 
     private int pages;
     private int currentPage = 0;

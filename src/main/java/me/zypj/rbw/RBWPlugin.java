@@ -134,7 +134,7 @@ public final class RBWPlugin extends JavaPlugin {
                         .setChunkingFilter(ChunkingFilter.ALL)
                         .setMemberCachePolicy(MemberCachePolicy.ALL)
                         .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES)
-                        .addEventListeners(new CommandManager(), new PagesEvents(), new QueueJoin(), new ServerJoin(), new PartyInviteButton(), new BotReadyListener())
+                        .addEventListeners(new CommandManager(), new PagesEvents(), new QueueJoin(), new ServerJoin(), new PartyInviteButton(), new BotReadyListener(), new EmbedCleanupListener())
                         .build();
             } catch (Exception e) {
                 e.printStackTrace();
