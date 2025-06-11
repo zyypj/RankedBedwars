@@ -36,9 +36,6 @@ public class Game {
     @Getter
     private Guild guild;
 
-    private Category channelsCategory;
-    private Category vcsCategory;
-
     @Getter
     private String channelID;
     private String vc1ID;
@@ -111,9 +108,11 @@ public class Game {
             this.map = null;
         }
 
-        this.channelsCategory = guild.getCategoryById(Config.getValue("game-channels-category"));
-        this.vcsCategory = guild.getCategoryById(Config.getValue("game-vcs-category"));
+        Category channelsCategory = guild.getCategoryById(Config.getValue("game-channels-category"));
+        Category vcsCategory = guild.getCategoryById(Config.getValue("game-vcs-category"));
 
+        assert channelsCategory != null;
+        assert vcsCategory != null;
         channelID = channelsCategory.createTextChannel(Config.getValue("game-channel-names").replaceAll("%number%", number + "").replaceAll("%mode%", queue.getPlayersEachTeam() + "v" + queue.getPlayersEachTeam())).complete().getId();
         vc1ID = vcsCategory.createVoiceChannel(Config.getValue("game-vc-names").replaceAll("%number%", number + "").replaceAll("%mode%", queue.getPlayersEachTeam() + "v" + queue.getPlayersEachTeam()).replaceAll("%team%", "1")).setUserlimit(queue.getPlayersEachTeam()).complete().getId();
         vc2ID = vcsCategory.createVoiceChannel(Config.getValue("game-vc-names").replaceAll("%number%", number + "").replaceAll("%mode%", queue.getPlayersEachTeam() + "v" + queue.getPlayersEachTeam()).replaceAll("%team%", "2")).setUserlimit(queue.getPlayersEachTeam()).complete().getId();
@@ -369,12 +368,12 @@ public class Game {
         embed.addField("Team 2", team2.toString(), true);
 
         if (!remainingPlayers.isEmpty()) {
-            String remaining = "";
+            StringBuilder remaining = new StringBuilder();
             for (Player p : remainingPlayers) {
-                remaining += "• <@!" + p.getID() + ">\n";
+                remaining.append("• <@!").append(p.getID()).append(">\n");
             }
 
-            embed.addField("Remaining", remaining, false);
+            embed.addField("Remaining", remaining.toString(), false);
         }
 
         embed.addField("Randomized Map", "**" + map.getName() + "** — `Maximum Height: " + map.getHeight() + "` (" + map.getTeam1() + " vs " + map.getTeam2() + ")", false);

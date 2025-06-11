@@ -1,5 +1,7 @@
 package me.zypj.rbw.instance;
 
+import lombok.Getter;
+import lombok.Setter;
 import me.zypj.rbw.sample.EmbedType;
 import me.zypj.rbw.sample.PickingMode;
 import me.zypj.rbw.RBWPlugin;
@@ -12,18 +14,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.bukkit.Bukkit;
+import java.util.Objects;
+
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+@Getter
+@Setter
 public class Queue {
 
-    private String ID;
-    private int playersEachTeam;
-    private PickingMode pickingMode;
-    private boolean casual;
-    private List<Player> players;
-    private double eloMultiplier;
+    private final String ID;
+    private final int playersEachTeam;
+    private final PickingMode pickingMode;
+    private final boolean casual;
+    private final List<Player> players;
+    private final double eloMultiplier;
 
     BukkitTask queueTimer;
 
@@ -107,7 +112,7 @@ public class Queue {
                                 int channelCount;
 
                                 try {
-                                    channelCount = RBWPlugin.guild.getCategoryById(Config.getValue("game-vcs-category")).getChannels().size();
+                                    channelCount = Objects.requireNonNull(RBWPlugin.guild.getCategoryById(Config.getValue("game-vcs-category"))).getChannels().size();
                                 } catch (Exception e) {
                                     channelCount = 0;
                                 }
@@ -119,14 +124,14 @@ public class Queue {
                                     }
                                 }
                                 else {
-                                    String mentions = "";
+                                    StringBuilder mentions = new StringBuilder();
                                     for (Player p : playerList) {
-                                        mentions+="<@" + p.getID() + ">";
+                                        mentions.append("<@").append(p.getID()).append(">");
                                     }
 
                                     Embed embed = new Embed(EmbedType.ERROR, "Game Limit Reached!", "There are currently over 50 voice channels (maximum for Discord) and I can't do any more\n" +
                                             "Please wait until some matches finish", 1);
-                                    RBWPlugin.guild.getTextChannelById(Config.getValue("alerts-channel")).sendMessage(mentions).setEmbeds(embed.build()).queue();
+                                    Objects.requireNonNull(RBWPlugin.guild.getTextChannelById(Config.getValue("alerts-channel"))).sendMessage(mentions.toString()).setEmbeds(embed.build()).queue();
                                 }
                             }
                         }
@@ -150,23 +155,5 @@ public class Queue {
 
     public void removePlayer(Player player) {
         players.remove(player);
-    }
-    public int getPlayersEachTeam() {
-        return playersEachTeam;
-    }
-    public PickingMode getPickingMode() {
-        return pickingMode;
-    }
-    public boolean isCasual() {
-        return casual;
-    }
-    public String getID() {
-        return ID;
-    }
-    public List<Player> getPlayers() {
-        return players;
-    }
-    public double getEloMultiplier() {
-        return eloMultiplier;
     }
 }

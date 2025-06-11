@@ -1,19 +1,22 @@
 package me.zypj.rbw.instance;
 
+import lombok.Getter;
 import me.zypj.rbw.config.Config;
 import me.zypj.rbw.database.SQLClanWars;
 import org.bukkit.Bukkit;
 
 import java.util.List;
 
+@Getter
 public class ClanWar {
 
-    private String warId;
-    private int playersPerTeam;
-    private int minClans;
-    private int maxClans;
-    private int xpPerWin;
-    private int goldPerWin;
+    // Getters and Setters
+    private final String warId;
+    private final int playersPerTeam;
+    private final int minClans;
+    private final int maxClans;
+    private final int xpPerWin;
+    private final int goldPerWin;
     private boolean isActive;
 
     public ClanWar(String warId, int playersPerTeam, int minClans, int maxClans, int xpPerWin, int goldPerWin, boolean isActive) {
@@ -60,35 +63,6 @@ public class ClanWar {
 
     public List<String> getRegisteredClans() {
         return SQLClanWars.getRegisteredClans(warId);
-    }
-
-    // Getters and Setters
-    public String getWarId() {
-        return warId;
-    }
-
-    public int getPlayersPerTeam() {
-        return playersPerTeam;
-    }
-
-    public int getMinClans() {
-        return minClans;
-    }
-
-    public int getMaxClans() {
-        return maxClans;
-    }
-
-    public int getXpPerWin() {
-        return xpPerWin;
-    }
-
-    public int getGoldPerWin() {
-        return goldPerWin;
-    }
-
-    public boolean isActive() {
-        return isActive;
     }
 
     public void setActive(boolean active) {

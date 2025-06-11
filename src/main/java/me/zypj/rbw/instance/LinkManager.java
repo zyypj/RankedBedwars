@@ -6,7 +6,7 @@ import java.util.*;
 
 public class LinkManager {
 
-    private static Map<String, Integer> links = new HashMap<>();
+    private static final Map<String, Integer> links = new HashMap<>();
 
     public static int addPlayer(String ID) {
         if (links.containsKey(ID)) {

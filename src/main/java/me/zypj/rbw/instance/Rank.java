@@ -1,11 +1,15 @@
 package me.zypj.rbw.instance;
 
+import lombok.Getter;
+import lombok.Setter;
 import me.zypj.rbw.database.SQLite;
 import me.zypj.rbw.instance.cache.RankCache;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Setter
+@Getter
 public class Rank {
 
     private String ID;
@@ -39,42 +43,5 @@ public class Rank {
         RankCache.removeRank(RankCache.getRank(ID));
 
         SQLite.updateData("DELETE FROM ranks WHERE discordID='" + ID + "';");
-    }
-
-    public String getID() {
-        return ID;
-    }
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-    public int getStartingElo() {
-        return startingElo;
-    }
-    public void setStartingElo(int startingElo) {
-        this.startingElo = startingElo;
-    }
-    public int getEndingElo() {
-        return endingElo;
-    }
-    public void setEndingElo(int endingElo) {
-        this.endingElo = endingElo;
-    }
-    public int getWinElo() {
-        return winElo;
-    }
-    public void setWinElo(int winElo) {
-        this.winElo = winElo;
-    }
-    public int getLoseElo() {
-        return loseElo;
-    }
-    public void setLoseElo(int loseElo) {
-        this.loseElo = loseElo;
-    }
-    public int getMvpElo() {
-        return mvpElo;
-    }
-    public void setMvpElo(int mvpElo) {
-        this.mvpElo = mvpElo;
     }
 }

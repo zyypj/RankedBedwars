@@ -1,5 +1,6 @@
 package me.zypj.rbw.instance;
 
+import lombok.Getter;
 import me.zypj.rbw.RBWPlugin;
 import me.zypj.rbw.instance.cache.LevelCache;
 import org.yaml.snakeyaml.Yaml;
@@ -9,11 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+@Getter
 public class Level {
 
-    private int level;
-    private int neededXP;
-    private List<String> rewards;
+    private final int level;
+    private final int neededXP;
+    private final List<String> rewards;
 
     public Level(int level) {
         this.level = level;
@@ -49,17 +51,5 @@ public class Level {
         }
 
         LevelCache.initializeLevel(level, this);
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public int getNeededXP() {
-        return neededXP;
-    }
-
-    public List<String> getRewards() {
-        return rewards;
     }
 }

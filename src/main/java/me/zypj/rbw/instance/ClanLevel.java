@@ -1,5 +1,6 @@
 package me.zypj.rbw.instance;
 
+import lombok.Getter;
 import me.zypj.rbw.RBWPlugin;
 import me.zypj.rbw.instance.cache.ClanLevelCache;
 import org.yaml.snakeyaml.Yaml;
@@ -10,6 +11,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+@Getter
 public class ClanLevel {
 
     private final int level;
@@ -37,11 +39,4 @@ public class ClanLevel {
         ClanLevelCache.initializeLevel(level, this);
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public int getNeededXP() {
-        return neededXP;
-    }
 }

@@ -18,37 +18,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class Clan {
 
     // DATA
-    @Getter
-    private String name;
-    @Getter
-    private Player leader;
-    @Getter
-    private List<Player> members;
-    @Getter
+    private final String name;
+    private final Player leader;
+    private final List<Player> members;
     private int reputation;
-    @Getter
     private int xp;
-    @Getter
     private ClanLevel level;
 
     // CLAN WAR
-    @Getter
     private int wins;
-    @Getter
     private int losses;
 
     // SETTINGS
     private boolean isPrivate;
-    @Getter
     private int eloJoinReq;
-    @Getter
     private String description;
 
-    @Getter
-    private List<Player> invitedPlayers;
+    private final List<Player> invitedPlayers;
 
     // CREATE CLAN
     public Clan(String name, Player leader) {
@@ -134,10 +124,6 @@ public class Clan {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public boolean isPrivate() {
-        return isPrivate;
     }
 
     public void addReputation(int number) {

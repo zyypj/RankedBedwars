@@ -1,5 +1,6 @@
 package me.zypj.rbw.instance;
 
+import lombok.Getter;
 import me.zypj.rbw.sample.EmbedType;
 import me.zypj.rbw.RBWPlugin;
 import me.zypj.rbw.config.Config;
@@ -10,6 +11,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 import java.util.Objects;
 
+@Getter
 public class ScreenShare {
 
     String channelID;
@@ -45,21 +47,5 @@ public class ScreenShare {
         textChannel.sendMessage(roles + " <@" + target.getID() + ">").setEmbeds(embed.build()).queue();
 
         ScreenshareCache.initializeScreenshare(this);
-    }
-
-    public String getChannelID() {
-        return channelID;
-    }
-
-    public Player getRequestedBy() {
-        return requestedBy;
-    }
-
-    public Player getTarget() {
-        return target;
-    }
-
-    public String getReason() {
-        return reason;
     }
 }

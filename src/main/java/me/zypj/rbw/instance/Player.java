@@ -1,5 +1,7 @@
 package me.zypj.rbw.instance;
 
+import lombok.Getter;
+import lombok.Setter;
 import me.zypj.rbw.RBWPlugin;
 import me.zypj.rbw.config.Config;
 import me.zypj.rbw.database.SQLPlayerManager;
@@ -18,9 +20,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Getter
 public class Player {
 
+    @Setter
     private String ID;
     private String ign;
     private int elo;
@@ -183,7 +188,7 @@ public class Player {
         setLossStreak(lossStreak + 1);
 
         if (elo - getRank().getLoseElo() * eloMultiplier > 0) {
-            setElo(elo -= getRank().getLoseElo() * eloMultiplier);
+            setElo(elo -= (int) (getRank().getLoseElo() * eloMultiplier));
         } else {
             setElo(0);
         }
@@ -211,7 +216,7 @@ public class Player {
                 }
 
                 Embed embed = new Embed(EmbedType.SUCCESS, "LEVEL UP", "You have evolved to `LEVEL " + i + "` \uD83C\uDF89", 1);
-                RBWPlugin.getGuild().getTextChannelById(Config.getValue("alerts-channel")).sendMessage("<@" + ID + ">").setEmbeds(embed.build()).queue();
+                Objects.requireNonNull(RBWPlugin.getGuild().getTextChannelById(Config.getValue("alerts-channel"))).sendMessage("<@" + ID + ">").setEmbeds(embed.build()).queue();
 
                 return;
             }
@@ -226,7 +231,7 @@ public class Player {
                     clan.setLevel(ClanLevelCache.getLevel(i));
 
                     Embed embed = new Embed(EmbedType.SUCCESS, "CLAN LEVEL UP", "Clan " + clan.getName() + " has evolved to `LEVEL " + i + "` \uD83C\uDF89", 1);
-                    RBWPlugin.getGuild().getTextChannelById(Config.getValue("alerts-channel")).sendMessage("<@" + clan.getLeader().getID() + ">").setEmbeds(embed.build()).queue();
+                    Objects.requireNonNull(RBWPlugin.getGuild().getTextChannelById(Config.getValue("alerts-channel"))).sendMessage("<@" + clan.getLeader().getID() + ">").setEmbeds(embed.build()).queue();
 
                     return;
                 }
@@ -380,25 +385,9 @@ public class Player {
         return SQLPlayerManager.isRegistered(ID);
     }
 
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    public String getIgn() {
-        return ign;
-    }
-
     public void setIgn(String ign) {
         this.ign = ign;
         SQLPlayerManager.updateIgn(ID);
-    }
-
-    public int getElo() {
-        return elo;
     }
 
     public void setElo(int elo) {
@@ -411,17 +400,9 @@ public class Player {
         SQLPlayerManager.updateElo(ID);
     }
 
-    public int getPeakElo() {
-        return peakElo;
-    }
-
     public void setPeakElo(int peakElo) {
         this.peakElo = peakElo;
         SQLPlayerManager.updatePeakElo(ID);
-    }
-
-    public int getWins() {
-        return wins;
     }
 
     public void setWins(int wins) {
@@ -429,17 +410,9 @@ public class Player {
         SQLPlayerManager.updateWins(ID);
     }
 
-    public int getLosses() {
-        return losses;
-    }
-
     public void setLosses(int losses) {
         this.losses = losses;
         SQLPlayerManager.updateLosses(ID);
-    }
-
-    public int getWinStreak() {
-        return winStreak;
     }
 
     public void setWinStreak(int winStreak) {
@@ -447,17 +420,9 @@ public class Player {
         SQLPlayerManager.updateWinStreak(ID);
     }
 
-    public int getLossStreak() {
-        return lossStreak;
-    }
-
     public void setLossStreak(int lossStreak) {
         this.lossStreak = lossStreak;
         SQLPlayerManager.updateLossStreak(ID);
-    }
-
-    public int getHighestWS() {
-        return highestWS;
     }
 
     public void setHighestWS(int highestWS) {
@@ -465,17 +430,9 @@ public class Player {
         SQLPlayerManager.updateHighestWS(ID);
     }
 
-    public int getHighestLS() {
-        return highestLS;
-    }
-
     public void setHighestLS(int highestLS) {
         this.highestLS = highestLS;
         SQLPlayerManager.updateHighestLS(ID);
-    }
-
-    public int getMvp() {
-        return mvp;
     }
 
     public void setMvp(int mvp) {
@@ -483,17 +440,9 @@ public class Player {
         SQLPlayerManager.updateMvp(ID);
     }
 
-    public int getStrikes() {
-        return strikes;
-    }
-
     public void setStrikes(int strikes) {
         this.strikes = strikes;
         SQLPlayerManager.updateStrikes(ID);
-    }
-
-    public int getScored() {
-        return scored;
     }
 
     public void setScored(int scored) {
@@ -501,17 +450,9 @@ public class Player {
         SQLPlayerManager.updateScored(ID);
     }
 
-    public int getKills() {
-        return kills;
-    }
-
     public void setKills(int kills) {
         this.kills = kills;
         SQLPlayerManager.updateKills(ID);
-    }
-
-    public int getDeaths() {
-        return deaths;
     }
 
     public void setDeaths(int deaths) {
@@ -519,17 +460,9 @@ public class Player {
         SQLPlayerManager.updateDeaths(ID);
     }
 
-    public int getGold() {
-        return gold;
-    }
-
     public void setGold(int gold) {
         this.gold = gold;
         SQLPlayerManager.updateGold(ID);
-    }
-
-    public Level getLevel() {
-        return level;
     }
 
     public void setLevel(Level level) {
@@ -537,26 +470,14 @@ public class Player {
         SQLPlayerManager.updateLevel(ID);
     }
 
-    public int getXp() {
-        return xp;
-    }
-
     public void setXp(int xp) {
         this.xp = xp;
         SQLPlayerManager.updateXP(ID);
     }
 
-    public Theme getTheme() {
-        return theme;
-    }
-
     public void setTheme(Theme theme) {
         this.theme = theme;
         SQLPlayerManager.updateTheme(ID);
-    }
-
-    public ArrayList<Theme> getOwnedThemes() {
-        return ownedThemes;
     }
 
     public void giveTheme(Theme theme) {
@@ -569,26 +490,14 @@ public class Player {
         SQLPlayerManager.updateOwnedThemes(ID);
     }
 
-    public boolean isBanned() {
-        return isBanned;
-    }
-
     public void setBanned(boolean banned) {
         isBanned = banned;
         SQLPlayerManager.updateIsBanned(ID);
     }
 
-    public LocalDateTime getBannedTill() {
-        return bannedTill;
-    }
-
     public void setBannedTill(LocalDateTime bannedTill) {
         this.bannedTill = bannedTill;
         SQLPlayerManager.updateBannedTill(ID);
-    }
-
-    public String getBanReason() {
-        return banReason;
     }
 
     public void setBanReason(String banReason) {

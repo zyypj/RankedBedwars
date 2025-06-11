@@ -1,5 +1,7 @@
 package me.zypj.rbw;
 
+import com.tomkeuper.bedwars.api.BedWars;
+import lombok.Getter;
 import me.zypj.rbw.api.RankedBedwarsAPI;
 import me.zypj.rbw.api.impl.RankedBedwarsApiImpl;
 import me.zypj.rbw.commands.CommandManager;
@@ -16,8 +18,6 @@ import me.zypj.rbw.messages.Msg;
 import me.zypj.rbw.minecraft_commands.MCRegisterCmd;
 import me.zypj.rbw.minecraft_commands.MCRenameCmd;
 import me.zypj.rbw.perms.Perms;
-import com.tomkeuper.bedwars.api.BedWars;
-import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;

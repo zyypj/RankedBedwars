@@ -1,18 +1,16 @@
 package me.zypj.rbw.instance;
 
+import lombok.Getter;
 import me.zypj.rbw.instance.cache.ThemeCache;
 
+@Getter
 public class Theme {
 
-    private String name;
+    private final String name;
 
     public Theme(String name) {
         this.name = name;
 
         ThemeCache.initializeTheme(name, this);
-    }
-
-    public String getName() {
-        return name;
     }
 }

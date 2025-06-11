@@ -1,13 +1,17 @@
 package me.zypj.rbw.instance;
 
+import lombok.Getter;
+import lombok.Setter;
+import me.zypj.rbw.RBWPlugin;
 import me.zypj.rbw.config.Config;
 import me.zypj.rbw.instance.cache.PartyCache;
+import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.List;
-import me.zypj.rbw.RBWPlugin;
-import org.bukkit.Bukkit;
 
+@Setter
+@Getter
 public class Party {
 
     private Player leader;
@@ -27,11 +31,7 @@ public class Party {
 
         invitedPlayers.add(invited);
 
-        Bukkit.getScheduler().runTaskLater(RBWPlugin.getInstance(), () -> {
-            if (invitedPlayers.contains(invited)) {
-                invitedPlayers.remove(invited);
-            }
-        }, Integer.parseInt(Config.getValue("invite-expiration")) * 60L * 20L);
+        Bukkit.getScheduler().runTaskLater(RBWPlugin.getInstance(), () -> invitedPlayers.remove(invited), Integer.parseInt(Config.getValue("invite-expiration")) * 60L * 20L);
     }
 
     public void disband() {
@@ -42,22 +42,4 @@ public class Party {
         leader = player;
     }
 
-    public Player getLeader() {
-        return leader;
-    }
-    public void setLeader(Player leader) {
-        this.leader = leader;
-    }
-    public List<Player> getMembers() {
-        return members;
-    }
-    public void setMembers(List<Player> members) {
-        this.members = members;
-    }
-    public List<Player> getInvitedPlayers() {
-        return invitedPlayers;
-    }
-    public void setInvitedPlayers(List<Player> invitedPlayers) {
-        this.invitedPlayers = invitedPlayers;
-    }
 }
