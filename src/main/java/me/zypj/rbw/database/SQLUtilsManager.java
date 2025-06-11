@@ -18,6 +18,8 @@ public class SQLUtilsManager {
             return resultSet.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            SQLite.closeResultSet(resultSet);
         }
 
         return 0;
@@ -34,6 +36,8 @@ public class SQLUtilsManager {
             return resultSet.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            SQLite.closeResultSet(resultSet);
         }
 
         return 0;

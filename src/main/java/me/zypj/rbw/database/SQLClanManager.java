@@ -30,6 +30,8 @@ public class SQLClanManager {
             return resultSet.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            SQLite.closeResultSet(resultSet);
         }
 
         return 0;

@@ -49,6 +49,8 @@ public class SQLGameManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            SQLite.closeResultSet(resultSet);
         }
 
         String sql = "INSERT INTO games(number, state, casual, map, channelID, vc1ID, vc2ID, queueID, team1, team2) VALUES(?,?,?,?,?,?,?,?,?,?)";
@@ -71,6 +73,8 @@ public class SQLGameManager {
             return resultSet.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            SQLite.closeResultSet(resultSet);
         }
 
         return 0;
