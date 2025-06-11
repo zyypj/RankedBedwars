@@ -32,10 +32,10 @@ public class ClanLBCmd extends Command {
 
         List<Clan> lb = new ArrayList<>(Leaderboard.getClansLeaderboard());
 
-        Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("loading...").build()).complete();
+        Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("Loading...").build()).complete();
 
         for (int j = 0; j < Math.ceil(lb.size() / 10.0); j++) {
-            Embed reply = new Embed(EmbedType.DEFAULT, "Clans Leaderboard", "isso é a lb de `reputação`\nvocê obtem jogando\nclan wars", (int) Math.ceil(lb.size() / 10.0));
+            Embed reply = new Embed(EmbedType.DEFAULT, "Clans Leaderboard", "this is the lb of `reputation`\nyou get by playing\nclan wars", (int) Math.ceil(lb.size() / 10.0));
 
             StringBuilder lbmsg = new StringBuilder();
             for (int i = j * 10; i < j * 10 + 10; i++) {

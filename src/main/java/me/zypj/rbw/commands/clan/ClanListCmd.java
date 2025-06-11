@@ -31,7 +31,7 @@ public class ClanListCmd extends Command {
             return;
         }
 
-        Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("loading...").build()).complete();
+        Message embedmsg = msg.replyEmbeds(new EmbedBuilder().setTitle("Loading...").build()).complete();
 
         List<Clan> clans = new ArrayList<>(ClanCache.getClans().values());
         List<Clan> clanLB = new ArrayList<>(Leaderboard.getClansLeaderboard());

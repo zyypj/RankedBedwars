@@ -1,7 +1,5 @@
 package me.zypj.rbw.commands.clan;
 
-import me.zypj.rbw.sample.CommandSubsystem;
-import me.zypj.rbw.sample.EmbedType;
 import me.zypj.rbw.commands.Command;
 import me.zypj.rbw.config.Config;
 import me.zypj.rbw.instance.Clan;
@@ -10,6 +8,8 @@ import me.zypj.rbw.instance.Player;
 import me.zypj.rbw.instance.cache.ClanCache;
 import me.zypj.rbw.instance.cache.PlayerCache;
 import me.zypj.rbw.messages.Msg;
+import me.zypj.rbw.sample.CommandSubsystem;
+import me.zypj.rbw.sample.EmbedType;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -61,7 +61,7 @@ public class ClanCreateCmd extends Command {
             return;
         }
 
-        player.setGold(player.getGold()-Integer.parseInt(Config.getValue("elo-to-create")));
+        player.setGold(player.getGold() - Integer.parseInt(Config.getValue("elo-to-create")));
         new Clan(name, player);
 
         Embed reply = new Embed(EmbedType.SUCCESS, "", Msg.getMsg("clan-created"), 1);
