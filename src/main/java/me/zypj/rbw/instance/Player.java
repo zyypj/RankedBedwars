@@ -106,35 +106,35 @@ public class Player {
             member = guild.getMemberById(ID);
         }
 
-        ArrayList<Role> rolestoremove = new ArrayList<>();
-        ArrayList<Role> rolestoadd = new ArrayList<>();
+        ArrayList<Role> rolesToRemove = new ArrayList<>();
+        ArrayList<Role> rolesToAdd = new ArrayList<>();
 
-        rolestoadd.add(guild.getRoleById(Config.getValue("registered-role")));
+        rolesToAdd.add(guild.getRoleById(Config.getValue("registered-role")));
 
         if (getRank() != null) {
             Rank rank = getRank();
-            rolestoadd.add(guild.getRoleById(rank.getID()));
+            rolesToAdd.add(guild.getRoleById(rank.getID()));
 
             for (Rank r : RankCache.getRanks().values()) {
                 if (rank != r) {
-                    rolestoremove.add(guild.getRoleById(r.getID()));
+                    rolesToRemove.add(guild.getRoleById(r.getID()));
                 }
             }
         }
 
         if (isBanned) {
             if (getBannedTill().isBefore(LocalDateTime.now())) {
-                rolestoremove.add(guild.getRoleById(Config.getValue("banned-role")));
+                rolesToRemove.add(guild.getRoleById(Config.getValue("banned-role")));
             } else {
-                rolestoadd.add(guild.getRoleById(Config.getValue("banned-role")));
+                rolesToAdd.add(guild.getRoleById(Config.getValue("banned-role")));
             }
         } else {
-            rolestoremove.add(guild.getRoleById(Config.getValue("banned-role")));
+            rolesToRemove.add(guild.getRoleById(Config.getValue("banned-role")));
         }
 
         if (member != null) {
             if (RBWPlugin.guild.getSelfMember().canInteract(member)) {
-                guild.modifyMemberRoles(member, rolestoadd, rolestoremove).queue();
+                guild.modifyMemberRoles(member, rolesToAdd, rolesToRemove).queue();
                 member.modifyNickname(Config.getValue("elo-formatting").replaceAll("%elo%", elo + "") + ign).queue();
             } else {
                 Bukkit.getServer().getConsoleSender().sendMessage("[RBW] Couldn't modify " + member.getUser().getAsTag() + "'s roles and nickname");

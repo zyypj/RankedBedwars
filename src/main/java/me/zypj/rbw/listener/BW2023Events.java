@@ -62,8 +62,7 @@ public class BW2023Events implements Listener {
             if (event.getWinners().contains(Bukkit.getPlayer(game.getTeam1().get(0).getIgn()).getUniqueId())) {
                 winningTeam = game.getTeam1();
                 losingTeam = game.getTeam2();
-            }
-            else {
+            } else {
                 winningTeam = game.getTeam2();
                 losingTeam = game.getTeam1();
             }
@@ -99,14 +98,14 @@ public class BW2023Events implements Listener {
         Player victim = event.getVictim();
         me.zypj.rbw.instance.Player rbwVictim = PlayerCache.getPlayerByIgn(victim.getName());
         if (rbwVictim != null) {
-            rbwVictim.setDeaths(rbwVictim.getDeaths()+1);
+            rbwVictim.setDeaths(rbwVictim.getDeaths() + 1);
         }
 
         if (event.getKiller() != null) {
             Player killer = event.getKiller();
             me.zypj.rbw.instance.Player rbwKiller = PlayerCache.getPlayerByIgn(killer.getName());
             if (rbwKiller != null) {
-                rbwKiller.setKills(rbwKiller.getKills()+1);
+                rbwKiller.setKills(rbwKiller.getKills() + 1);
             }
         }
     }
