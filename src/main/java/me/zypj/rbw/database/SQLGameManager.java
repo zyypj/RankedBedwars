@@ -32,14 +32,14 @@ public class SQLGameManager {
 
         for (Player p : g.getTeam1()) {
             team1.append(p.getID());
-            if (g.getTeam1().indexOf(p)+1 < g.getTeam1().size()) {
+            if (g.getTeam1().indexOf(p) + 1 < g.getTeam1().size()) {
                 team1.append(",");
             }
         }
 
         for (Player p : g.getTeam2()) {
             team2.append(p.getID());
-            if (g.getTeam2().indexOf(p)+1 < g.getTeam2().size()) {
+            if (g.getTeam2().indexOf(p) + 1 < g.getTeam2().size()) {
                 team2.append(",");
             }
         }
@@ -96,14 +96,14 @@ public class SQLGameManager {
 
         for (Player p : g.getTeam1()) {
             team1.append(p.getID()).append("=").append(g.getEloGain().get(p));
-            if (g.getTeam1().indexOf(p)+1 < g.getTeam1().size()) {
+            if (g.getTeam1().indexOf(p) + 1 < g.getTeam1().size()) {
                 team1.append(",");
             }
         }
 
         for (Player p : g.getTeam2()) {
             team2.append(p.getID()).append("=").append(g.getEloGain().get(p));
-            if (g.getTeam2().indexOf(p)+1 < g.getTeam2().size()) {
+            if (g.getTeam2().indexOf(p) + 1 < g.getTeam2().size()) {
                 team2.append(",");
             }
         }
@@ -120,14 +120,14 @@ public class SQLGameManager {
 
         for (Player p : g.getTeam1()) {
             team1.append(p.getID());
-            if (g.getTeam1().indexOf(p)+1 < g.getTeam1().size()) {
+            if (g.getTeam1().indexOf(p) + 1 < g.getTeam1().size()) {
                 team1.append(",");
             }
         }
 
         for (Player p : g.getTeam2()) {
             team2.append(p.getID());
-            if (g.getTeam2().indexOf(p)+1 < g.getTeam2().size()) {
+            if (g.getTeam2().indexOf(p) + 1 < g.getTeam2().size()) {
                 team2.append(",");
             }
         }

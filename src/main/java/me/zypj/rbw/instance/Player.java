@@ -1,12 +1,12 @@
 package me.zypj.rbw.instance;
 
-import me.zypj.rbw.instance.cache.*;
-import me.zypj.rbw.sample.EmbedType;
 import me.zypj.rbw.RBWPlugin;
-import me.zypj.rbw.sample.Statistic;
 import me.zypj.rbw.config.Config;
 import me.zypj.rbw.database.SQLPlayerManager;
 import me.zypj.rbw.database.SQLite;
+import me.zypj.rbw.instance.cache.*;
+import me.zypj.rbw.sample.EmbedType;
+import me.zypj.rbw.sample.Statistic;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -46,7 +46,7 @@ public class Player {
     private String banReason;
 
     public Player(String ID) {
-        Bukkit.getServer().getConsoleSender().sendMessage("ID: " + ID);
+        Bukkit.getServer().getConsoleSender().sendMessage("[RBW] ID: " + ID);
         this.ID = ID;
 
         ResultSet resultSet = SQLite.queryData("SELECT * FROM players WHERE discordID='" + ID + "';");
@@ -70,21 +70,21 @@ public class Player {
             this.level = LevelCache.getLevel(resultSet.getInt(17));
             this.xp = resultSet.getInt(18);
             this.theme = ThemeCache.getTheme(resultSet.getString(19));
-            
+
             ownedThemes = new ArrayList<>();
-            
+
             String[] themes = resultSet.getString(20).split(",");
             for (String s : themes) {
                 ownedThemes.add(ThemeCache.getTheme(s));
             }
-            
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
             this.isBanned = Boolean.parseBoolean(resultSet.getString(21));
             if (isBanned) {
                 this.bannedTill = LocalDateTime.parse(resultSet.getString(22), formatter);
                 this.banReason = resultSet.getString(23);
             }
-            
+
             SQLite.closeResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,12 +120,10 @@ public class Player {
         if (isBanned) {
             if (getBannedTill().isBefore(LocalDateTime.now())) {
                 rolestoremove.add(guild.getRoleById(Config.getValue("banned-role")));
-            }
-            else {
+            } else {
                 rolestoadd.add(guild.getRoleById(Config.getValue("banned-role")));
             }
-        }
-        else {
+        } else {
             rolestoremove.add(guild.getRoleById(Config.getValue("banned-role")));
         }
 
@@ -133,8 +131,7 @@ public class Player {
             if (RBWPlugin.guild.getSelfMember().canInteract(member)) {
                 guild.modifyMemberRoles(member, rolestoadd, rolestoremove).queue();
                 member.modifyNickname(Config.getValue("elo-formatting").replaceAll("%elo%", elo + "") + ign).queue();
-            }
-            else {
+            } else {
                 Bukkit.getServer().getConsoleSender().sendMessage("[RBW] Couldn't modify " + member.getUser().getAsTag() + "'s roles and nickname");
             }
         }
@@ -160,8 +157,8 @@ public class Player {
             updateXP(Integer.parseInt(Config.getValue("win-xp")), Integer.parseInt(Config.getValue("clanxp-win")));
         }
 
-        setWins(wins+1);
-        setWinStreak(winStreak+1);
+        setWins(wins + 1);
+        setWinStreak(winStreak + 1);
         setElo(elo += (int) (getRank().getWinElo() * eloMultiplier));
 
         if (peakElo < elo) {
@@ -182,13 +179,12 @@ public class Player {
             updateXP(Integer.parseInt(Config.getValue("play-xp")), Integer.parseInt(Config.getValue("clanxp-play")));
         }
 
-        setLosses(losses+1);
-        setLossStreak(lossStreak+1);
+        setLosses(losses + 1);
+        setLossStreak(lossStreak + 1);
 
         if (elo - getRank().getLoseElo() * eloMultiplier > 0) {
             setElo(elo -= getRank().getLoseElo() * eloMultiplier);
-        }
-        else {
+        } else {
             setElo(0);
         }
 
@@ -202,15 +198,15 @@ public class Player {
     }
 
     public void updateXP(int addXp, int addClanXP) {
-        setXp(xp+=addXp);
+        setXp(xp += addXp);
 
-        for (int i = level.getLevel()+1; i < LevelCache.getLevels().size(); i++) {
+        for (int i = level.getLevel() + 1; i < LevelCache.getLevels().size(); i++) {
             if (xp >= LevelCache.getLevel(i).getNeededXP()) {
                 setLevel(LevelCache.getLevel(i));
 
                 for (String s : LevelCache.getLevel(i).getRewards()) {
                     if (s.startsWith("GOLD")) {
-                        setGold(gold+=Integer.parseInt(s.split("=")[1]));
+                        setGold(gold += Integer.parseInt(s.split("=")[1]));
                     }
                 }
 
@@ -223,9 +219,9 @@ public class Player {
 
         if (ClanCache.getClan(this) != null) {
             Clan clan = ClanCache.getClan(this);
-            clan.setXp(clan.getXp()+addClanXP);
+            clan.setXp(clan.getXp() + addClanXP);
 
-            for (int i = clan.getLevel().getLevel()+1; i < ClanLevelCache.getClanLevels().size(); i++) {
+            for (int i = clan.getLevel().getLevel() + 1; i < ClanLevelCache.getClanLevels().size(); i++) {
                 if (clan.getXp() >= ClanLevelCache.getLevel(i).getNeededXP()) {
                     clan.setLevel(ClanLevelCache.getLevel(i));
 
@@ -244,7 +240,7 @@ public class Player {
 
         for (String s : lb) {
             if (s.startsWith(ID)) {
-                return lb.indexOf(s)+1;
+                return lb.indexOf(s) + 1;
             }
         }
 

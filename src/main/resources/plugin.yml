@@ -1,5 +1,5 @@
 name: RankedBedwars
-version: '${project.version}'
+version: '${version}'
 main: me.zypj.rbw.RBWPlugin
 authors: [tadeu]
 depend: [BedWars2023]

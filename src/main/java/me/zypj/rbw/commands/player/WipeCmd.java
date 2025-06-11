@@ -65,7 +65,7 @@ public class WipeCmd extends Command {
                 if (guild.getMemberById(p.getID()) != null) {
                     p.fix();
                 }
-                Bukkit.getServer().getConsoleSender().sendMessage("§a[=wipe] succesfully reset " + p.getIgn() + " (" + p.getID() + ")");
+                Bukkit.getServer().getConsoleSender().sendMessage("[RBW] §a[=wipe] succesfully reset " + p.getIgn() + " (" + p.getID() + ")");
             }
 
             long end = System.currentTimeMillis();

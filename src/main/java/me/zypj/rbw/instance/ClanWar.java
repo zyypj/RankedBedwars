@@ -47,15 +47,15 @@ public class ClanWar {
     public void registerClan(String clanName) {
         if (getRegisteredClans().size() < maxClans) {
             SQLClanWars.registerClan(warId, clanName);
-            Bukkit.getServer().getConsoleSender().sendMessage("Clan " + clanName + " registered for war ID: " + warId);
+            Bukkit.getServer().getConsoleSender().sendMessage("[RBW] Clan " + clanName + " registered for war ID: " + warId);
         } else {
-            Bukkit.getServer().getConsoleSender().sendMessage("§cWar is full. Cannot register more clans.");
+            Bukkit.getServer().getConsoleSender().sendMessage("[RBW] §cWar is full. Cannot register more clans.");
         }
     }
 
     public void unregisterClan(String clanName) {
         SQLClanWars.unregisterClan(warId, clanName);
-        Bukkit.getServer().getConsoleSender().sendMessage("Clan " + clanName + " unregistered for war ID: " + warId);
+        Bukkit.getServer().getConsoleSender().sendMessage("[RBW] Clan " + clanName + " unregistered for war ID: " + warId);
     }
 
     public List<String> getRegisteredClans() {

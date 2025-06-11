@@ -170,7 +170,7 @@ public class CommandManager extends ListenerAdapter {
 
         if (Boolean.parseBoolean(Config.getValue("log-commands"))) {
             assert m != null;
-            Bukkit.getServer().getConsoleSender().sendMessage("[RankedBW] " + m.getUser() .getAsTag() + " used " + msg.getContentRaw());
+            Bukkit.getServer().getConsoleSender().sendMessage("[RBW] [RankedBW] " + m.getUser() .getAsTag() + " used " + msg.getContentRaw());
         }
 
         command.execute(args, g, m, c, msg);

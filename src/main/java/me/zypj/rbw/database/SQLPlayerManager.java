@@ -26,7 +26,7 @@ public class SQLPlayerManager {
                 "0," + // highest ls
                 "0," + // mvp
                 "0," + // kills
-                "0," + // deaths
+                "0," + // deaths0
                 "0," + // strikes
                 "0," + // scored
                 "0," + // gold
@@ -164,8 +164,7 @@ public class SQLPlayerManager {
             String bannedTill = formatter.format(player.getBannedTill());
 
             SQLite.updateData("UPDATE players SET bannedTill = '" + bannedTill + "' WHERE discordID='" + ID + "';");
-        }
-        else {
+        } else {
             SQLite.updateData("UPDATE players SET bannedTill = '' WHERE discordID='" + ID + "';");
         }
     }
@@ -175,8 +174,7 @@ public class SQLPlayerManager {
 
         if (player.isBanned()) {
             SQLite.updateData("UPDATE players SET banReason = '" + PlayerCache.getPlayer(ID).getBanReason() + "' WHERE discordID='" + ID + "';");
-        }
-        else {
+        } else {
             SQLite.updateData("UPDATE players SET banReason = '' WHERE discordID='" + ID + "';");
         }
     }

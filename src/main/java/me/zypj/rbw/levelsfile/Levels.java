@@ -48,7 +48,7 @@ public class Levels {
             e.printStackTrace();
         }
 
-        Bukkit.getServer().getConsoleSender().sendMessage("Successfully loaded the levels file into memory");
+        Bukkit.getServer().getConsoleSender().sendMessage("[RBW] Successfully loaded the levels file into memory");
     }
 
     public static String getLevel(String key) {
@@ -88,7 +88,7 @@ public class Levels {
             e.printStackTrace();
         }
 
-        Bukkit.getServer().getConsoleSender().sendMessage("Successfully loaded the clan levels file into memory");
+        Bukkit.getServer().getConsoleSender().sendMessage("[RBW] Successfully loaded the clan levels file into memory");
     }
 
     public static String getClanLevel(String key) {

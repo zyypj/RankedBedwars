@@ -47,7 +47,7 @@ public class Msg {
             e.printStackTrace();
         }
 
-        Bukkit.getServer().getConsoleSender().sendMessage("Successfully loaded the messages file into memory");
+        Bukkit.getServer().getConsoleSender().sendMessage("[RBW] Successfully loaded the messages file into memory");
     }
 
     public static void reload() {

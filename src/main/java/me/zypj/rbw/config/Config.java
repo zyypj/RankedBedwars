@@ -49,7 +49,7 @@ public class Config {
             e.printStackTrace();
         }
 
-        Bukkit.getServer().getConsoleSender().sendMessage("§aSuccessfully loaded the config file into memory");
+        Bukkit.getServer().getConsoleSender().sendMessage("[RBW] §aSuccessfully loaded the config file into memory");
     }
 
     public static void reload() {

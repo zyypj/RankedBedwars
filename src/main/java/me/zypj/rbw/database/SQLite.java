@@ -1,7 +1,7 @@
 package me.zypj.rbw.database;
 
-import me.zypj.rbw.RBWPlugin;
 import lombok.SneakyThrows;
+import me.zypj.rbw.RBWPlugin;
 import org.bukkit.Bukkit;
 
 import java.io.File;
@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.sql.*;
 
 public class SQLite {
-    
+
     private static Connection connection;
-    
+
     public static void connect() {
         connection = null;
         try {
@@ -19,15 +19,15 @@ public class SQLite {
             if (!file.exists()) {
                 file.createNewFile();
             }
-            
+
             String link = "jdbc:sqlite:" + file.getPath();
             connection = DriverManager.getConnection(link);
-            Bukkit.getServer().getConsoleSender().sendMessage("Successfully connected to the database");
+            Bukkit.getServer().getConsoleSender().sendMessage("[RBW] Successfully connected to the database");
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
-    
+
     public static void disconnect() {
         if (connection != null) {
             try {
@@ -37,7 +37,7 @@ public class SQLite {
             }
         }
     }
-    
+
     @SneakyThrows
     public static void updateData(String sql) {
         try (Statement statement = connection.createStatement()) {
@@ -46,7 +46,7 @@ public class SQLite {
             e.printStackTrace();
         }
     }
-    
+
     public static ResultSet queryData(String sql) {
         ResultSet resultSet = null;
         try {
@@ -57,7 +57,7 @@ public class SQLite {
         }
         return resultSet;
     }
-    
+
     public static void closeResultSet(ResultSet resultSet) {
         if (resultSet != null) {
             try {

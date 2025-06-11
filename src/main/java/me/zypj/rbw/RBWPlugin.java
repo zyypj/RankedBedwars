@@ -51,8 +51,8 @@ public final class RBWPlugin extends JavaPlugin {
         bedwarsAPI = Bukkit.getServicesManager().getRegistration(BedWars.class).getProvider();
 
         if (bedwarsAPI == null) {
-            getServer().getConsoleSender().sendMessage("§cBedWars2023 not found.");
-            getServer().getConsoleSender().sendMessage("§cDisabling plugin...");
+            getServer().getConsoleSender().sendMessage("[RBW] §cBedWars2023 not found.");
+            getServer().getConsoleSender().sendMessage("[RBW] §cDisabling plugin...");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
@@ -63,7 +63,7 @@ public final class RBWPlugin extends JavaPlugin {
         loadConfigurations();
         setupDiscordBot();
 
-        getServer().getConsoleSender().sendMessage("\n§e[!] Finishing up... this might take around 10 seconds\n");
+        getServer().getConsoleSender().sendMessage("[RBW] \n§e[!] Finishing up... this might take around 10 seconds\n");
 
         new Timer().schedule(new TimerTask() {
             @Override
@@ -85,6 +85,11 @@ public final class RBWPlugin extends JavaPlugin {
         this.getServer().getServicesManager().register(
                 RankedBedwarsAPI.class, new RankedBedwarsApiImpl(), this, org.bukkit.plugin.ServicePriority.Normal
         );
+    }
+
+    @Override
+    public void onDisable() {
+        SQLite.disconnect();
     }
 
     private void registerCommandsAndEvents() {
@@ -121,7 +126,7 @@ public final class RBWPlugin extends JavaPlugin {
     private void setupDiscordBot() {
         String token = Config.getValue("token");
         if (token == null) {
-            getServer().getConsoleSender().sendMessage("§e[!] Please set your token in config.yml");
+            getServer().getConsoleSender().sendMessage("[RBW] §e[!] Please set your token in config.yml");
             return;
         }
 
@@ -144,7 +149,7 @@ public final class RBWPlugin extends JavaPlugin {
     }
 
     private void initializeGuildAndLoadData() {
-        getServer().getConsoleSender().sendMessage("§aGuilds detected: " + jda.getGuilds().size());
+        getServer().getConsoleSender().sendMessage("[RBW] §aGuilds detected: " + jda.getGuilds().size());
 
         jda.getGuilds().stream().findFirst()
                 .ifPresentOrElse(
@@ -153,7 +158,7 @@ public final class RBWPlugin extends JavaPlugin {
                             loadThemesAndLevels();
                             loadDatabaseData();
                         },
-                        () -> getServer().getConsoleSender().sendMessage("§c[!] Please invite this bot to your server first")
+                        () -> getServer().getConsoleSender().sendMessage("[RBW] §c[!] Please invite this bot to your server first")
                 );
     }
 
@@ -190,7 +195,7 @@ public final class RBWPlugin extends JavaPlugin {
                     list.add(rs.getString(1));
                 }
             } catch (SQLException e) {
-                getServer().getConsoleSender().sendMessage("§c[!] There was a problem loading data from " + table + ".");
+                getServer().getConsoleSender().sendMessage("[RBW] §c[!] There was a problem loading data from " + table + ".");
                 e.printStackTrace();
             }
         });
@@ -208,7 +213,7 @@ public final class RBWPlugin extends JavaPlugin {
             try {
                 consumer.accept(s);
             } catch (Exception e) {
-                getServer().getConsoleSender().sendMessage("§c[!] An entiy could not be loaded!");
+                getServer().getConsoleSender().sendMessage("[RBW] §c[!] An entiy could not be loaded!");
             }
         });
     }
@@ -219,8 +224,9 @@ public final class RBWPlugin extends JavaPlugin {
                 .forEach(arena -> {
                     try {
                         new GameMap(arena.getArenaName());
+                        getServer().getConsoleSender().sendMessage("[RBW] §a[!] " + arena.getArenaName() + " loaded!");
                     } catch (Exception e) {
-                        getServer().getConsoleSender().sendMessage("§c[!] An arena could not be loaded!");
+                        getServer().getConsoleSender().sendMessage("[RBW] §c[!] An arena could not be loaded!");
                     }
                 });
     }

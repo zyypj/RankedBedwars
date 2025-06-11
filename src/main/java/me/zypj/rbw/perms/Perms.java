@@ -48,7 +48,7 @@ public class Perms {
             e.printStackTrace();
         }
 
-        Bukkit.getServer().getConsoleSender().sendMessage("§aSuccessfully loaded the permissions file into memory");
+        Bukkit.getServer().getConsoleSender().sendMessage("[RBW] §aSuccessfully loaded the permissions file into memory");
     }
 
     public static void reload() {

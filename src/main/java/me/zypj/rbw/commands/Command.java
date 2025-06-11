@@ -28,7 +28,7 @@ public abstract class Command{
     }
 
     public void execute(String[] args, Guild guild, Member sender, TextChannel channel, Message msg) {
-        Bukkit.getServer().getConsoleSender().sendMessage("§cSomething went wrong...");
+        Bukkit.getServer().getConsoleSender().sendMessage("[RBW] §cSomething went wrong...");
     }
 
     public String[] getPermissions() {
