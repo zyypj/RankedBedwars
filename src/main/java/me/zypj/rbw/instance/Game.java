@@ -1,6 +1,7 @@
 package me.zypj.rbw.instance;
 
 import com.tomkeuper.bedwars.api.arena.IArena;
+import com.tomkeuper.bedwars.api.arena.team.ITeam;
 import lombok.Getter;
 import lombok.Setter;
 import me.zypj.rbw.RBWPlugin;
@@ -25,6 +26,8 @@ import org.bukkit.scheduler.BukkitTask;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Game {
 
@@ -98,8 +101,7 @@ public class Game {
         List<GameMap> validMaps = new ArrayList<>();
         for (GameMap map : MapCache.getMaps().values())
             if (map.getMaxPlayers() == players.size() / 2)
-                if (map.getArenaState().equals(com.tomkeuper.bedwars.api.arena.GameState.waiting))
-                    validMaps.add(map);
+                if (map.getArenaState().equals(com.tomkeuper.bedwars.api.arena.GameState.waiting)) validMaps.add(map);
 
         Collections.shuffle(validMaps);
         if (!validMaps.isEmpty()) {
@@ -144,17 +146,11 @@ public class Game {
 
         try {
             for (Player p : players) {
-                Objects.requireNonNull(guild.getTextChannelById(channelID)).upsertPermissionOverride(Objects.requireNonNull(guild.getMemberById(p.getID())))
-                        .setAllowed(Permission.VIEW_CHANNEL)
-                        .queue();
+                Objects.requireNonNull(guild.getTextChannelById(channelID)).upsertPermissionOverride(Objects.requireNonNull(guild.getMemberById(p.getID()))).setAllowed(Permission.VIEW_CHANNEL).queue();
 
-                Objects.requireNonNull(guild.getVoiceChannelById(vc1ID)).upsertPermissionOverride(Objects.requireNonNull(guild.getMemberById(p.getID())))
-                        .setAllowed(Permission.VIEW_CHANNEL, Permission.VOICE_CONNECT)
-                        .queue();
+                Objects.requireNonNull(guild.getVoiceChannelById(vc1ID)).upsertPermissionOverride(Objects.requireNonNull(guild.getMemberById(p.getID()))).setAllowed(Permission.VIEW_CHANNEL, Permission.VOICE_CONNECT).queue();
 
-                Objects.requireNonNull(guild.getVoiceChannelById(vc2ID)).upsertPermissionOverride(Objects.requireNonNull(guild.getMemberById(p.getID())))
-                        .setAllowed(Permission.VIEW_CHANNEL, Permission.VOICE_CONNECT)
-                        .queue();
+                Objects.requireNonNull(guild.getVoiceChannelById(vc2ID)).upsertPermissionOverride(Objects.requireNonNull(guild.getMemberById(p.getID()))).setAllowed(Permission.VIEW_CHANNEL, Permission.VOICE_CONNECT).queue();
             }
 
 
@@ -612,8 +608,13 @@ public class Game {
         Bukkit.getScheduler().runTask(RBWPlugin.getInstance(), () -> {
             IArena arena = RBWPlugin.bedwarsAPI.getArenaUtil().getArenaByName(this.map.getName());
 
+            Map<String, ITeam> teamsByColor = arena.getTeams().stream().collect(Collectors.toMap(team -> team.getColor().name().toUpperCase(), Function.identity()));
+
+            ITeam bwTeam1 = teamsByColor.getOrDefault(map.getTeam1().toUpperCase(), arena.getTeams().get(0));
+            ITeam bwTeam2 = teamsByColor.getOrDefault(map.getTeam2().toUpperCase(), arena.getTeams().get(1));
+
             new BukkitRunnable() {
-                int tries = 0;
+                private int tries = 0;
 
                 @Override
                 public void run() {
@@ -621,48 +622,40 @@ public class Game {
 
                     try {
                         for (Player p : team1) {
-                            if (arena.getPlayers().contains(Bukkit.getPlayer(p.getIgn()))) {
-                                continue;
+                            org.bukkit.entity.Player bp = Bukkit.getPlayer(p.getIgn());
+                            if (bp == null || arena.getPlayers().contains(bp)) continue;
+
+                            if (!arena.addPlayer(bp, true)) {
+                                Embed error = new Embed(EmbedType.ERROR, "Failure to Pull", String.format("<@%s> join in `%s`\nRetrying in `30s` [Attempt: %d/%d]", p.getID(), Config.getValue("server-ip"), tries, triesMax), 1);
+                                Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessage("<@" + p.getID() + ">").setEmbeds(error.build()).queue();
                             }
 
-                            // try to warp
-                            if (!arena.addPlayer(Bukkit.getPlayer(p.getIgn()), true)) {
-                                Embed embed = new Embed(EmbedType.ERROR, "Failure to Pull", "<@" + p.getID() + "> join in `" + Config.getValue("server-ip") + "`\nRetrying in `30` seconds `[Attempts: " + tries + "/" + triesMax + "]`", 1);
-
-                                Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessage("<@" + p.getID() + ">").setEmbeds(embed.build()).queue();
-                            }
-
-                            // set team
-                            arena.getTeams().get(0).addPlayers(Bukkit.getPlayer(p.getIgn()));
+                            bwTeam1.addPlayers(bp);
                         }
 
                         for (Player p : team2) {
-                            if (arena.getPlayers().contains(Bukkit.getPlayer(p.getIgn()))) {
-                                continue;
+                            org.bukkit.entity.Player bp = Bukkit.getPlayer(p.getIgn());
+                            if (bp == null || arena.getPlayers().contains(bp)) continue;
+
+                            if (!arena.addPlayer(bp, true)) {
+                                Embed error = new Embed(EmbedType.ERROR, "Failure to Pull", String.format("<@%s> join in `%s`\nRetrying in `30s` [Attempt: %d/%d]", p.getID(), Config.getValue("server-ip"), tries, triesMax), 1);
+                                Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessage("<@" + p.getID() + ">").setEmbeds(error.build()).queue();
                             }
 
-                            // try to warp
-                            if (!arena.addPlayer(Bukkit.getPlayer(p.getIgn()), true)) {
-                                Embed embed = new Embed(EmbedType.ERROR, "Failure to Pull", "<@" + p.getID() + "> join in `" + Config.getValue("server-ip") + "`\nRetrying in `30` seconds `[Attempts: " + tries + "/" + triesMax + "]`", 1);
-
-                                Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessage("<@" + p.getID() + ">").setEmbeds(embed.build()).queue();
-                            }
-
-                            // set team
-                            arena.getTeams().get(1).addPlayers(Bukkit.getPlayer(p.getIgn()));
+                            bwTeam2.addPlayers(bp);
                         }
 
-                        if (arena.getPlayers().size() == team1.size() + team2.size()) {
+                        int totalExpected = team1.size() + team2.size();
+                        if (arena.getPlayers().size() == totalExpected) {
+                            Embed success = new Embed(EmbedType.SUCCESS, "Pulled to the Map", "Everyone was pulled onto the Map `" + arena.getArenaName() + "`", 1);
+                            Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessageEmbeds(success.build()).queue();
                             cancel();
-
-                            Embed embed = new Embed(EmbedType.SUCCESS, "Pulled to the Map", "Everyone was pulled onto the Map `" + arena.getArenaName() + "`", 1);
-                            Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessageEmbeds(embed.build()).queue();
                             return;
                         }
 
-                        if (tries == triesMax) {
-                            Embed embed = new Embed(EmbedType.ERROR, "Failure to Pull", "All attempts `[" + triesMax + "/" + triesMax + "]` were used\nPlease try again with `=retry` or `=void` the game", 1);
-                            Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessageEmbeds(embed.build()).queue();
+                        if (tries >= triesMax) {
+                            Embed fail = new Embed(EmbedType.ERROR, "Failure to Pull", "All attempts [" + triesMax + "/" + triesMax + "] were used\n" + "Please try again with `=retry` or `=void` the game", 1);
+                            Objects.requireNonNull(guild.getTextChannelById(channelID)).sendMessageEmbeds(fail.build()).queue();
                             cancel();
                         }
                     } catch (Exception e) {

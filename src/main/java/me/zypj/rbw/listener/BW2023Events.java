@@ -1,5 +1,6 @@
 package me.zypj.rbw.listener;
 
+import com.tomkeuper.bedwars.api.arena.team.ITeam;
 import com.tomkeuper.bedwars.api.events.gameplay.GameEndEvent;
 import com.tomkeuper.bedwars.api.events.gameplay.TeamAssignEvent;
 import com.tomkeuper.bedwars.api.events.player.PlayerKillEvent;
@@ -28,11 +29,11 @@ public class BW2023Events implements Listener {
     public static Map<String, Integer> mapManager = new HashMap<>();
 
     @EventHandler
-    public void teamAssignEvent(TeamAssignEvent event) {
-        if (event.getArena().getGroup().equalsIgnoreCase(Config.getValue("bedwars-plugin-group"))) {
-            event.setCancelled(true);
-
-            event.getArena();
+    public void onTeamAssign(TeamAssignEvent e) {
+        if (e.getArena().getGroup().equalsIgnoreCase(Config.getValue("bedwars-plugin-group"))) {
+            ITeam team = e.getTeam();
+            team.addPlayers(e.getPlayer());
+            e.setCancelled(true);
         }
     }
 

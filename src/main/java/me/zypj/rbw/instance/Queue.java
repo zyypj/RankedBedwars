@@ -2,22 +2,21 @@ package me.zypj.rbw.instance;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.zypj.rbw.sample.EmbedType;
-import me.zypj.rbw.sample.PickingMode;
 import me.zypj.rbw.RBWPlugin;
 import me.zypj.rbw.config.Config;
 import me.zypj.rbw.database.SQLite;
 import me.zypj.rbw.instance.cache.PartyCache;
 import me.zypj.rbw.instance.cache.QueueCache;
+import me.zypj.rbw.sample.EmbedType;
+import me.zypj.rbw.sample.PickingMode;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 @Getter
 @Setter
@@ -42,7 +41,7 @@ public class Queue {
             this.pickingMode = PickingMode.valueOf(resultSet.getString(3).toUpperCase());
             this.casual = Boolean.parseBoolean(resultSet.getString(4));
             this.eloMultiplier = resultSet.getDouble(5);
-            
+
             SQLite.closeResultSet(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -69,8 +68,7 @@ public class Queue {
                                 if (!partiesInQ.contains(PartyCache.getParty(p))) {
                                     partiesInQ.add(PartyCache.getParty(p));
                                 }
-                            }
-                            else {
+                            } else {
                                 soloPlayersInQ.add(p);
                             }
                         }
@@ -122,8 +120,7 @@ public class Queue {
                                     for (Player p : playerList) {
                                         players.remove(p);
                                     }
-                                }
-                                else {
+                                } else {
                                     StringBuilder mentions = new StringBuilder();
                                     for (Player p : playerList) {
                                         mentions.append("<@").append(p.getID()).append(">");
